@@ -1,0 +1,65 @@
+<div class="container">
+  <form class="register-form" [formGroup]="registroForm" (ngSubmit)="registrar()">
+    <h2>Registrarse</h2>
+    <div class="columns-2">
+      <div>
+        <label for="nombres">Nombres</label>
+        <input type="text" placeholder="Juan Pablo" id="nombres" formControlName="nombres">
+      </div>
+      <div>
+        <label for="apellidos">Apellidos</label>
+        <input type="text" placeholder="Perez Saltos" id="apellidos" formControlName="apellidos">
+      </div>
+    </div>
+    <div class="columns-2">
+      <div>
+        <label for="nombres">Cédula</label>
+        <input type="text" placeholder="180XXXXXXX" id="cedula" formControlName="cedula">
+      </div>
+      <div>
+        <div>
+          <label for="correo">Correo electrónico</label>
+          <input type="email" placeholder="correo@outlook.com" id="correo" formControlName="correo">
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="clave">Contraseña</label>
+      <input type="password" placeholder="**********" id="clave" formControlName="clave">
+    </div>
+    <div class="columns-3">
+      <div>
+        <label for="provincia">Provincia</label>
+        <select id="provincia" formControlName="provincia">
+          <option value="">Seleccionar</option>
+          @for (provincia of provincias; track $index) {
+          <option [value]="provincia.provincias"> {{provincia}} </option>
+          }
+        </select>
+      </div>
+      <div>
+        <div>
+          <label for="ciudad">Ciudad</label>
+          <select id="ciudad" formControlName="ciudad">
+            <option value="">Seleccionar</option>
+            @for (provincia of provincias; track $index) {
+            <option [value]="provincia.provincias"> {{provincia}} </option>
+            }
+          </select>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label for="parroquia">Dirección</label>
+          <select id="parroquia" formControlName="parroquia">
+            <option value="">Seleccionar</option>
+            @for (provincia of provincias; track $index) {
+            <option [value]="provincia.provincias"> {{provincia}} </option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Registrarse</button>
+  </form>
+</div>

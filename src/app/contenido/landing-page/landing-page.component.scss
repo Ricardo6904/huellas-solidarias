@@ -1,0 +1,80 @@
+/* Estilos globales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+
+
+/* Estilos para el botón de la sección hero */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para la sección de motivos */
+.reasons {
+  background-color: #fff;
+  padding: 80px 0;
+}
+
+.reasons h2 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.reasons ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reasons li {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para la sección de historias de éxito */
+.success-stories {
+  background-color: #f0f0f0;
+  padding: 80px 0;
+}
+
+.success-stories h2 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.story {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.story img {
+  width: 40%;
+}
+
+.story p {
+  width: 50%;
+  font-size: 18px;
+}

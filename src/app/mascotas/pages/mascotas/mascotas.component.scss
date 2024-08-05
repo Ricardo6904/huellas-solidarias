@@ -1,0 +1,36 @@
+section{
+  background-color: var(--color-alabaster);
+}
+
+
+.card {
+  width: 210px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px;
+  background-color: var(--color-alabaster);
+  color: var(--color-delft-blue);
+}
+
+.card img {
+  aspect-ratio: 3/2;
+  object-fit: contain;
+  background-color: pink;
+}
+
+.card-body {
+  text-align: left;
+
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 20px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.card-text {
+  margin-bottom: 5px;
+}

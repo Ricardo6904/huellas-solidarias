@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+
+  --color-1: #c7a26b;
+  --color-2: #d5c3ab;
+  --color-3: #d89e4b;
+  --color-4: #d5b991;
+  --color-5: #372b14;
+}
+
+body{
+  font-family: 'Helvetica Now', 'Times New Roman';
+  margin: 0;
+  background-color: #ece3d4;
+}
+
+

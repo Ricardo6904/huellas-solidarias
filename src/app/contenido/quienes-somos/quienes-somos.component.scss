@@ -1,0 +1,71 @@
+/* Estilos generales */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us, .our-team, .mission-vision-values {
+  padding: 50px 0;
+}
+
+.about-us h2, .our-team h2, .mission-vision-values h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Estilos para la sección "Quiénes Somos" */
+.about-us p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Estilos para la sección "Nuestro Equipo" */
+.our-team {
+  background-color: #f9f9f9;
+}
+
+.team-member {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.team-member img {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.team-member h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.team-member p {
+  font-size: 14px;
+}
+
+/* Estilos para la sección "Nuestra Misión, Visión y Valores" */
+.mission-vision-values {
+  background-color: #fafafa;
+}
+
+.mission, .vision, .values {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.mission h2, .vision h2, .values h2 {
+  text-align: center;
+}
+
+.values ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.values li {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
