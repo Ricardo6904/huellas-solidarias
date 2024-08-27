@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       { path: 'agregar', component: AgregarComponent },
       { path: 'listar', component: MascotasComponent },
-      { path: 'detalle', component: MascotaComponent },
+      { path: 'detalle/:idMascota', component: MascotaComponent },
       { path: '**', redirectTo: 'listar' }
     ]
   }

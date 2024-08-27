@@ -1,6 +1,5 @@
-
-<section class="py-5 px-3 md:px-5 lg:px-6 xl:px-3" data-id="18">
-  <div class="max-w-7xl mx-auto space-y-8" data-id="19">
+<section class="py-5 px-3 md:px-5 lg:px-6 xl:px-3">
+  <div class="max-w-7xl mx-auto space-y-8">
     <div class="flex items-center justify-between" data-id="20">
       <div data-id="21">
         <h2 class="text-3xl font-bold" data-id="22">Mascotas Adorables</h2>
@@ -28,7 +27,7 @@
               class="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
               data-id="29"
               style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); --radix-collapsible-content-height: 204px; --radix-collapsible-content-width: 351.375px;"
-              hidden=""></div>
+              hidden="false"></div>
           </div>
         </div><button
           class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2"
@@ -47,21 +46,30 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" data-id="68">
 
-      @for (mascota of mascotas; track $index) {
-      <div class="rounded-lg border shadow-sm border-orange-300 flex-col flex items-end" data-id="69" data-v0-t="card"><img
-          data-id="70" [src]="mascota.Storage.urlStorage" alt="Pet 1" width="220"
-          class="aspect-square[3/2] object-contain rounded-t-md block m-auto">
-        <div  class="p-4 space-y-2 bg-color7" data-id="71">
-          <h3 class="text-xl font-bold text-color8" data-id="72"> {{mascota.nombreMascota}} </h3>
-          <p class="text-muted-foreground text-color8" data-id="73">Friendly, energetic dog looking for an active family.</p><a
-            data-id="74"
-            class="inline-flex h-8 items-center justify-center rounded-md bg-color4 px-4 text-sm font-medium  shadow-sm transition-colors  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
+      <div class="border shadow-sm border-orange-300 flex flex-col h-full" data-id="69" data-v0-t="card">
+        <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="220"
+          class="aspect-square object-contain rounded-t-md block m-auto">
 
-            href="#" rel="ugc">
-            Adopt {{mascota.nombreMascota}}
+        <!-- Contenedor del título, descripción y botón -->
+        <div class="flex flex-col justify-between flex-1 p-4 bg-[var(--color-4)]" data-id="71">
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold" data-id="72">{{ mascota.nombreMascota }}</h3>
+            <p class="text-muted-foreground" data-id="73">
+              {{ mascota.historiaMascota || 'Friendly, energetic dog looking for an active family.' }}
+            </p>
+          </div>
+
+          <!-- Botón que se posiciona al final -->
+          <a class="mt-auto flex px-4 py-2 items-center justify-center bg-[var(--color-1)] rounded-md text-sm font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
+            [routerLink]="['/mascotas/detalle', mascota.idMascota]">
+            Adopta a {{ mascota.nombreMascota }}
           </a>
         </div>
       </div>
+
+      }@empty {
+        <h3>Espere un momento por favor...</h3>
       }
     </div>
   </div>

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   isNavFixed = false;
-
+  menuOpen = false;
   constructor(private authService: AuthService) {
 
    }
@@ -31,8 +31,17 @@ export class HeaderComponent {
     return this.authService.estaLogeado()
   }
 
-  isLogged(){
+  /*isLogged(){
     return this.authService.isLoggedIn()
+  }*/
+
+  onToggleMenu(){
+    const navList = document.querySelector('.nav-links')
+    navList?.classList.toggle('top-[9%]')
   }
 
+  toggleMenu(){
+    this.menuOpen = !this.menuOpen
+
+  }
 }

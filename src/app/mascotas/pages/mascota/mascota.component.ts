@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Mascota } from '@interfaces/Mascota';
+import { toSignal } from '@angular/core/rxjs-interop'
+import { switchMap } from 'rxjs';
+import { MascotaService } from '../../../services/mascota.service';
 
 @Component({
   selector: 'app-mascota',
@@ -8,5 +13,15 @@ import { Component } from '@angular/core';
   styleUrl: './mascota.component.scss'
 })
 export class MascotaComponent {
+
+  private route = inject(ActivatedRoute);
+  private mascotaServices = inject(MascotaService);
+
+  //public mascota = signal<Mascota | undefined>(undefined);
+  public mascota = toSignal(
+    this.route.params.pipe(
+      switchMap( ({idMascota}) => this.mascotaServices.obtenerMascotasPorId(idMascota) )
+    )
+  )
 
 }

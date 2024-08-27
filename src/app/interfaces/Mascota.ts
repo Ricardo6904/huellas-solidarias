@@ -10,7 +10,26 @@ export interface Mascota {
   condicionMascota: string,
   esEsterilizado: number,
   idStorage: number
-  Storage:{
-    urlStorage:string
+  Storage: {
+    urlStorage: string
   }
+}
+
+export interface MascotasResponse {
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  data: Mascota[];
+  support: Support;
+}
+
+export interface MascotaResponse {
+  data: Mascota;
+  support: Support;
+}
+
+export interface Support {
+  url: string;
+  text: string;
 }

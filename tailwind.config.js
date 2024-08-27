@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {},
-    colors: {
+    /*colors: {
       transparent: 'transparent',
       current: 'currentColor',
       'color1': '#c7a26b',
@@ -16,7 +16,7 @@ module.exports = {
       'color6': '#ece3d4',
       'color7': '#e6d5bc',
       'color8': '#6f5c41',
-    },
+    },*/
   },
   plugins: [],
 }

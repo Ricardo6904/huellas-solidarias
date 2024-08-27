@@ -12,6 +12,10 @@ export class StorageService {
   baseUrl = environment.baseUrl
   constructor(private http:HttpClient) { }
 
+  subirImagen(file:FormData):Observable<any>{
+    return this.http.post<any>(`${this.baseUrl}/storage`,file)
+  }
+
   obtenerUrlPorIdStorage(idStorage:number):Observable<any>{
     return this.http.get<any>(`${this.baseUrl}/storage`)
   }

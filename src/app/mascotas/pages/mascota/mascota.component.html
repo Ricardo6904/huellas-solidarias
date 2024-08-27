@@ -1,1 +1,13 @@
 <p>mascota works!</p>
+
+@if ( mascota() ) {
+  <section>
+
+    <img
+    [srcset]="mascota()?.Storage?.urlStorage"
+    [alt]="mascota()?.nombreMascota">
+
+  </section>
+}@else {
+<p>Cargando información...</p>
+}
