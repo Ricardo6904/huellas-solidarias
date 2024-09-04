@@ -1,0 +1,7 @@
+<p>mis-mascotas works!</p>
+@for (mascota of mascotasService.mascotas(); track $index) {
+  {{mascota.historiaMascota}}
+  <br>
+  {{ mascota.nombreMascota }}
+  <br>
+}

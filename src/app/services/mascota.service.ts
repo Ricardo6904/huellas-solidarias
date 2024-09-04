@@ -51,5 +51,8 @@ export class MascotaService {
       )
     }
 
+    obtenerMascotasPorRefugio( idRefugio: number){
+      return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/${idRefugio}`)
+    }
 
 }

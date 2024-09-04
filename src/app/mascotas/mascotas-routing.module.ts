@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AgregarComponent } from './pages/agregar/agregar.component';
 import { MascotasComponent } from './pages/mascotas/mascotas.component';
 import { MascotaComponent } from './pages/mascota/mascota.component';
+import { MisMascotasComponent } from './pages/mis-mascotas/mis-mascotas.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
       { path: 'agregar', component: AgregarComponent },
       { path: 'listar', component: MascotasComponent },
       { path: 'detalle/:idMascota', component: MascotaComponent },
-      { path: '**', redirectTo: 'listar' }
+      { path: 'mis-mascotas', component: MisMascotasComponent },
+      { path: '**', redirectTo: 'listar' },
     ]
   }
 ];

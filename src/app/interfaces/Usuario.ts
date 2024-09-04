@@ -8,3 +8,4 @@ export interface Usuario{
   rol?: string,
   provincia: string,
 }
+

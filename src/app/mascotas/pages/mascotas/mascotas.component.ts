@@ -20,7 +20,4 @@ export class MascotasComponent implements OnInit {
   }
 
 
-
-
-
 }

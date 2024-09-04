@@ -41,9 +41,6 @@ export class AuthService {
     localStorage.setItem('token', token)
   }
 
-  /*isLoggedIn() {
-    return localStorage.getItem('token') ? true : false
-  }*/
 
   getIdToken(){
     return this.cookies.get('token')
