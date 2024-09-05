@@ -1,0 +1,55 @@
+body {
+  font-family: 'Space Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.bg-card {
+  background-color: #d5b991;
+  border-radius: 8px;
+}
+
+.text-muted-foreground {
+  color: hsl(36, 45%, 25%);
+}
+
+.bg-primary-foreground {
+  background-color: hsl(36, 45%, 11%);
+  color: hsl(36, 45%, 11%);
+}
+
+// Estilos específicos para los botones
+button {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button:hover {
+  background-color: hsl(36, 64%, 57%);
+  color: hsl(36, 72%, 17%);
+}
+
+.bg-destructive {
+  background-color: hsl(0, 84%, 37%);
+  color: hsl(0, 0%, 98%);
+}
+
+.bg-destructive:hover {
+  background-color: darken(hsl(0, 84%, 37%), 10%);
+  color: hsl(0, 0%, 98%);
+}
+
+// Estilos para imágenes
+.aspect-square {
+  aspect-ratio: 1;
+}
+
+.object-contain {
+  object-fit: contain;
+}
+
+// Espaciado entre los elementos
+.space-y-4 > *:not(:last-child) {
+  margin-bottom: 1rem; // Espaciado entre elementos de la lista
+}

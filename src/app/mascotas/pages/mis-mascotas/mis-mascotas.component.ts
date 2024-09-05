@@ -11,19 +11,13 @@ import { Mascota } from '@interfaces/Mascota';
 })
 export class MisMascotasComponent {
 
-  public mascotasRefugio: Mascota[] = []
+  mascotas: Mascota[] = [];
 
   public mascotasService = inject(MascotaService)
-
-  idRefugio = 0
-
-  ngOnInit(){
-    this.cargarMisMascotas(this.idRefugio)
+  editarMascota(id: number): void {
   }
 
-  cargarMisMascotas(idRefugio:number){
-    //TODO:
-    
+  eliminarMascota(id: number): void {
   }
 
 }
