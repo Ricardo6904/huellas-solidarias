@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { StorageService } from '../../../services/storage.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MascotaService } from '../../../services/mascota.service';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar',
@@ -19,9 +21,8 @@ export class AgregarComponent {
 
   mascotaForm!: FormGroup;
 
-  constructor(private storageService: StorageService, private formBuilder: FormBuilder, private mascotasService:MascotaService) {
-
-  }
+  constructor(private storageService: StorageService, private formBuilder: FormBuilder, private mascotasService: MascotaService,
+    private authService: AuthService, private router:Router) { }
 
   ngOnInit() {
     this.mascotaForm = this.formBuilder.group({
@@ -34,7 +35,8 @@ export class AgregarComponent {
       caracteristicaMascota: [''],
       condicionMascota: [''],
       esEsterilizado: [''],
-      idStorage: ['', Validators.required]
+      idStorage: ['', Validators.required],
+      idRefugio: this.authService.getIdRefugio()
     })
   }
 
@@ -42,8 +44,11 @@ export class AgregarComponent {
     if (this.mascotaForm.valid) {
       console.log(this.mascotaForm.value);
       //Registro de la mascota en la base de datos
-      this.mascotasService.crearMascota(this.mascotaForm.value).subscribe( res => {
+      this.mascotasService.crearMascota(this.mascotaForm.value).subscribe(res => {
         console.log(res);
+        this.router.navigateByUrl('/mascotas/listar')
+      }, (error) => {
+        console.log('Un error ha ocurrido' + error);
 
       })
     } else {

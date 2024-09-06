@@ -16,7 +16,7 @@ export class MascotasComponent implements OnInit {
 
   public mascotasService = inject(MascotaService)
   ngOnInit(): void {
-
+    
   }
 
 

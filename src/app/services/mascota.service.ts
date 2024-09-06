@@ -2,7 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Mascota, MascotaResponse, MascotasResponse } from '@interfaces/Mascota';
-import { delay, map } from 'rxjs';
+import { delay, map, tap } from 'rxjs';
 
 interface State {
   mascotas: Mascota[],
@@ -36,13 +36,41 @@ export class MascotaService {
       })
   }
 
-  crearMascota(mascota:Mascota){
-    return this.http.post<Mascota>(`${this.baseUrl}/mascota`, mascota)
+  private actualizarEstado(parteEstado: Partial<State>){
+    this.#state.set({
+      ...this.#state(),
+      ...parteEstado
+    })
   }
 
   obtenerMascotas() {
-    return this.http.get<any>(`${this.baseUrl}/mascota`)
+    this.actualizarEstado({loading: true})
+
+    this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`)
+      .pipe(
+        delay(500), // Simulación de retardo
+        tap(() => this.actualizarEstado({ loading: false })), // Desactivar loading
+        map(res => res.data)
+      )
+      .subscribe(mascotas => {
+        this.actualizarEstado({ mascotas, loading: false });
+      });
+    /*return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`)
+    .subscribe( res => {
+      this.#state.set({
+        loading: false,
+        mascotas: res.data
+      })
+    })*/
   }
+
+  crearMascota(mascota:Mascota){
+    return this.http.post<Mascota>(`${this.baseUrl}/mascota`, mascota)
+    .pipe(
+      tap(() => this.obtenerMascotas())
+    )
+  }
+
 
   obtenerMascotasPorId( idMascota:number ){
     return this.http.get<MascotaResponse>(`${this.baseUrl}/mascota/${idMascota}`)

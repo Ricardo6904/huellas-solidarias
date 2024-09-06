@@ -4,40 +4,4 @@ img{
 }
 
 
-.text-color-custom{
-  color: var(--color-delft-blue);
-}
 
-.title-c-1{
-  color: var(--color-delft-blue)
-}
-
-.title-c-2{
-  color: var(--color-carrot-orange);
-}
-
-.button-custom{
-  background-color: var(--color-dark-spring-green);
-
-}
-.button-custom:hover{
-  background-color: #20492c;
-  transition: all 0.4s ease-out;
-}
-
-.nav {
-  width: 100%;
-  position: relative;
-  transition: position 0.3s ease;
-  z-index: 1000;
-
-  /*background: rgb(243,238,227);
-  background: linear-gradient(90deg, rgba(243,238,227,1) 0%, rgba(230,143,50,1) 100%, rgba(125,86,65,1) 100%);*/
-}
-
-.fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}

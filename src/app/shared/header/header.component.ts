@@ -13,9 +13,7 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   isNavFixed = false;
   menuOpen = false;
-  constructor(private authService: AuthService) {
-
-   }
+  constructor(private authService: AuthService) { }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -27,24 +25,20 @@ export class HeaderComponent {
     this.authService.logout();
   }
 
-  estaLogead(){
+  estaLogead() {
     return this.authService.estaLogeado()
   }
 
-  rol(){
+  rol() {
     return this.authService.getRol()
   }
 
-  /*isLogged(){
-    return this.authService.isLoggedIn()
-  }*/
-
-  onToggleMenu(){
+  onToggleMenu() {
     const navList = document.querySelector('.nav-links')
     navList?.classList.toggle('top-[9%]')
   }
 
-  toggleMenu(){
+  toggleMenu() {
     this.menuOpen = !this.menuOpen
 
   }

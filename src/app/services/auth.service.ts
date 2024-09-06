@@ -24,9 +24,13 @@ export class AuthService {
   login(auth: Auth) {
     return this.http.post<any>(`${this.baseUrl}/auth/login`, auth).pipe(
       map(response => {
-        console.log(response.token);
+        console.log(response.refugio.idRefugio);
         this.cookies.set('rol', response.rol)
         this.cookies.set('token',response.token)
+        if(response.refugio.idRefugio){
+          this.cookies.set('idRefugio', response.refugio.idRefugio)
+        }
+
       })
     );
   }
@@ -43,6 +47,10 @@ export class AuthService {
 
   getRol(){
     return this.cookies.get('rol')
+  }
+
+  getIdRefugio(){
+    return this.cookies.get('idRefugio')
   }
 
   estaLogeado(){
