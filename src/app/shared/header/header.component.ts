@@ -31,6 +31,10 @@ export class HeaderComponent {
     return this.authService.estaLogeado()
   }
 
+  rol(){
+    return this.authService.getRol()
+  }
+
   /*isLogged(){
     return this.authService.isLoggedIn()
   }*/

@@ -12,7 +12,8 @@ export interface Mascota {
   idStorage: number
   Storage: {
     urlStorage: string
-  }
+  },
+  idRefugio: number
 }
 
 export interface MascotasResponse {

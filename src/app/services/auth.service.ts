@@ -24,26 +24,25 @@ export class AuthService {
   login(auth: Auth) {
     return this.http.post<any>(`${this.baseUrl}/auth/login`, auth).pipe(
       map(response => {
-        localStorage.setItem('token', response.data.token)
-        this.cookies.set('token',response.data.token)
+        console.log(response.token);
+        this.cookies.set('rol', response.rol)
+        this.cookies.set('token',response.token)
       })
     );
   }
 
   logout() {
-    localStorage.clear()
     this.cookies.set('token', '')
     this.router.navigate(['/'])
     window.location.reload()
   }
 
-  guardarToken(token: string) {
-    localStorage.setItem('token', token)
-  }
-
-
   getIdToken(){
     return this.cookies.get('token')
+  }
+
+  getRol(){
+    return this.cookies.get('rol')
   }
 
   estaLogeado(){

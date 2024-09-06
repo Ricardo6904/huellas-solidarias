@@ -1,4 +1,9 @@
 export interface Auth{
-  correo: string,
+  email: string,
   clave: string
+}
+
+export interface AuthResponse{
+  auth: Auth,
+  token: string
 }

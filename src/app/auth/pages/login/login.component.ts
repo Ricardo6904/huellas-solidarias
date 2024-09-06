@@ -17,14 +17,20 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router:Router) {
     this.loginForm = this.formBuilder.group({
-      correo: new FormControl(''),
+      email: new FormControl(''),
       clave: new FormControl('')
     })
   }
 
   login(usuarioData: Auth) {
+    console.log(usuarioData);
+
     this.authService.login(usuarioData).subscribe(response => {
       //this.authService.guardarToken(response.data.token)
+      console.log("probando");
+
+      console.log("login " + response);
+
       this.router.navigateByUrl('/mascotas/listar')
     }, error => {
       console.log('Algo salió mal: ', error);
