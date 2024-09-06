@@ -27,10 +27,7 @@ export class LoginComponent {
 
     this.authService.login(usuarioData).subscribe(response => {
       //this.authService.guardarToken(response.data.token)
-      console.log("probando");
-
-      console.log("login " + response);
-
+      
       this.router.navigateByUrl('/mascotas/listar')
     }, error => {
       console.log('Algo salió mal: ', error);

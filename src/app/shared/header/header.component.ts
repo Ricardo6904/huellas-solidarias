@@ -30,7 +30,10 @@ export class HeaderComponent {
   }
 
   rol() {
-    return this.authService.getRol()
+    if(this.authService.getRol()){
+      return this.authService.getRol()
+    }
+    return ""
   }
 
   onToggleMenu() {
