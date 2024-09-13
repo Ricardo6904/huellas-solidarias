@@ -1,13 +1,47 @@
-<p>mascota works!</p>
-
-@if ( mascota() ) {
-  <section>
-
-    <img
-    [srcset]="mascota()?.Storage?.urlStorage"
-    [alt]="mascota()?.nombreMascota">
-
-  </section>
-}@else {
-<p>Cargando información...</p>
-}
+<div class="container mx-auto px-4 py-8">
+  <div class="border border-[var(--color-3)] bg-[var(--color-7)] shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto">
+    <div class="md:flex">
+      <div class="md:flex-shrink-0">
+        <img class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48" [srcset]="mascota()?.Storage?.urlStorage" [alt]="mascota()?.nombreMascota">
+      </div>
+      <div class="p-8">
+        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{mascota()?.razaMascota}}</div>
+        <h1 class="mt-1 text-3xl font-bold text-gray-900">{{mascota()?.nombreMascota}}</h1>
+        <p class="mt-2 text-gray-600">{{mascota()?.historiaMascota}}</p>
+      </div>
+    </div>
+    <div class="px-8 py-4 bg-[var(--color-6)]">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm font-medium text-gray-500">Sexo</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.sexoMascota}}</p>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Edad</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.edadMascota}}</p>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Tamaño</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.tamanoMascota}}</p>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Esterilizado</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.esEsterilizado ? 'Sí' : 'No'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="px-8 py-4">
+      <h2 class="text-xl font-semibold text-gray-900">Características</h2>
+      <p class="mt-2 text-gray-600">{{mascota()?.caracteristicaMascota}}</p>
+    </div>
+    <div class="px-8 py-4">
+      <h2 class="text-xl font-semibold text-gray-900">Condición</h2>
+      <p class="mt-2 text-gray-600">{{mascota()?.condicionMascota}}</p>
+    </div>
+    <div class="px-8 py-4">
+      <button (click)="solicitarAdopcion()" class="w-full inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-4)] text-[var(--color-8)] hover:bg-[var(--color-3)] h-10 px-4 py-2">
+        Solicitar Adopción
+      </button>
+    </div>
+  </div>
+</div>

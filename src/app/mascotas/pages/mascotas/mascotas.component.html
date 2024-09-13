@@ -47,15 +47,15 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" data-id="68">
 
       @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
-      <div class="border shadow-sm border-orange-300 flex flex-col h-full" data-id="69" data-v0-t="card">
+      <div class="border shadow-sm border-orange-300 flex flex-col h-full" >
         <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="220"
           class="aspect-square object-contain rounded-t-md block m-auto">
 
         <!-- Contenedor del título, descripción y botón -->
-        <div class="flex flex-col justify-between flex-1 p-4 bg-[var(--color-4)]" data-id="71">
+        <div class="flex flex-col justify-between flex-1 p-4 bg-[var(--color-4)]">
           <div class="space-y-2">
-            <h3 class="text-xl font-bold" data-id="72">{{ mascota.nombreMascota }}</h3>
-            <p class="text-muted-foreground" data-id="73">
+            <h3 class="text-xl font-bold">{{ mascota.nombreMascota }}</h3>
+            <p class="text-muted-foreground">
               {{ mascota.historiaMascota || 'Friendly, energetic dog looking for an active family.' }}
             </p>
           </div>

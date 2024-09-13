@@ -14,13 +14,14 @@
       class="nav-links bg-[var(--color-4)] md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10">
       <ul class="flex md:flex-row flex-col  md:items-center md:gap-[4vw] gap-6">
         <li>
-          <a class=" hover:text-color8" routerLink="/mascotas/listar">Mascotas</a>
+          <button class="p-2 rounded-lg hover:bg-[var(--color-1)]" routerLink="/mascotas/listar">Adopta</button>
+
         </li>
         <li>
-          <a class=" " routerLink="/quienes-somos">¿Quiénes somos?</a>
+          <button class="p-2 rounded-lg hover:bg-[var(--color-1)]" routerLink="/mascotas/mascota-perdida">Mascotas perdidas</button>
         </li>
         <li>
-          <a class=" " routerLink="/">Adopta</a>
+          <button class="p-2 rounded-lg hover:bg-[var(--color-1)]" routerLink="/quienes-somos">¿Quiénes somos?</button>
         </li>
       </ul>
     </div>
@@ -41,7 +42,7 @@
           <li routerLink="/mascotas/agregar" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Mis Mascotas</li>
           <li routerLink="/mascotas/agregar" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Agregar Mascota</li>
           }@else {
-          <li routerLink="/mascotas/agregar" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Mascota Perdida</li>
+          <li routerLink="/mascotas/mascota-perdida" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Mascota Perdida</li>
           }
 
           <hr>

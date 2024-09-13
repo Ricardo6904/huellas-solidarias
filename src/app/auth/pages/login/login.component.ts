@@ -22,12 +22,12 @@ export class LoginComponent {
     })
   }
 
-  login(usuarioData: Auth) {
-    console.log(usuarioData);
+  login() {
+    console.log();
 
-    this.authService.login(usuarioData).subscribe(response => {
+    this.authService.login(this.loginForm.value).subscribe(response => {
       //this.authService.guardarToken(response.data.token)
-      
+
       this.router.navigateByUrl('/mascotas/listar')
     }, error => {
       console.log('Algo salió mal: ', error);

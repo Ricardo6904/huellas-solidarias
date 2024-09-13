@@ -20,8 +20,13 @@ export class MascotaComponent {
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
     this.route.params.pipe(
-      switchMap( ({idMascota}) => this.mascotaServices.obtenerMascotasPorId(idMascota) )
+      switchMap(({ idMascota }) => this.mascotaServices.obtenerMascotasPorId(idMascota))
     )
   )
+
+  solicitarAdopcion() {
+    // Implementar lógica para solicitar adopción
+    console.log('Solicitud de adopción para:', this.mascota()?.nombreMascota);
+  }
 
 }

@@ -1,65 +1,66 @@
-<div class="container">
-  <form class="register-form" [formGroup]="registroForm" (ngSubmit)="registrar()">
-    <h2>Registrarse</h2>
-    <div class="columns-2">
+<div class="max-w-2xl mx-auto m-10 p-6 bg-[var(--color-7)] rounded-lg shadow-xl border border-[var(--color-3)]">
+  <h2 class="text-2xl font-bold mb-6 text-center text-[var(--color-8)]">Registro de Usuario</h2>
+  <p class="mb-6 text-center text-[var(--color-8)]">Por favor, completa todos los campos para crear tu cuenta.</p>
+
+  <form [formGroup]="registroForm" class="space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <label for="nombres">Nombres</label>
-        <input type="text" placeholder="Juan Pablo" id="nombres" formControlName="nombres">
+        <label for="nombres" class="block text-sm font-medium text-[var(--color-8)]">Nombres</label>
+        <input type="text" id="nombres" formControlName="nombres"
+          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)] shadow-sm">
       </div>
       <div>
-        <label for="apellidos">Apellidos</label>
-        <input type="text" placeholder="Perez Saltos" id="apellidos" formControlName="apellidos">
-      </div>
-    </div>
-    <div class="columns-2">
-      <div>
-        <label for="nombres">Cédula</label>
-        <input type="text" placeholder="180XXXXXXX" id="cedula" formControlName="cedula">
-      </div>
-      <div>
-        <div>
-          <label for="correo">Correo electrónico</label>
-          <input type="email" placeholder="correo@outlook.com" id="correo" formControlName="correo">
-        </div>
+        <label for="apellidos" class="block text-sm font-medium text-[var(--color-8)]">Apellidos</label>
+        <input type="text" id="apellidos" formControlName="apellidos"
+          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
       </div>
     </div>
+
     <div>
-      <label for="clave">Contraseña</label>
-      <input type="password" placeholder="**********" id="clave" formControlName="clave">
+      <label for="cedula" class="block text-sm font-medium text-[var(--color-8)]">Cédula</label>
+      <input type="text" id="cedula" formControlName="cedula"
+        class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
     </div>
-    <div class="columns-3">
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-[var(--color-8)]">Correo Electrónico</label>
+      <input type="email" id="email" formControlName="email"
+        class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+    </div>
+
+    <div>
+      <label for="clave" class="block text-sm font-medium text-[var(--color-8)]">Contraseña</label>
+      <input type="clave" id="clave" formControlName="clave"
+        class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <label for="provincia">Provincia</label>
-        <select id="provincia" formControlName="provincia">
-          <option value="">Seleccionar</option>
+        <label for="provincia" class="block text-sm font-medium text-[var(--color-8)]">Provincia</label>
+        <select id="provincia" formControlName="provincia"
+          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+          <option value="">Selecciona una provincia</option>
           @for (provincia of provincias; track $index) {
-          <option [value]="provincia.provincias"> {{provincia}} </option>
+            <option [value]="provincia">{{provincia}}</option>
           }
         </select>
       </div>
       <div>
-        <div>
-          <label for="ciudad">Ciudad</label>
-          <select id="ciudad" formControlName="ciudad">
-            <option value="">Seleccionar</option>
-            @for (provincia of provincias; track $index) {
-            <option [value]="provincia.provincias"> {{provincia}} </option>
-            }
-          </select>
-        </div>
-      </div>
-      <div>
-        <div>
-          <label for="parroquia">Dirección</label>
-          <select id="parroquia" formControlName="parroquia">
-            <option value="">Seleccionar</option>
-            @for (provincia of provincias; track $index) {
-            <option [value]="provincia.provincias"> {{provincia}} </option>
-            }
-          </select>
-        </div>
+        <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
+        <input type="text" id="ciudad" formControlName="ciudad"
+          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
       </div>
     </div>
-    <button type="submit">Registrarse</button>
+
+    <div>
+      <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+      <input type="text" id="direccion" formControlName="direccion"
+      class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+    </div>
   </form>
+  <div class="items-center p-6 flex justify-end">
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-4)] text-[var(--color-8)] hover:bg-[var(--color-3)] h-10 px-4 py-2"
+      type="submit" (click)="registrar()">Registrarme</button>
+  </div>
 </div>

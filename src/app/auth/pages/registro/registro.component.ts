@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -16,7 +18,7 @@ export class RegistroComponent {
 
   registroForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router) {
 
   }
 
@@ -25,18 +27,22 @@ export class RegistroComponent {
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       cedula: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(6)]],
       provincia: [''],
       ciudad: [''],
-      parroquia: ['']
+      direccion: [''],
+      rol:['usuario']
     });
   }
 
   registrar(): void {
     if (this.registroForm.valid) {
+      this.authService.registrar(this.registroForm.value).subscribe(() => {
+        this.router.navigateByUrl('/auth/login')
+      })
       console.log(this.registroForm.value); // Envía los datos del formulario al backend para registrar al usuario
-      this.registroForm.reset(); // Reinicia el formulario después de enviar los datos
+      //this.registroForm.reset(); // Reinicia el formulario después de enviar los datos
     } else {
       console.error('Formulario inválido. Por favor, complete correctamente todos los campos.');
     }
