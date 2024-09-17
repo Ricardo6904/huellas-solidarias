@@ -3,7 +3,7 @@ import { StorageService } from '../../../services/storage.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MascotaService } from '../../../services/mascota.service';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar',
@@ -21,43 +21,71 @@ export class AgregarComponent {
 
   mascotaForm!: FormGroup;
 
-  constructor(private storageService: StorageService, private formBuilder: FormBuilder, private mascotasService: MascotaService,
-    private authService: AuthService, private router:Router) { }
+  mascotaId!: number | null;
+  isEditMode: boolean = false;
+
+  constructor(
+    private storageService: StorageService, 
+    private formBuilder: FormBuilder, 
+    private mascotasService: MascotaService,
+    private authService: AuthService,
+    private route: ActivatedRoute, 
+    private router: Router) 
+    { }
 
   ngOnInit() {
+    this.mascotaId = Number(this.route.snapshot.paramMap.get('idMascota'));
+
+    this.isEditMode = !!this.mascotaId;
+
     this.mascotaForm = this.formBuilder.group({
-      nombreMascota: [''],
-      razaMascota: [''],
-      sexoMascota: [''],
-      edadMascota: [''],
-      tamanoMascota: [''],
+      nombreMascota: ['', Validators.required],
+      razaMascota: ['', Validators.required],
+      sexoMascota: ['', Validators.required],
+      edadMascota: ['', Validators.required],
+      tamanoMascota: ['', Validators.required],
       historiaMascota: [''],
       caracteristicaMascota: [''],
       condicionMascota: [''],
       esEsterilizado: [''],
       idStorage: ['', Validators.required],
       idRefugio: this.authService.getIdRefugio()
-    })
+    });
+
+    if (this.isEditMode) {
+      this.mascotasService.obtenerMascotasPorId(this.mascotaId).subscribe(mascota => {
+        this.mascotaForm.patchValue(mascota);
+        if (mascota.Storage && mascota.Storage.urlStorage) {
+          this.avatarUrl = mascota.Storage.urlStorage;
+        }
+      });
+    }
   }
 
   onSubmit() {
     if (this.mascotaForm.valid) {
-      console.log(this.mascotaForm.value);
-      //Registro de la mascota en la base de datos
-      this.mascotasService.crearMascota(this.mascotaForm.value).subscribe(res => {
-        console.log(res);
-        this.router.navigateByUrl('/mascotas/listar')
-      }, (error) => {
-        console.log('Un error ha ocurrido' + error);
-
-      })
+      if (this.isEditMode) {
+        // Modo de edición: Actualizar mascota existente
+        this.mascotasService.actualizarMascota(this.mascotaId!, this.mascotaForm.value).subscribe(res => {
+          console.log('Mascota actualizada:', res);
+          this.router.navigateByUrl('/mascotas/listar');
+        }, error => {
+          console.log('Error al actualizar la mascota:', error);
+        });
+      } else {
+        // Modo de agregar: Crear nueva mascota
+        this.mascotasService.crearMascota(this.mascotaForm.value).subscribe(res => {
+          console.log('Mascota registrada:', res);
+          this.router.navigateByUrl('/mascotas/listar');
+        }, error => {
+          console.log('Error al registrar la mascota:', error);
+        });
+      }
     } else {
-      window.alert('Error falta ID')
+      window.alert('Formulario incompleto o incorrecto');
     }
-
-
-
   }
+
 
   subirImagen() {
     this.fileInput?.nativeElement.click()

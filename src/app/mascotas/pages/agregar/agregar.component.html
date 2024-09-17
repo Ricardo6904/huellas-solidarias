@@ -1,5 +1,4 @@
-<div
-  class="border border-[var(--color-3)] bg-[var(--color-7)] shadow-sm mx-auto max-w-2xl p-6 sm:p-8 my-2">
+<div class="border border-[var(--color-3)] bg-[var(--color-7)] shadow-sm mx-auto max-w-2xl p-6 sm:p-8 my-2">
   <div class="flex flex-col items-center gap-6">
     <div class="relative" data-id="3"><span class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24">
         <img class="aspect-square h-full w-full" alt="Pet Profile"
@@ -20,13 +19,15 @@
       <input type="file" #fileInput class="hidden" (change)="onFileSelected($event)" />
     </div>
     <div class="flex flex-col space-y-1.5 p-6">
-      <h3 class="text-[var(--color-8)] whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Registra tu
-        mascota
+      <h3 class="text-[var(--color-8)] whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
+        {{ isEditMode ? 'Editar tu mascota' : 'Registra tu mascota' }}
       </h3>
-      <p class="text-[var(--color-8)] text-sm">Fill out the form to add your pet to our database.</p>
+      <p class="text-[var(--color-8)] text-sm">
+        {{ isEditMode ? 'Actualiza la información de tu mascota.' : 'Fill out the form to add your pet to our database.' }}
+      </p>
     </div>
-
   </div>
+
   <div class="p-6 grid gap-4">
     <form [formGroup]="mascotaForm">
       <div class="grid grid-cols-2 gap-4">
@@ -114,6 +115,8 @@
   <div class="items-center p-6 flex justify-end">
     <button
       class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-4)] text-[var(--color-8)] hover:bg-[var(--color-3)] h-10 px-4 py-2"
-      type="submit" (click)="onSubmit()">Registrar mascota</button>
+      type="submit" (click)="onSubmit()">
+      {{ isEditMode ? 'Actualizar mascota' : 'Registrar mascota' }}
+    </button>
   </div>
 </div>
