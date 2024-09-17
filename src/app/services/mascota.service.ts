@@ -51,7 +51,7 @@ export class MascotaService {
 
     this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`, {params})
       .pipe(
-        delay(500), // Simulación de retardo
+        //delay(500), // Simulación de retardo
         tap(() => this.actualizarEstado({ loading: false })), // Desactivar loading
         map(res => res.data)
       )

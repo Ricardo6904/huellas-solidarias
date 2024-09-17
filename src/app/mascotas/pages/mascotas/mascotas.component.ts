@@ -12,18 +12,20 @@ import { RouterModule } from '@angular/router';
   styleUrl: './mascotas.component.scss'
 })
 export class MascotasComponent implements OnInit {
- mascotas: Mascota[] = []
+ // Iniciar con la primera página
+ public currentPage = signal<number>(1);
+ public mascotasService = inject(MascotaService);
 
- public mascotass = signal<Mascota[]>([])
- public currentPage = signal<number>(1)
+ ngOnInit(): void {
+   // Cargar la primera página de mascotas
+   this.loadPage(this.currentPage());
+ }
 
-  public mascotasService = inject(MascotaService)
-  ngOnInit(): void {
-
-  }
-
-  loadPage(page:number){
-    this.currentPage.set(page)
-  }
+ loadPage(page: number) {
+   // Actualizar la página actual
+   this.currentPage.set(page);
+   // Cargar mascotas para la página correspondiente
+   this.mascotasService.obtenerMascotas(page, 8);
+ }
 
 }

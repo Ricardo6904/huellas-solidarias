@@ -4,50 +4,14 @@
       <div data-id="21">
         <h2 class="text-3xl font-bold" data-id="22">Mascotas Adorables</h2>
         <p class="text-muted-foreground" data-id="23">Busca en nuestra galería de animales rescatados esperando ser
-          acogidos en hogares amorsos.</p>
-      </div>
-      <div class="flex items-center gap-4" data-id="24">
-        <div data-id="25" data-orientation="vertical">
-          <div data-state="closed" data-orientation="vertical" class="border-b" data-id="26">
-            <h3 data-orientation="vertical" data-state="closed" class="flex"><button type="button"
-                aria-controls="radix-:r5:" aria-expanded="false" data-state="closed" data-orientation="vertical"
-                id="radix-:r4:"
-                class="flex-1 justify-between py-4 transition-all hover:underline [&amp;[data-state=open]>svg]:rotate-180 flex items-center gap-2 text-base font-medium"
-                data-id="27" data-radix-collection-item=""><svg data-id="28" xmlns="http://www.w3.org/2000/svg"
-                  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                </svg>Filters<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-chevron-down h-4 w-4 shrink-0 transition-transform duration-200">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg></button></h3>
-            <div data-state="closed" id="radix-:r5:" role="region" aria-labelledby="radix-:r4:"
-              data-orientation="vertical"
-              class="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
-              data-id="29"
-              style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); --radix-collapsible-content-height: 204px; --radix-collapsible-content-width: 351.375px;"
-              hidden="false"></div>
-          </div>
-        </div><button
-          class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2"
-          data-id="60" type="button" id="radix-:r6:" aria-haspopup="menu" aria-expanded="false" data-state="closed"><svg
-            data-id="61" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-            <line x1="10" x2="21" y1="6" y2="6"></line>
-            <line x1="10" x2="21" y1="12" y2="12"></line>
-            <line x1="10" x2="21" y1="18" y2="18"></line>
-            <path d="M4 6h1v4"></path>
-            <path d="M4 10h2"></path>
-            <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"></path>
-          </svg>Sort</button>
+          acogidos en hogares amorosos.</p>
       </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" data-id="68">
-
+      <!-- Listado de mascotas -->
       @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
-      <div class="border shadow-sm border-orange-300 flex flex-col h-full" >
+      <div class="border shadow-sm border-orange-300 flex flex-col h-full">
         <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="220"
           class="aspect-square object-contain rounded-t-md block m-auto">
 
@@ -71,6 +35,23 @@
       }@empty {
         <h3>Espere un momento por favor...</h3>
       }
+    </div>
+
+    <!-- Controles de paginación -->
+    <div class="flex justify-center mt-6">
+      <button (click)="loadPage(currentPage() - 1)" [disabled]="currentPage() === 1"
+        class="px-4 py-2 bg-[var(--color-1)] hover:bg-gray-400 text-white rounded-l-md">
+        Anterior
+      </button>
+
+      <span class="px-4 py-2 bg-gray-100">
+        Página {{ currentPage() }}
+      </span>
+
+      <button (click)="loadPage(currentPage() + 1)" [disabled]="!mascotasService.mascotas()!.length"
+        class="px-4 py-2 bg-[var(--color-1)] hover:bg-gray-400 text-white rounded-r-md">
+        Siguiente
+      </button>
     </div>
   </div>
 </section>
