@@ -34,7 +34,7 @@ export class MascotaService {
           mascotas: res.data,
         })
       })*/
-     this.obtenerMascotas()
+     this.obtenerMascotas(1, 10)
   }
 
   private actualizarEstado(parteEstado: Partial<State>){
@@ -44,10 +44,12 @@ export class MascotaService {
     })
   }
 
-  obtenerMascotas() {
+  obtenerMascotas(page:number, limit:number) {
     this.actualizarEstado({loading: true})
 
-    this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`)
+    const params = { page: page.toString(), limit: limit.toString()}
+
+    this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`, {params})
       .pipe(
         delay(500), // Simulación de retardo
         tap(() => this.actualizarEstado({ loading: false })), // Desactivar loading
@@ -55,20 +57,14 @@ export class MascotaService {
       )
       .subscribe(mascotas => {
         this.actualizarEstado({ mascotas, loading: false });
+
       });
-    /*return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`)
-    .subscribe( res => {
-      this.#state.set({
-        loading: false,
-        mascotas: res.data
-      })
-    })*/
   }
 
   crearMascota(mascota:Mascota){
     return this.http.post<Mascota>(`${this.baseUrl}/mascota`, mascota)
     .pipe(
-      tap(() => this.obtenerMascotas())
+      tap(() => this.obtenerMascotas(10, 1))
     )
   }
 
@@ -80,7 +76,7 @@ export class MascotaService {
       )
     }
 
-    
+
     obtenerMascotasPorRefugio( idRefugio: number){
       return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/${idRefugio}`).
       pipe(
