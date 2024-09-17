@@ -14,6 +14,7 @@ export class MisMascotasComponent {
   mascotas: Mascota[] = [];
 
   public mascotasService = inject(MascotaService)
+  
   editarMascota(id: number): void {
   }
 
