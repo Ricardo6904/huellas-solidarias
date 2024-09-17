@@ -21,4 +21,5 @@ export class QuienesSomosComponent {
   ];
 
   values: string[] = ['Compasión', 'Integridad', 'Respeto', 'Responsabilidad'];
+
 }

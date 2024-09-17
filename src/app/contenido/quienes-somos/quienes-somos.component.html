@@ -22,7 +22,9 @@
         <div class="bg-[#d5c3ab] rounded-lg shadow-lg p-6">
           <h3 class="text-xl font-semibold mb-4 text-[#372b14]">Nuestros Valores</h3>
           <ul class="list-disc list-inside text-[#4a381d]">
-            <li *ngFor="let value of values">{{value}}</li>
+            @for (value of values; track $index) {
+            <li>{{value}}</li>
+          }
           </ul>
         </div>
       </div>
