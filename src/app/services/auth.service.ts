@@ -13,6 +13,8 @@ import { map } from 'rxjs';
 export class AuthService {
   baseUrl = environment.baseUrl
 
+  usuario:Usuario | null = null
+
   constructor(private http: HttpClient, private router: Router, private cookies: CookieService) {
 
   }
@@ -28,8 +30,8 @@ export class AuthService {
         this.cookies.set('token', response.token)
         if (response.rol === 'refugio')
           this.cookies.set('idRefugio', response.refugio.idRefugio)
-
-
+        if(response.rol === 'usuario')
+          this.setUsuario(response.user)
       })
     );
   }
@@ -56,4 +58,11 @@ export class AuthService {
     return this.cookies.get('token')
   }
 
+  setUsuario(usuario:Usuario){
+    this.usuario = usuario
+  }
+
+  getUsuario(){
+    return this.usuario
+  }
 }

@@ -27,6 +27,8 @@ export class LoginComponent {
 
     this.authService.login(this.loginForm.value).subscribe(response => {
       //this.authService.guardarToken(response.data.token)
+      //this.authService.setUsuario(response)
+      console.log(response);
 
       this.router.navigateByUrl('/mascotas/listar')
     }, error => {
