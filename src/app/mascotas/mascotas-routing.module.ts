@@ -11,6 +11,7 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'agregar', component: AgregarComponent },
+      { path: 'editar/:idMascota', component: AgregarComponent },
       { path: 'listar', component: MascotasComponent },
       { path: 'detalle/:idMascota', component: MascotaComponent },
       { path: 'mis-mascotas', component: MisMascotasComponent },

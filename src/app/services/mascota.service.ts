@@ -84,4 +84,11 @@ export class MascotaService {
       )
     }
 
+    actualizarMascota(idMascota: number, mascota: Partial<Mascota>) {
+      return this.http.put<Mascota>(`${this.baseUrl}/mascota/${idMascota}`, mascota)
+        .pipe(
+          tap(() => this.obtenerMascotas()) 
+        );
+    }
+
 }
