@@ -33,7 +33,7 @@ export class MascotaComponent {
     // Implementar lógica para solicitar adopción
     if(this.mascota()){
       const solicitud: Solicitud = {
-        email: 'mnzioss@gmail.com',
+        email: 'motenezaca@gmail.com',
         mascota: this.mascota() as Mascota
       };
 

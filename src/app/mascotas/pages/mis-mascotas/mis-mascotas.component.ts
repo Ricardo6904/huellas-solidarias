@@ -16,12 +16,13 @@ export class MisMascotasComponent {
 
   public mascotasService = inject(MascotaService)
   public router = inject(Router)
-  
+
   editarMascota(id: number): void {
     this.router.navigate([`/mascotas/editar`, id]);
   }
 
   eliminarMascota(id: number): void {
+    
   }
 
 }
