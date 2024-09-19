@@ -1,0 +1,57 @@
+<div class="bg-gray-100 min-h-screen p-4 md:p-8">
+  <div class="max-w-4xl mx-auto">
+    <header class="mb-8 flex justify-between items-center">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Mis Adopciones</h1>
+        <p class="text-gray-600">Revisa el estado de tus solicitudes de adopción</p>
+      </div>
+      <div class="bg-blue-500 text-white text-xl font-bold rounded-full w-12 h-12 flex items-center justify-center">
+        {{adopciones()?.length}}
+      </div>
+    </header>
+
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="p-4 border-b border-gray-200 font-semibold text-gray-700 bg-gray-50">
+        Solicitudes de Adopción
+      </div>
+      <ul class="divide-y divide-gray-200">
+
+        @for (adopcion of adopciones(); track $index) {
+          <li class="p-4 hover:bg-gray-50 transition duration-150 ease-in-out">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img [src]="adopcion.Mascotum.Storage.urlStorage" [alt]="adopcion.Mascotum.nombreMascota" class="w-12 h-12 rounded-full object-cover">
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">
+                  {{adopcion.Mascotum.nombreMascota}}
+                </p>
+                <p class="text-sm text-gray-500 truncate">
+                  Solicitante: {{adopcion.Usuario.nombres}}
+                </p>
+                <p class="text-sm text-gray-500 truncate">
+                  Correo: {{adopcion.Usuario.email}}
+                </p>
+                <p class="text-sm text-gray-500 truncate">
+                  Cédula: {{adopcion.Usuario.cedula}}
+                </p>
+              </div>
+              <div>
+                <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full ' + adopcion.estado">
+                  {{adopcion.estado}}
+                </span>
+              </div>
+            </div>
+          </li>
+        }
+
+      </ul>
+    </div>
+    @if (adoptions.length === 0) {
+      <div class="text-center text-gray-500 mt-8">
+        No tienes solicitudes de adopción pendientes.
+      </div>
+    }
+
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { MascotaService } from '../../../services/mascota.service';
 import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.service';
 import { Solicitud } from '@interfaces/Solicitud';
 import { AuthService } from '../../../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-mascota',
@@ -20,7 +21,7 @@ export class MascotaComponent {
   private route = inject(ActivatedRoute);
   private mascotaServices = inject(MascotaService);
 
-  constructor(private solicitarAdopcionService:SolicitarAdopcionService, private authService:AuthService){}
+  constructor(private solicitarAdopcionService: SolicitarAdopcionService, private authService: AuthService, private cookie: CookieService) { }
 
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
@@ -30,22 +31,28 @@ export class MascotaComponent {
   )
 
   solicitarAdopcion() {
-    // Implementar lógica para solicitar adopción
-    if(this.mascota()){
-      const solicitud: Solicitud = {
-        email: 'motenezaca@gmail.com',
-        mascota: this.mascota() as Mascota
-      };
+    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.idMascota, this.authService.getUsuario()?.id!, 'pendiente')
+      .subscribe(() => {
 
-      //Enviar la solicitud al servicio
-      this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res)=>{
-        console.log(res);
+        // Implementar lógica para solicitar adopción
+        if (this.mascota()) {
+          const solicitud: Solicitud = {
+            email: 'mnzioss@gmail.com',
+            mascota: this.mascota() as Mascota
+          };
 
-      }, error => {
-        console.error(error);
+          //Enviar la solicitud al servicio
+          this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res) => {
+            console.log(res);
+
+          }, error => {
+            console.error(error);
+
+          })
+        }
 
       })
-    }
+
   }
 
 }
