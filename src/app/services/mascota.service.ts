@@ -91,4 +91,8 @@ export class MascotaService {
         );
     }
 
+    eliminarMascota(idMascota:number){
+      return this.http.delete(`${this.baseUrl}/mascota/${idMascota}`)
+    }
+
 }
