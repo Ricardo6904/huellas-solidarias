@@ -8,6 +8,50 @@
       </div>
     </div>
 
+    <!-- Filtros mejorados -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-2xl font-semibold text-amber-800 mb-4">Filtrar Mascotas</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <input type="text" placeholder="Buscar por nombre" class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <select class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <option value="">Todas las especies</option>
+          <option value="perro">Perros</option>
+          <option value="gato">Gatos</option>
+          <option value="otro">Otros</option>
+        </select>
+        <select class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <option value="">Todas las edades</option>
+          <option value="cachorro">Cachorro</option>
+          <option value="joven">Joven</option>
+          <option value="adulto">Adulto</option>
+          <option value="senior">Senior</option>
+        </select>
+        <select class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <option value="">Todas las razas</option>
+          <option value="mestizo">Mestizo</option>
+          <option value="labrador">Labrador</option>
+          <option value="siames">Siamés</option>
+          <!-- Añade más opciones según sea necesario -->
+        </select>
+        <select class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <option value="">Todos los tamaños</option>
+          <option value="pequeño">Pequeño</option>
+          <option value="mediano">Mediano</option>
+          <option value="grande">Grande</option>
+        </select>
+        <select class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <option value="">Todas las provincias</option>
+          <option value="madrid">Madrid</option>
+          <option value="barcelona">Barcelona</option>
+          <option value="valencia">Valencia</option>
+          <!-- Añade más provincias según sea necesario -->
+        </select>
+      </div>
+      <button class="mt-4 px-6 py-2 bg-amber-600 text-white font-semibold rounded-md transition duration-300 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+        Aplicar Filtros
+      </button>
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" data-id="68">
       <!-- Listado de mascotas -->
       @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
@@ -33,7 +77,7 @@
       </div>
 
       }@empty {
-        <h3>Espere un momento por favor...</h3>
+      <h3>Espere un momento por favor...</h3>
       }
     </div>
 

@@ -4,6 +4,7 @@ import { Mascota } from '../../../interfaces/Mascota';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-mascotas',
   standalone: true,
