@@ -17,6 +17,13 @@ export class MascotasComponent implements OnInit {
  public currentPage = signal<number>(1);
  public mascotasService = inject(MascotaService);
 
+ filteredDogs: Mascota[] = [];
+
+ ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Senior'];
+  sizes: string[] = ['Pequeño', 'Mediano', 'Grande'];
+  breeds: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua', 'Mestizo'];
+  locations: string[] = ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Bilbao'];
+
  ngOnInit(): void {
    // Cargar la primera página de mascotas
    this.loadPage(this.currentPage());

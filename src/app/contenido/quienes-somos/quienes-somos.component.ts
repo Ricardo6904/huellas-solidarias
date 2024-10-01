@@ -22,4 +22,8 @@ export class QuienesSomosComponent {
 
   values: string[] = ['Compasión', 'Integridad', 'Respeto', 'Responsabilidad'];
 
+  registerShelter() {
+    console.log('Registrar refugio');
+    // Implementar lógica para registrar refugio
+  }
 }
