@@ -1,45 +1,31 @@
-<!--<p>mis-mascotas works!</p>
-@for (mascota of mascotasService.mascotas(); track $index) {
-  {{mascota.historiaMascota}}
-  <br>
-  {{ mascota.nombreMascota }}
-  <br>
-}
+<section class="py-5 px-3 md:px-5 lg:px-6 xl:px-3">
+  <div class="max-w-7xl mx-auto space-y-8">
+    <h1 class="text-2xl font-bold mb-6">Mis Mascotas</h1>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
+      <li class="border shadow-sm border-orange-300 flex flex-col h-full bg-card p-4 rounded-md space-y-4">
+        <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="220"
+          class="aspect-square object-contain rounded-t-md block m-auto">
 
--->
-<!-- src/app/components/lista-mascotas/lista-mascotas.component.html -->
-<!-- src/app/components/lista-mascotas/lista-mascotas.component.html -->
-<!-- src/app/components/lista-mascotas/lista-mascotas.component.html -->
-<div class="w-full max-w-md mx-auto md:max-w-2xl">
-  <h1 class="text-2xl font-bold mb-6" >Mis Mascotas</h1>
-  <ul class="space-y-4">
-    @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
-      <div class="border shadow-sm bg-orange-300 flex flex-col h-full bg-card">
-      <li class="bg-card p-4 rounded-md shadow-sm flex items-center justify-between ">
-        <div class="flex items-center space-x-4">
-          <div class=" bg-primary-foreground text-primary rounded-full w-10 h-10 flex items-center justify-center">
-            <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="40" 
-                 class="aspect-square object-contain">
-          </div>
-          <div>
-            <h3 class="text-lg font-medium">{{ mascota.nombreMascota }}</h3>
-            <p class="text-muted-foreground">{{ mascota.razaMascota }}</p>
-          </div>
+        <div class="space-y-2">
+          <h3 class="text-lg font-bold">{{ mascota.nombreMascota }}</h3>
+          <p class="text-muted-foreground">{{ mascota.razaMascota || 'Raza no especificada' }}</p>
         </div>
-        <div class="flex items-center space-x-2">
+
+        <div class="flex items-center justify-center space-x-2 mt-auto">
           <button (click)="editarMascota(mascota.idMascota)"
-                  class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
             Editar
           </button>
           <button (click)="eliminarMascota(mascota.idMascota)"
-                  class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-9 rounded-md px-3">
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-9 rounded-md px-3">
             Eliminar
           </button>
         </div>
       </li>
-    </div>
-    } @empty {
+      } @empty {
       <li>No hay mascotas disponibles.</li>
-    }
-  </ul>
-</div>
+      }
+    </ul>
+  </div>
+</section>
