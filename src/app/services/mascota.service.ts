@@ -82,7 +82,7 @@ export class MascotaService {
 
 
   obtenerMascotasPorRefugio(idRefugio: number) {
-    return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/${idRefugio}`).
+    return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`).
       pipe(
         map(res => res.data)
       )

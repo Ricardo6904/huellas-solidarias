@@ -23,14 +23,15 @@ export class LoginComponent {
   }
 
   login() {
-    console.log();
+    console.log(this.loginForm.value);
 
     this.authService.login(this.loginForm.value).subscribe(response => {
-      //this.authService.guardarToken(response.data.token)
-      //this.authService.setUsuario(response)
       console.log(response);
 
-      this.router.navigateByUrl('/mascotas/listar')
+      this.router.navigateByUrl('/mascotas/listar').then(()=>{
+        window.location.reload()
+      })
+
     }, error => {
       console.log('Algo salió mal: ', error);
     })

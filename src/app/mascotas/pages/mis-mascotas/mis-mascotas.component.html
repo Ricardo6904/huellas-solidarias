@@ -1,24 +1,12 @@
-<!--<p>mis-mascotas works!</p>
-@for (mascota of mascotasService.mascotas(); track $index) {
-  {{mascota.historiaMascota}}
-  <br>
-  {{ mascota.nombreMascota }}
-  <br>
-}
-
--->
-<!-- src/app/components/lista-mascotas/lista-mascotas.component.html -->
-<!-- src/app/components/lista-mascotas/lista-mascotas.component.html -->
-<!-- src/app/components/lista-mascotas/lista-mascotas.component.html -->
 <div class="w-full max-w-md mx-auto md:max-w-2xl">
   <h1 class="text-2xl font-bold mb-6" >Mis Mascotas</h1>
   <ul class="space-y-4">
-    @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
+    @for (mascota of mascotas() ; track mascota.idMascota) {
       <div class="border shadow-sm bg-orange-300 flex flex-col h-full bg-card">
       <li class="bg-card p-4 rounded-md shadow-sm flex items-center justify-between ">
         <div class="flex items-center space-x-4">
           <div class=" bg-primary-foreground text-primary rounded-full w-10 h-10 flex items-center justify-center">
-            <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="40" 
+            <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="40"
                  class="aspect-square object-contain">
           </div>
           <div>

@@ -2,6 +2,7 @@ import { Component, HostListener, afterNextRender, afterRender, inject } from '@
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -13,12 +14,23 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   isNavFixed = false;
   menuOpen = false;
-  constructor(private authService: AuthService) { }
+  userMenuOpen = false;
+  email:any
+  nombre:any
+
+  constructor(private authService: AuthService, private cookie:CookieService) {
+    this.email = this.cookie.get('email')
+    this.nombre = this.cookie.get('nombre')
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     // Fijar el encabezado de navegación si el desplazamiento vertical es mayor que 0
     this.isNavFixed = window.pageYOffset > 0;
+  }
+
+  ngOnInit(){
+    //document.addEventListener('click', (event) => this.closeUserMenu(event));
   }
 
   logout() {
@@ -30,8 +42,8 @@ export class HeaderComponent {
   }
 
   rol() {
-    if(this.authService.getRol()){
-      return this.authService.getRol()
+    if(this.cookie.get('rol')){
+      return this.cookie.get('rol')
     }
     return ""
   }
@@ -45,4 +57,18 @@ export class HeaderComponent {
     this.menuOpen = !this.menuOpen
 
   }
+
+  toggleUserMenu() {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
+  // Método para cerrar el menú cuando haces click fuera
+  closeUserMenu(event: any) {
+    const userMenu = document.querySelector('#user-dropdown');
+    if (userMenu && !userMenu.contains(event.target)) {
+      this.userMenuOpen = false;
+    }
+  }
+
+
 }

@@ -31,7 +31,7 @@ export class MascotaComponent {
   )
 
   solicitarAdopcion() {
-    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.idMascota, this.authService.getUsuario()?.id!, 'pendiente')
+    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.idMascota, parseInt(this.cookie.get('idUsuario')), 'pendiente')
       .subscribe(() => {
 
         // Implementar lógica para solicitar adopción
