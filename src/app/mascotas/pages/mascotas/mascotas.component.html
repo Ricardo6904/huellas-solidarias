@@ -1,7 +1,7 @@
 
 <div class="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-4xl font-bold text-center text-gray-900 mb-8">Galería de Perros en Adopción</h1>
+    <h1 class="text-4xl font-bold text-center text-[var(--color-3)] mb-8">Galería de Perros en Adopción</h1>
 
     <!-- Filtros -->
     <div class="bg-white p-6 rounded-lg shadow-md mb-8">
@@ -53,7 +53,7 @@
             <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full">{{mascota||'5'}}</span>
           </div>
           <button [routerLink]="['/mascotas/detalle', mascota.idMascota]"
-          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+          class="w-full bg-[var(--color-4)]  text-white py-2 px-4 rounded-md hover:bg-[var(--color-3)] transition duration-300">
             Adoptar a {{mascota.nombreMascota}}
           </button>
         </div>
@@ -66,7 +66,7 @@
   </div>
   <div class="flex justify-center mt-6">
     <button (click)="loadPage(currentPage() - 1)" [disabled]="currentPage() === 1"
-      class="px-4 py-2 bg-[var(--color-1)] hover:bg-gray-400 text-white rounded-l-md">
+      class="px-4 py-2 bg-[var(--color-4)] hover:bg-[var(--color-3)] text-white rounded-l-md">
       Anterior
     </button>
 
@@ -75,7 +75,7 @@
     </span>
 
     <button (click)="loadPage(currentPage() + 1)" [disabled]="!mascotasService.mascotas()!.length"
-      class="px-4 py-2 bg-[var(--color-1)] hover:bg-gray-400 text-white rounded-r-md">
+      class="px-4 py-2 bg-[var(--color-4)] hover:bg-[var(--color-3)] text-white rounded-r-md">
       Siguiente
     </button>
   </div>
