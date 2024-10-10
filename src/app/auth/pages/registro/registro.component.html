@@ -1,5 +1,5 @@
-<div class="max-w-2xl mx-auto m-10 p-6 bg-[var(--color-7)] rounded-lg shadow-xl border border-[var(--color-3)]">
-  <h2 class="text-2xl font-bold mb-6 text-center text-[var(--color-8)]">Registro de Usuario</h2>
+<div class="max-w-2xl mx-auto m-10 p-6 bg-white rounded-lg shadow-xl border border-[var(--color-3)]">
+  <h2 class="text-2xl font-bold mb-6 text-center text-[var(--color-3)]">Registro de Usuario</h2>
   <p class="mb-6 text-center text-[var(--color-8)]">Por favor, completa todos los campos para crear tu cuenta.</p>
 
   <form [formGroup]="registroForm" class="space-y-4">
@@ -7,38 +7,38 @@
       <div>
         <label for="nombres" class="block text-sm font-medium text-[var(--color-8)]">Nombres</label>
         <input type="text" id="nombres" formControlName="nombres"
-          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)] shadow-sm">
+          class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100 shadow-sm">
       </div>
       <div>
         <label for="apellidos" class="block text-sm font-medium text-[var(--color-8)]">Apellidos</label>
         <input type="text" id="apellidos" formControlName="apellidos"
-          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+          class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
       </div>
     </div>
 
     <div>
       <label for="cedula" class="block text-sm font-medium text-[var(--color-8)]">Cédula</label>
       <input type="text" id="cedula" formControlName="cedula"
-        class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+        class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
     </div>
 
     <div>
       <label for="email" class="block text-sm font-medium text-[var(--color-8)]">Correo Electrónico</label>
       <input type="email" id="email" formControlName="email"
-        class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+        class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
     </div>
 
     <div>
       <label for="clave" class="block text-sm font-medium text-[var(--color-8)]">Contraseña</label>
       <input type="clave" id="clave" formControlName="clave"
-        class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+        class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label for="provincia" class="block text-sm font-medium text-[var(--color-8)]">Provincia</label>
         <select id="provincia" formControlName="provincia"
-          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+          class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
           <option value="">Selecciona una provincia</option>
           @for (provincia of provincias; track $index) {
             <option [value]="provincia">{{provincia}}</option>
@@ -48,19 +48,21 @@
       <div>
         <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
         <input type="text" id="ciudad" formControlName="ciudad"
-          class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+          class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
       </div>
     </div>
 
     <div>
       <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
       <input type="text" id="direccion" formControlName="direccion"
-      class="mt-1 block w-full border border-[var(--color-3)] bg-[var(--background)]">
+      class="mt-1 block w-full border border-[var(--color-3)] bg-gray-100">
     </div>
   </form>
   <div class="items-center p-6 flex justify-end">
     <button
-      class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-4)] text-[var(--color-8)] hover:bg-[var(--color-3)] h-10 px-4 py-2"
+      class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50
+      bg-[var(--color-4)] text-[var(--color-8)] hover:bg-[var(--color-3)] h-10 px-4 py-2"
       type="submit" (click)="registrar()">Registrarme</button>
   </div>
 </div>

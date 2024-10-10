@@ -51,12 +51,9 @@ export class HeaderComponent {
   onToggleMenu() {
     const navList = document.querySelector('.nav-links')
     navList?.classList.toggle('top-[9%]')
-  }
-
-  toggleMenu() {
     this.menuOpen = !this.menuOpen
-
   }
+
 
   toggleUserMenu() {
     this.userMenuOpen = !this.userMenuOpen;

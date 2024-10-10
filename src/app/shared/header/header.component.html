@@ -5,16 +5,16 @@
     <div class="flex items-center text-2xl font-semibold">
       <a routerLink="/" class="flex items-center">
         <span class=""><img src="../../../assets/logos/logo.png" alt=""></span>
-        <span class="text-[var(--color-5)] hidden sm:inline ">Huellas</span>
+        <span class="text-[var(--color-8)] text-amber-900 hidden sm:inline ">Huellas</span>
         <span class="text-[var(--color-3)] hidden sm:inline">Solidarias</span>
       </a>
     </div>
 
     <div
-      class="nav-links  md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10">
+      class="nav-links bg-white md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10">
       <ul class="flex md:flex-row flex-col  md:items-center md:gap-[4vw] gap-6">
         <li>
-          <button class="block px-4 py-2 text-gray-700 hover:bg-gray-100" routerLink="/mascotas/listar">Adopta</button>
+          <button class="block px-4 py-2 text-gray-700 hover:bg-gray-100 " routerLink="/mascotas/listar">Adopta</button>
 
         </li>
         <li>
@@ -60,25 +60,6 @@
               <li><a (click)="logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</a></li>
           </div>
         </div>
-      <!-- <button (click)="toggleMenu()">
-        <img src="https://generated.vusercontent.net/placeholder-user.jpg" alt=""> </button>
-      <div *ngIf="menuOpen" class="absolute  right-6  rounded bg-[var(--color-4)] top-[10.3%] ">
-        <ul class="py-2 text-sm">
-          <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Perfil</li>
-          <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Configuración</li>
-          <hr>
-          @if (rol() === 'refugio') {
-          <li routerLink="/mascotas/adopciones" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Notificaciones</li>
-          <li routerLink="/mascotas/mis-mascotas" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Mis Mascotas</li>
-          <li routerLink="/mascotas/agregar" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Agregar Mascota</li>
-          }@else {
-          <li routerLink="/mascotas/mascota-perdida" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Mascota Perdida</li>
-          }
-
-          <hr>
-          <li (click)="logout()" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Cerrar sesión</li>
-        </ul>
-      </div> -->
       }
     </div>
 
