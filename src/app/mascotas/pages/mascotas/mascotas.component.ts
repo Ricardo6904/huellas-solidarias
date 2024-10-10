@@ -3,23 +3,32 @@ import { MascotaService } from '../../../services/mascota.service';
 import { Mascota } from '../../../interfaces/Mascota';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpParams } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-mascotas',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './mascotas.component.html',
   styleUrl: './mascotas.component.scss'
 })
 export class MascotasComponent implements OnInit {
+  filtro = {
+    nombreMascota: '',
+    edadMascota: '',
+    razaMascota: '',
+    tamanoMascota: ''
+  };
+
  // Iniciar con la primera página
  public currentPage = signal<number>(1);
  public mascotasService = inject(MascotaService);
 
  filteredDogs: Mascota[] = [];
 
- ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Senior'];
+ ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Mayor'];
   sizes: string[] = ['Pequeño', 'Mediano', 'Grande'];
   breeds: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua', 'Mestizo'];
   locations: string[] = ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Bilbao'];
@@ -36,4 +45,10 @@ export class MascotasComponent implements OnInit {
    this.mascotasService.obtenerMascotas(page, 8);
  }
 
+
+ onFiltroChange(){
+  console.log(this.filtro);
+
+  this.mascotasService.obtenerMascotas(1, 8, this.filtro)
+ }
 }

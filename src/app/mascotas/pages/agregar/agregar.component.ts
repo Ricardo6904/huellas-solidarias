@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { StorageService } from '../../../services/storage.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MascotaService } from '../../../services/mascota.service';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,11 +8,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-agregar',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './agregar.component.html',
   styleUrl: './agregar.component.scss'
 })
 export class AgregarComponent {
+  edadMascota = '';
+
+  sexoMascota: string[] = ['Macho','Hembra']
+  tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
+  razas: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua', 'Mestizo'];
+  edades = [
+    { age: 'Cachorro', description: 'Cachorro (0-1 año)' },
+    { age: 'Joven', description: 'Joven (1-3 años)' },
+    { age: 'Adulto', description: 'Adulto (3-7 años)' },
+    { age: 'Mayor', description: 'Mayor (7+ años)' }
+  ];
 
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement> | undefined;
   avatarUrl: string | ArrayBuffer | null = null;
@@ -25,12 +36,12 @@ export class AgregarComponent {
   isEditMode: boolean = false;
 
   constructor(
-    private storageService: StorageService, 
-    private formBuilder: FormBuilder, 
+    private storageService: StorageService,
+    private formBuilder: FormBuilder,
     private mascotasService: MascotaService,
     private authService: AuthService,
-    private route: ActivatedRoute, 
-    private router: Router) 
+    private route: ActivatedRoute,
+    private router: Router)
     { }
 
   ngOnInit() {
@@ -123,6 +134,10 @@ export class AgregarComponent {
   }
 
 
+  onChange(){
+    console.log(this.edadMascota);
+
+  }
 
 
 }

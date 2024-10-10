@@ -43,41 +43,54 @@
         <div class="grid gap-2"><label
             class="text-[var(--color-8)] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             for="razaMascota">Raza</label>
-          <input
-            class=" flex h-10 w-full  border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="razaMascota" formControlName="razaMascota" placeholder="Ingresa la raza de tu mascota">
+            <select formControlName="razaMascota" id="razaMascota" class="border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (raza of razas; track $index) {
+                <option [value]="raza">{{raza}}</option>
+
+              }
+            </select>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-2">
           <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             for="sexoMascota">Sexo mascota</label>
-          <select id="sexoMascota" name="sexoMascota" formControlName="sexoMascota"
-            class="h-10 w-full bg-[var(--background)] border border-[var(--color-3)]">
-            <option selected disabled>Seleccionar Mascota</option>
-            <option value="Macho">Macho</option>
-            <option value="Hembra">Hembra</option>
-          </select>
+            <select formControlName="sexoMascota" id="sexoMascota" class="border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (sexo of sexoMascota; track $index) {
+                <option [value]="sexo">{{sexo}}</option>
+
+              }
+            </select>
 
         </div>
         <div class="grid gap-2"><label
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="edadMascota">Edad Mascota</label><input
+            for="edadMascota">Edad Mascota</label>
+            <select formControlName="edadMascota" id="edadMascota" class="border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (edad of edades; track $index) {
+                <option [value]="edad.age">{{edad.description}}</option>
+
+              }
+            </select>
+            <!-- <input
             class="flex h-10 w-full border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="edadMascota" formControlName="edadMascota" placeholder="Ingresa la edad de tu mascota" type="text">
+            id="edadMascota" formControlName="edadMascota" placeholder="Ingresa la edad de tu mascota" type="text"> -->
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-2"><label
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             for="tamanoMascota">Tamaño</label>
-          <select id="tamanoMascota" name="tamanoMascota" formControlName="tamanoMascota"
-            class="h-10 w-full bg-[var(--background)] border border-[var(--color-3)]">
-            <option selected disabled>Seleccionar tamaño</option>
-            <option value="Pequeno">Pequeño</option>
-            <option value="Mediano">Mediano</option>
-            <option value="Grande">Grande</option>
-          </select>
+            <select formControlName="tamanoMascota" id="tamanoMascota" class="border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (tamano of tamanoMascota; track $index) {
+                <option [value]="tamano">{{tamano}}</option>
+
+              }
+            </select>
 
         </div>
         <div class="grid gap-2">
@@ -105,10 +118,10 @@
       </div>
       <div class="grid gap-2">
         <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          for="condicionMascota">Condition</label><textarea
+          for="condicionMascota">Condición</label><textarea
           class="bg-[var(--background)] flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           id="condicionMascota" formControlName="condicionMascota" rows="3"
-          placeholder="Enter your pet's condition"></textarea>
+          placeholder="Ingrese la condición de la mascota"></textarea>
       </div>
     </form>
   </div>
