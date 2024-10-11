@@ -13,6 +13,7 @@ import { map } from 'rxjs';
 export class AuthService {
   baseUrl = environment.baseUrl
 
+
   constructor(private http: HttpClient, private router: Router, private cookies: CookieService) {
 
   }
@@ -24,18 +25,35 @@ export class AuthService {
   login(auth: Auth) {
     return this.http.post<any>(`${this.baseUrl}/auth/login`, auth).pipe(
       map(response => {
+        console.log(response);
+
         this.cookies.set('rol', response.rol)
         this.cookies.set('token', response.token)
-        if (response.rol === 'refugio')
+        if (response.rol === 'refugio'){
           this.cookies.set('idRefugio', response.refugio.idRefugio)
+          this.cookies.set('email', response.refugio.email)
+          this.cookies.set('nombre', response.refugio.nombre)
+        }
+        if(response.rol === 'usuario' || response.rol === 'admin'){
+          this.cookies.set('idUsuario', response.user.id)
+          this.cookies.set('email', response.user.email)
+          this.cookies.set('nombre', response.user.nombres)
+        }
 
 
-      })
+      }
+
+    )
     );
+
   }
 
   logout() {
     this.cookies.set('token', '')
+    this.cookies.set('idRegudio', '')
+    this.cookies.set('idUsuario', '')
+    this.cookies.set('email', '')
+    this.cookies.set('rol', '')
     this.router.navigate(['/'])
     window.location.reload()
   }
@@ -55,5 +73,6 @@ export class AuthService {
   estaLogeado() {
     return this.cookies.get('token')
   }
+
 
 }

@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Auth } from '../../../interfaces/Auth';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -23,12 +23,15 @@ export class LoginComponent {
   }
 
   login() {
-    console.log();
+    console.log(this.loginForm.value);
 
     this.authService.login(this.loginForm.value).subscribe(response => {
-      //this.authService.guardarToken(response.data.token)
+      console.log(response);
 
-      this.router.navigateByUrl('/mascotas/listar')
+      this.router.navigateByUrl('/mascotas/listar').then(()=>{
+        window.location.reload()
+      })
+
     }, error => {
       console.log('Algo salió mal: ', error);
     })

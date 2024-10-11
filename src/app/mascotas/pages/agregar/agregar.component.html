@@ -1,11 +1,11 @@
-<div class="border border-[var(--color-3)] bg-[var(--color-7)] shadow-sm mx-auto max-w-2xl p-6 sm:p-8 my-2">
+<div class="border border-[var(--color-3)] bg-white shadow-sm mx-auto max-w-2xl p-6 sm:p-8 my-2">
   <div class="flex flex-col items-center gap-6">
-    <div class="relative" data-id="3"><span class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24">
+    <div class="relative" data-id="3"><span class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24 border">
         <img class="aspect-square h-full w-full" alt="Pet Profile"
           [src]="avatarUrl || 'https://generated.vusercontent.net/placeholder-user.jpg'">
       </span>
       <button (click)="subirImagen()"
-        class="absolute bottom-0 right-0 bg-[var(--color-1)] text-primary-foreground rounded-full p-3  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+        class="absolute bottom-0 right-0 bg-[var(--color-4)] text-primary-foreground rounded-full p-3  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
 
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
@@ -19,11 +19,11 @@
       <input type="file" #fileInput class="hidden" (change)="onFileSelected($event)" />
     </div>
     <div class="flex flex-col space-y-1.5 p-6">
-      <h3 class="text-[var(--color-8)] whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
-        {{ isEditMode ? 'Editar tu mascota' : 'Registra tu mascota' }}
+      <h3 class="text-[var(--color-3)] whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
+        {{ isEditMode ? 'Edita tu mascota' : 'Registra tu mascota' }}
       </h3>
       <p class="text-[var(--color-8)] text-sm">
-        {{ isEditMode ? 'Actualiza la información de tu mascota.' : 'Fill out the form to add your pet to our database.' }}
+        {{ isEditMode ? 'Actualiza la información de tu mascota.' : 'Completa todo el formulario para agregar una nueva mascota' }}
       </p>
     </div>
   </div>
@@ -37,47 +37,57 @@
             for="nombreMascota">Nombre de la mascota
           </label>
           <input
-            class="flex h-10 w-full  border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            class="flex h-10 w-full  border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             id="nombreMascota" formControlName="nombreMascota" placeholder="Ingresa el nombre de tu mascota">
         </div>
         <div class="grid gap-2"><label
             class="text-[var(--color-8)] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             for="razaMascota">Raza</label>
-          <input
-            class=" flex h-10 w-full  border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="razaMascota" formControlName="razaMascota" placeholder="Ingresa la raza de tu mascota">
+            <select formControlName="razaMascota" id="razaMascota" class="border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (raza of razas; track $index) {
+                <option [value]="raza">{{raza}}</option>
+
+              }
+            </select>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-2">
           <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             for="sexoMascota">Sexo mascota</label>
-          <select id="sexoMascota" name="sexoMascota" formControlName="sexoMascota"
-            class="h-10 w-full bg-[var(--background)] border border-[var(--color-3)]">
-            <option selected disabled>Seleccionar Mascota</option>
-            <option value="Macho">Macho</option>
-            <option value="Hembra">Hembra</option>
-          </select>
+            <select formControlName="sexoMascota" id="sexoMascota" class="border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (sexo of sexoMascota; track $index) {
+                <option [value]="sexo">{{sexo}}</option>
+
+              }
+            </select>
 
         </div>
         <div class="grid gap-2"><label
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="edadMascota">Edad Mascota</label><input
-            class="flex h-10 w-full border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="edadMascota" formControlName="edadMascota" placeholder="Ingresa la edad de tu mascota" type="text">
+            for="edadMascota">Edad Mascota</label>
+            <select formControlName="edadMascota" id="edadMascota" class="border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (edad of edades; track $index) {
+                <option [value]="edad.age">{{edad.description}}</option>
+
+              }
+            </select>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-2"><label
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             for="tamanoMascota">Tamaño</label>
-          <select id="tamanoMascota" name="tamanoMascota" formControlName="tamanoMascota"
-            class="h-10 w-full bg-[var(--background)] border border-[var(--color-3)]">
-            <option selected disabled>Seleccionar tamaño</option>
-            <option value="Pequeno">Pequeño</option>
-            <option value="Mediano">Mediano</option>
-            <option value="Grande">Grande</option>
-          </select>
+            <select formControlName="tamanoMascota" id="tamanoMascota" class="border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm">
+              <option value="">Seleccione</option>
+              @for (tamano of tamanoMascota; track $index) {
+                <option [value]="tamano">{{tamano}}</option>
+
+              }
+            </select>
 
         </div>
         <div class="grid gap-2">
@@ -85,30 +95,30 @@
             for="esEsterilizado">Esterilizado?</label>
 
           <input
-            class="h-4 w-4 shrink-0 rounded-sm border border-[var(--color-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            class="h-4 w-4 shrink-0 rounded-sm border border-[var(--color-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             id="esEsterilizado" formControlName="esEsterilizado" type="checkbox">
         </div>
       </div>
       <div class="grid gap-2"><label
           class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           for="historiaMascota">Historia corta</label><textarea
-          class="flex min-h-[80px] w-full  border border-[var(--color-3)] bg-[var(--background)] px-3 py-2 text-sm ring-offset-background placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          class="flex min-h-[80px] w-full  border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm ring-offset-background placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           id="historiaMascota" formControlName="historiaMascota" rows="3"
           placeholder="Ingresa una corta historia de tu mascota"></textarea></div>
       <div class="grid gap-2"><label
           class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           for="caracteristicaMascota">Características de la mascota</label>
         <textarea
-          class="bg-[var(--background)] flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          class="bg-gray-100 flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           id="caracteristicaMascota" formControlName="caracteristicaMascota" rows="3"
           placeholder="Ingresa características como cariñoso, alegre, inquieto"></textarea>
       </div>
       <div class="grid gap-2">
         <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          for="condicionMascota">Condition</label><textarea
-          class="bg-[var(--background)] flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          for="condicionMascota">Condición</label><textarea
+          class="bg-gray-100 flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           id="condicionMascota" formControlName="condicionMascota" rows="3"
-          placeholder="Enter your pet's condition"></textarea>
+          placeholder="Ingrese la condición de la mascota"></textarea>
       </div>
     </form>
   </div>

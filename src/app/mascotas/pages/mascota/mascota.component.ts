@@ -4,6 +4,10 @@ import { Mascota } from '@interfaces/Mascota';
 import { toSignal } from '@angular/core/rxjs-interop'
 import { switchMap } from 'rxjs';
 import { MascotaService } from '../../../services/mascota.service';
+import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.service';
+import { Solicitud } from '@interfaces/Solicitud';
+import { AuthService } from '../../../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-mascota',
@@ -17,6 +21,8 @@ export class MascotaComponent {
   private route = inject(ActivatedRoute);
   private mascotaServices = inject(MascotaService);
 
+  constructor(private solicitarAdopcionService: SolicitarAdopcionService, private authService: AuthService, private cookie: CookieService) { }
+
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
     this.route.params.pipe(
@@ -25,8 +31,28 @@ export class MascotaComponent {
   )
 
   solicitarAdopcion() {
-    // Implementar lógica para solicitar adopción
-    console.log('Solicitud de adopción para:', this.mascota()?.nombreMascota);
+    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.idMascota, parseInt(this.cookie.get('idUsuario')), 'pendiente')
+      .subscribe(() => {
+
+        // Implementar lógica para solicitar adopción
+        if (this.mascota()) {
+          const solicitud: Solicitud = {
+            email: 'mnzioss@gmail.com',
+            mascota: this.mascota() as Mascota
+          };
+
+          //Enviar la solicitud al servicio
+          this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res) => {
+            console.log(res);
+
+          }, error => {
+            console.error(error);
+
+          })
+        }
+
+      })
+
   }
 
 }

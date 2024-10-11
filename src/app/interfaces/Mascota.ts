@@ -17,10 +17,9 @@ export interface Mascota {
 }
 
 export interface MascotasResponse {
-  page: number;
-  per_page: number;
+  currentPage: number;
   total: number;
-  total_pages: number;
+  totalPages: number;
   data: Mascota[];
   support: Support;
 }
