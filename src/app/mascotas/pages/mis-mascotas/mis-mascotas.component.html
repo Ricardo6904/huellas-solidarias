@@ -3,7 +3,7 @@
   <div class="max-w-7xl mx-auto space-y-8">
     <h1 class="text-2xl font-bold mb-6">Mis Mascotas</h1>
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      @for (mascota of mascotasService.mascotas() ; track mascota.idMascota) {
+      @for (mascota of mascotas() ; track mascota.idMascota) {
       <li class="border shadow-sm border-orange-300 flex flex-col h-full bg-card p-4 rounded-md space-y-4">
         <img [srcset]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota" width="220"
           class="aspect-square object-contain rounded-t-md block m-auto">

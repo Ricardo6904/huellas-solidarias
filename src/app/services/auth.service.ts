@@ -6,6 +6,7 @@ import { Auth } from '../interfaces/Auth';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs';
+import { StorageServiceService } from './storage-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   baseUrl = environment.baseUrl
 
 
-  constructor(private http: HttpClient, private router: Router, private cookies: CookieService) {
+  constructor(private http: HttpClient, private router: Router, private cookies: CookieService, private storageService:StorageServiceService) {
 
   }
 
@@ -31,6 +32,7 @@ export class AuthService {
         this.cookies.set('token', response.token)
         if (response.rol === 'refugio'){
           this.cookies.set('idRefugio', response.refugio.idRefugio)
+          this.storageService.setItem('idRefugio', response.refugio.idRefugio)
           this.cookies.set('email', response.refugio.email)
           this.cookies.set('nombre', response.refugio.nombre)
         }
@@ -39,6 +41,7 @@ export class AuthService {
           this.cookies.set('email', response.user.email)
           this.cookies.set('nombre', response.user.nombres)
         }
+
 
 
       }
