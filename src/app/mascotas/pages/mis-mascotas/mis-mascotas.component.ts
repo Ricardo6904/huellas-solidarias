@@ -13,8 +13,10 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './mis-mascotas.component.scss'
 })
 export class MisMascotasComponent {
+  public mascotasService = inject(MascotaService);
 
-  constructor(private mascotasService: MascotaService, private router: Router, private cookie: CookieService){}
+
+  constructor(private router: Router, private cookie: CookieService){}
   //TODO
   public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.cookie.get('idRefugio'))))
 
