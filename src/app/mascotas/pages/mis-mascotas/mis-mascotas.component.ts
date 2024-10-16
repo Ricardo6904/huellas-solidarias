@@ -14,6 +14,7 @@ import { StorageServiceService } from '../../../services/storage-service.service
   styleUrl: './mis-mascotas.component.scss'
 })
 export class MisMascotasComponent {
+
   idRefugio!:number
   /* public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.cookie.get('idRefugio')))) */
   public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.storageService.getItem('idRefugio')!)))
@@ -21,6 +22,7 @@ export class MisMascotasComponent {
   constructor(private mascotasService: MascotaService, private router: Router, private cookie: CookieService, private storageService:StorageServiceService){
 
   }
+
   //TODO
 
   ngOnInit(){
