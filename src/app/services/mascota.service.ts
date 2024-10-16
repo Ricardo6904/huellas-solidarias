@@ -27,13 +27,7 @@ export class MascotaService {
   public loading = computed(() => this.#state().loading)
 
   constructor(private http: HttpClient) {
-    /*this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`)
-      .subscribe(res => {
-        this.#state.set({
-          loading: false,
-          mascotas: res.data,
-        })
-      })*/
+    
     this.obtenerMascotas(1, 10)
   }
 
@@ -82,6 +76,12 @@ export class MascotaService {
 
 
   obtenerMascotasPorRefugio(idRefugio: number) {
+    return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`).
+      pipe(
+        map(res => res.data)
+      )
+  }
+  obtenerMascotasPorRefugioNew(idRefugio: number) {
     return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`).
       pipe(
         map(res => res.data)
