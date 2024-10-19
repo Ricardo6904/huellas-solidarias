@@ -1,25 +1,19 @@
-
 <section class="py-5 px-3 md:px-5 lg:px-6 xl:px-3">
   <div class="max-w-7xl mx-auto space-y-8">
     <h1 class="text-2xl font-bold mb-6">Mis Mascotas</h1>
-    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
       @for (mascota of mascotas() ; track $index) {
-      <li class="border shadow-sm border-orange-300 flex flex-col h-full bg-card p-4 rounded-md space-y-4">
-        <img [srcset]="mascota.Storage.url" [alt]="mascota.nombre" width="220"
-          class="aspect-square object-contain rounded-t-md block m-auto">
-
-        <div class="space-y-2">
-          <h3 class="text-lg font-bold">{{ mascota.nombre }}</h3>
-          <p class="text-muted-foreground">{{ mascota.raza || 'Raza no especificada' }}</p>
+      <li class="card flex flex-col h-full p-2"> <!-- Cambiado p-4 a p-2 -->
+        <img [srcset]="mascota.Storage.url" [alt]="mascota.nombre" class="w-full h-auto object-contain card img">
+        <div class="card-body">
+          <h3 class="card-title">{{ mascota.nombre }}</h3>
+          <p class="card-text">{{ mascota.raza || 'Raza no especificada' }}</p>
         </div>
-
         <div class="flex items-center justify-center space-x-2 mt-auto">
-          <button (click)="editarMascota(mascota.id)"
-            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+          <button (click)="editarMascota(mascota.id)" class="btn-primary">
             Editar
           </button>
-          <button (click)="eliminarMascota(mascota.id)"
-            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-9 rounded-md px-3">
+          <button (click)="eliminarMascota(mascota.id)" class="btn-primary">
             Eliminar
           </button>
         </div>
