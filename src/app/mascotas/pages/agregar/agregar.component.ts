@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MascotaService } from '../../../services/mascota.service';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-agregar',
@@ -41,7 +42,8 @@ export class AgregarComponent {
     private mascotasService: MascotaService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router)
+    private router: Router,
+    private toastr:ToastrService)
     { }
 
   ngOnInit() {
@@ -50,14 +52,14 @@ export class AgregarComponent {
     this.isEditMode = !!this.mascotaId;
 
     this.mascotaForm = this.formBuilder.group({
-      nombreMascota: ['', Validators.required],
-      razaMascota: ['', Validators.required],
-      sexoMascota: ['', Validators.required],
-      edadMascota: ['', Validators.required],
-      tamanoMascota: ['', Validators.required],
-      historiaMascota: [''],
-      caracteristicaMascota: [''],
-      condicionMascota: [''],
+      nombre: ['', Validators.required],
+      raza: ['', Validators.required],
+      sexo: ['', Validators.required],
+      edad: ['', Validators.required],
+      tamano: ['', Validators.required],
+      historia: [''],
+      caracteristica: [''],
+      condicion: [''],
       esEsterilizado: [''],
       idStorage: ['', Validators.required],
       idRefugio: this.authService.getIdRefugio()
@@ -66,20 +68,23 @@ export class AgregarComponent {
     if (this.isEditMode) {
       this.mascotasService.obtenerMascotasPorId(this.mascotaId).subscribe(mascota => {
         this.mascotaForm.patchValue(mascota);
-        if (mascota.Storage && mascota.Storage.urlStorage) {
-          this.avatarUrl = mascota.Storage.urlStorage;
+        if (mascota.Storage && mascota.Storage.url) {
+          this.avatarUrl = mascota.Storage.url;
         }
       });
     }
   }
 
   onSubmit() {
+    console.log(this.mascotaForm.value);
+
     if (this.mascotaForm.valid) {
       if (this.isEditMode) {
         // Modo de edición: Actualizar mascota existente
         this.mascotasService.actualizarMascota(this.mascotaId!, this.mascotaForm.value).subscribe(res => {
           console.log('Mascota actualizada:', res);
           this.router.navigateByUrl('/mascotas/listar');
+          this.toastr.success('Mascota modificada', 'Huellas Solidarias')
         }, error => {
           console.log('Error al actualizar la mascota:', error);
         });
@@ -112,7 +117,7 @@ export class AgregarComponent {
 
       this.storageService.subirImagen(formData).subscribe(file => {
         console.log(file.data);
-        this.idStorage = file.data.idStorage
+        this.idStorage = file.data.id
 
         //Actualiza el campo idStorage en el formulario
         this.mascotaForm.patchValue({

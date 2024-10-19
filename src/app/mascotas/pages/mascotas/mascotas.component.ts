@@ -16,10 +16,10 @@ import { HttpParams } from '@angular/common/http';
 })
 export class MascotasComponent implements OnInit {
   filtro = {
-    nombreMascota: '',
-    edadMascota: '',
-    razaMascota: '',
-    tamanoMascota: ''
+    nombre: '',
+    edad: '',
+    raza: '',
+    tamano: ''
   };
 
  // Iniciar con la primera página

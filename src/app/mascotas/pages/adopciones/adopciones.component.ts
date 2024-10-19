@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.service';
 import { Adopcion } from '@interfaces/Adopcion';
+import { ToastrService } from 'ngx-toastr';
 
 interface Adoption {
   idAdopcion: number;
@@ -35,7 +36,7 @@ export class AdopcionesComponent {
   adoptions: Adoption[] = [];
   pendingCount: number = 0;
 
-  constructor(private cookie:CookieService, private route:ActivatedRoute){
+  constructor(private cookie:CookieService, private route:ActivatedRoute, private toastr:ToastrService){
     console.log(parseInt(this.cookie.get('idRefugio')));
 
   }

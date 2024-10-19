@@ -1,5 +1,5 @@
 export interface storage {
-  idStorage: number,
-  urlStorage: string,
-  filenameStorage: string
+  id: number,
+  url: string,
+  filename: string
 }

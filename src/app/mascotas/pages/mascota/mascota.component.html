@@ -2,27 +2,27 @@
   <div class="border border-[var(--color-3)] bg-gray-200 shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto">
     <div class="md:flex">
       <div class="md:flex-shrink-0">
-        <img class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48" [srcset]="mascota()?.Storage?.urlStorage" [alt]="mascota()?.nombreMascota">
+        <img class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48" [srcset]="mascota()?.Storage?.url" [alt]="mascota()?.nombre">
       </div>
       <div class="p-8">
-        <div class="uppercase tracking-wide text-sm text-amber-500 font-semibold">{{mascota()?.razaMascota}}</div>
-        <h1 class="mt-1 text-3xl font-bold text-gray-900">{{mascota()?.nombreMascota}}</h1>
-        <p class="mt-2 text-gray-600">{{mascota()?.historiaMascota}}</p>
+        <div class="uppercase tracking-wide text-sm text-amber-500 font-semibold">{{mascota()?.raza}}</div>
+        <h1 class="mt-1 text-3xl font-bold text-gray-900">{{mascota()?.nombre}}</h1>
+        <p class="mt-2 text-gray-600">{{mascota()?.historia}}</p>
       </div>
     </div>
     <div class="px-8 py-4 bg-gray-100">
       <div class="grid grid-cols-2 gap-4">
         <div>
           <p class="text-sm font-medium text-gray-500">Sexo</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.sexoMascota}}</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.sexo}}</p>
         </div>
         <div>
           <p class="text-sm font-medium text-gray-500">Edad</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.edadMascota}}</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.edad}}</p>
         </div>
         <div>
           <p class="text-sm font-medium text-gray-500">Tamaño</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.tamanoMascota}}</p>
+          <p class="mt-1 text-sm text-gray-900">{{mascota()?.tamano}}</p>
         </div>
         <div>
           <p class="text-sm font-medium text-gray-500">Esterilizado</p>
@@ -32,11 +32,11 @@
     </div>
     <div class="px-8 py-4">
       <h2 class="text-xl font-semibold text-gray-900">Características</h2>
-      <p class="mt-2 text-gray-600">{{mascota()?.caracteristicaMascota}}</p>
+      <p class="mt-2 text-gray-600">{{mascota()?.caracteristica}}</p>
     </div>
     <div class="px-8 py-4">
       <h2 class="text-xl font-semibold text-gray-900">Condición</h2>
-      <p class="mt-2 text-gray-600">{{mascota()?.condicionMascota}}</p>
+      <p class="mt-2 text-gray-600">{{mascota()?.condicion}}</p>
     </div>
     <div class="px-8 py-4">
       <button (click)="solicitarAdopcion()" class="w-full inline-flex items-center justify-center whitespace-nowrap text-sm font-medium bg-[var(--color-4)] text-white py-2 px-4 rounded-md hover:bg-[var(--color-3)] transition duration-300">

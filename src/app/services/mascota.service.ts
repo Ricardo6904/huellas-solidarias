@@ -27,7 +27,7 @@ export class MascotaService {
   public loading = computed(() => this.#state().loading)
 
   constructor(private http: HttpClient) {
-    
+
     this.obtenerMascotas(1, 10)
   }
 
@@ -38,7 +38,7 @@ export class MascotaService {
     })
   }
 
-  obtenerMascotas(page: number, limit: number, filtros?: {nombreMascota: string, edadMascota: string, razaMascota:string}) {
+  obtenerMascotas(page: number, limit: number, filtros?: {nombre: string, edad: string, raza:string}) {
     this.actualizarEstado({ loading: true })
 
     const params = {

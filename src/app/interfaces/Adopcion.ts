@@ -1,17 +1,15 @@
-import { Mascota } from "./Mascota"
-import { Usuario } from "./Usuario"
-
 export interface Adopcion{
-  idAdopcion?: number,
+  id?: number,
   idMascota: number,
   idUsuario: number,
-  estado: string,
+  estado?: string,
+  tipo?: string
   createdAt?: Date,
   updatedAt?: Date,
   Mascotum: {
-    nombreMascota: string,
+    nombre: string,
     Storage: {
-      urlStorage:string
+      url:string
     }
   },
   Usuario: {

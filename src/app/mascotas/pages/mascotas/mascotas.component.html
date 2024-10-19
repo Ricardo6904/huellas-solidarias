@@ -7,23 +7,23 @@
     <div class="bg-white p-6 rounded-lg shadow-md mb-8">
       <h2 class="text-2xl font-semibold mb-4">Filtrar Perros</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        <input  type="text" [(ngModel)]="filtro.nombreMascota" (input)="onFiltroChange()" placeholder="Buscar por nombre" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input  type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-        <select [(ngModel)]="filtro.edadMascota" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select [(ngModel)]="filtro.edad" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option value="">Todas las edades</option>
           @for (age of ages; track $index) {
             <option  [value]="age">{{age}}</option>
 
           }
         </select>
-        <select [(ngModel)]="filtro.tamanoMascota" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select [(ngModel)]="filtro.tamano" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option value="">Todos los tamaños</option>
           @for (size of sizes; track $index) {
             <option  [value]="size">{{size}}</option>
 
           }
         </select>
-        <select [(ngModel)]="filtro.razaMascota" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select [(ngModel)]="filtro.raza" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option value="">Todas las razas</option>
           <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
         </select>
@@ -41,20 +41,20 @@
     <!-- Galería de Perros -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div *ngFor="let mascota of mascotasService.mascotas()" class="bg-white rounded-lg shadow-md overflow-hidden">
-        <img [src]="mascota.Storage.urlStorage" [alt]="mascota.nombreMascota"
+        <img [src]="mascota.Storage.url" [alt]="mascota.nombre"
         class="w-full h-48 aspect-square object-contain rounded-t-md block m-auto">
         <div class="p-6">
-          <h2 class="text-2xl font-bold mb-2">{{mascota.nombreMascota}}</h2>
-          <p class="text-gray-600 mb-4">{{mascota.historiaMascota}}</p>
+          <h2 class="text-2xl font-bold mb-2">{{mascota.nombre}}</h2>
+          <p class="text-gray-600 mb-4">{{mascota.historia}}</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">{{mascota.edadMascota}}</span>
-            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">{{mascota.tamanoMascota}}</span>
-            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">{{mascota.razaMascota}}</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">{{mascota.edad}}</span>
+            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">{{mascota.tamano}}</span>
+            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">{{mascota.raza}}</span>
             <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full">{{mascota||'5'}}</span>
           </div>
-          <button [routerLink]="['/mascotas/detalle', mascota.idMascota]"
+          <button [routerLink]="['/mascotas/detalle', mascota.id]"
           class="w-full bg-[var(--color-4)]  text-white py-2 px-4 rounded-md hover:bg-[var(--color-3)] transition duration-300">
-            Adoptar a {{mascota.nombreMascota}}
+            Adoptar a {{mascota.nombre}}
           </button>
         </div>
       </div>

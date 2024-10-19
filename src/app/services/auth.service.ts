@@ -31,8 +31,8 @@ export class AuthService {
         this.cookies.set('rol', response.rol)
         this.cookies.set('token', response.token)
         if (response.rol === 'refugio'){
-          this.cookies.set('idRefugio', response.refugio.idRefugio)
-          this.storageService.setItem('idRefugio', response.refugio.idRefugio)
+          this.cookies.set('idRefugio', response.refugio.id)
+          this.storageService.setItem('idRefugio', response.refugio.id)
           this.cookies.set('email', response.refugio.email)
           this.cookies.set('nombre', response.refugio.nombre)
         }

@@ -1,10 +1,10 @@
 export interface Refugio{
-  idRefugio: number,
+  id: number,
   nombre: string,
   direccion: string,
   ciudad: string,
   provincia: string,
-  telefono: string,
+  celular: string,
   email: string,
 }
 

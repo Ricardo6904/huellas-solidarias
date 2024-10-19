@@ -1,17 +1,17 @@
 export interface Mascota {
-  idMascota: number,
-  nombreMascota: string,
-  razaMascota: string,
-  sexoMascota: string,
-  edadMascota: string,
-  tamanoMascota: string,
-  historiaMascota: string,
-  caracteristicaMascota: string,
-  condicionMascota: string,
+  id: number,
+  nombre: string,
+  raza: string,
+  sexo: string,
+  edad: string,
+  tamano: string,
+  historia: string,
+  caracteristica: string,
+  condicion: string,
   esEsterilizado: number,
   idStorage: number
   Storage: {
-    urlStorage: string
+    url: string
   },
   idRefugio: number
 }
