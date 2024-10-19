@@ -26,7 +26,7 @@ export class MisMascotasComponent {
   //TODO
 
   ngOnInit(){
-
+    const idRefugioTest = this.storageService.getItem('idRefugio')
   }
 
   editarMascota(id: number): void {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Mascota, MascotaResponse, MascotasResponse } from '@interfaces/Mascota';
 import { delay, map, tap } from 'rxjs';
+import { StorageServiceService } from './storage-service.service';
 
 interface State {
   mascotas: Mascota[],
@@ -26,9 +27,10 @@ export class MascotaService {
   public mascotas = computed(() => this.#state().mascotas)
   public loading = computed(() => this.#state().loading)
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storageService: StorageServiceService) {
 
     this.obtenerMascotas(1, 10)
+    this.obtenerMascotasPorRefugio(parseInt(this.storageService.getItem('idRefugio')!))
   }
 
   private actualizarEstado(parteEstado: Partial<State>) {
