@@ -6,13 +6,13 @@ export interface Adopcion{
   tipo?: string
   createdAt?: Date,
   updatedAt?: Date,
-  Mascotum: {
+  mascota: {
     nombre: string,
     Storage: {
       url:string
     }
   },
-  Usuario: {
+  usuario: {
     nombres: string,
     apellidos:string,
     email: string,

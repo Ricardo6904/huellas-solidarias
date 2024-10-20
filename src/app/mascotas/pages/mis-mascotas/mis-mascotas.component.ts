@@ -19,7 +19,7 @@ export class MisMascotasComponent {
   /* public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.cookie.get('idRefugio')))) */
   public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.storageService.getItem('idRefugio')!)))
 
-  constructor(private mascotasService: MascotaService, private router: Router, private cookie: CookieService, private storageService:StorageServiceService){
+  constructor(private mascotasService: MascotaService, private router: Router, private storageService:StorageServiceService){
 
   }
 

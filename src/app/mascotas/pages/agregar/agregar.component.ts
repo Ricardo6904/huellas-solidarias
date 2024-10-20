@@ -5,6 +5,7 @@ import { MascotaService } from '../../../services/mascota.service';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { StorageServiceService } from '../../../services/storage-service.service';
 
 @Component({
   selector: 'app-agregar',
@@ -14,9 +15,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './agregar.component.scss'
 })
 export class AgregarComponent {
-  edadMascota = '';
 
-  sexoMascota: string[] = ['Macho','Hembra']
+
+  sexoMascota: string[] = ['Macho', 'Hembra']
   tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
   razas: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua', 'Mestizo'];
   edades = [
@@ -43,8 +44,8 @@ export class AgregarComponent {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr:ToastrService)
-    { }
+    private toastr: ToastrService,
+    private localStorage: StorageServiceService) { }
 
   ngOnInit() {
     this.mascotaId = Number(this.route.snapshot.paramMap.get('idMascota'));
@@ -62,7 +63,7 @@ export class AgregarComponent {
       condicion: [''],
       esEsterilizado: [''],
       idStorage: ['', Validators.required],
-      idRefugio: this.authService.getIdRefugio()
+      idRefugio: this.localStorage.getItem('IdRefugio')
     });
 
     if (this.isEditMode) {
@@ -126,22 +127,13 @@ export class AgregarComponent {
 
       });
 
-
-
       reader.onload = () => {
         this.avatarUrl = reader.result
 
       }
-
       reader.readAsDataURL(file)
 
     }
-  }
-
-
-  onChange(){
-    console.log(this.edadMascota);
-
   }
 
 

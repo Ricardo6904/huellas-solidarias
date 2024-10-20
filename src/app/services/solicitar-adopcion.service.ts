@@ -63,8 +63,8 @@
       return this.http.post(`${this.baseUrl}/mensajeria/solicitar-adopcion`, solicitud)
     }
 
-    crearNotificacionDeAdopcion(idMascota:number, idUsuario:number, estado:string){
-      const params = {idMascota:idMascota, idUsuario:idUsuario, estado:estado}
+    crearNotificacionDeAdopcion(idMascota:number, idUsuario:number, estado:string, tipo: string){
+      const params = {idMascota:idMascota, idUsuario:idUsuario, estado:estado, tipo: tipo}
       return this.http.post<Adopcion>(`${this.baseUrl}/adopcion`, params)
     }
 

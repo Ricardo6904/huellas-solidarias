@@ -6,14 +6,14 @@ import { switchMap } from 'rxjs';
 import { MascotaService } from '../../../services/mascota.service';
 import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.service';
 import { Solicitud } from '@interfaces/Solicitud';
-import { AuthService } from '../../../services/auth.service';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { StorageServiceService } from '../../../services/storage-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mascota',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './mascota.component.html',
   styleUrl: './mascota.component.scss'
 })
@@ -22,9 +22,14 @@ export class MascotaComponent {
   private route = inject(ActivatedRoute);
   private mascotaServices = inject(MascotaService);
 
-  constructor(private solicitarAdopcionService: SolicitarAdopcionService, private authService: AuthService, private cookie: CookieService,
-    private toastr:ToastrService
+  constructor(private solicitarAdopcionService: SolicitarAdopcionService,
+    private toastr: ToastrService, private localStorage: StorageServiceService,
+    
   ) { }
+
+  ngOnInit() {
+
+  }
 
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
@@ -34,7 +39,7 @@ export class MascotaComponent {
   )
 
   solicitarAdopcion() {
-    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.id, parseInt(this.cookie.get('idUsuario')), 'pendiente')
+    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.id, parseInt(this.localStorage.getItem('idUsuario')!), 'pendiente', 'Adopción')
       .subscribe(() => {
 
         // Implementar lógica para solicitar adopción
@@ -47,10 +52,10 @@ export class MascotaComponent {
           //Enviar la solicitud al servicio
           this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res) => {
             console.log(res);
-            this.toastr.success('Solicitud enviada exitosamente!','Huellas Solidarias')
+            this.toastr.success('Solicitud enviada exitosamente!', 'Huellas Solidarias')
           }, error => {
             console.error(error);
-            this.toastr.error('Error en la solicitud','Huellas Solidarias')
+            this.toastr.error('Error en la solicitud', 'Huellas Solidarias')
           })
         }
 
@@ -58,6 +63,10 @@ export class MascotaComponent {
         this.toastr.error('Error al crear adopción', 'Huellas Solidarias')
       })
 
+  }
+
+  rol() {
+    this.localStorage.getItem('rol')
   }
 
 }

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { StorageServiceService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-header',
@@ -18,16 +19,12 @@ export class HeaderComponent {
   email:any
   nombre:any
 
-  constructor(private authService: AuthService, private cookie:CookieService) {
-    this.email = this.cookie.get('email')
-    this.nombre = this.cookie.get('nombre')
+  constructor(private authService: AuthService, private cookie:CookieService, private storageService:StorageServiceService) {
+
+    this.email = this.storageService.getItem('email')
+    this.nombre = this.storageService.getItem('nombre')
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    // Fijar el encabezado de navegación si el desplazamiento vertical es mayor que 0
-    this.isNavFixed = window.pageYOffset > 0;
-  }
 
   ngOnInit(){
     //document.addEventListener('click', (event) => this.closeUserMenu(event));
@@ -42,8 +39,8 @@ export class HeaderComponent {
   }
 
   rol() {
-    if(this.cookie.get('rol')){
-      return this.cookie.get('rol')
+    if(this.storageService.getItem('rol')){
+      return this.storageService.getItem('rol')
     }
     return ""
   }

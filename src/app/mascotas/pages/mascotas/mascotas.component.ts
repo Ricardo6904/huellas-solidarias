@@ -4,7 +4,7 @@ import { Mascota } from '../../../interfaces/Mascota';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpParams } from '@angular/common/http';
+import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -25,6 +25,8 @@ export class MascotasComponent implements OnInit {
  // Iniciar con la primera página
  public currentPage = signal<number>(1);
  public mascotasService = inject(MascotaService);
+ public meta = inject(Meta);
+ public title = inject(Title);
 
  filteredDogs: Mascota[] = [];
 
@@ -36,6 +38,11 @@ export class MascotasComponent implements OnInit {
  ngOnInit(): void {
    // Cargar la primera página de mascotas
    this.loadPage(this.currentPage());
+
+   this.title.setTitle('Adopta un amigo - Adopción de perros');
+    this.meta.updateTag({ name: 'description', content: 'Encuentra a tu mejor amigo en nuestra plataforma de adopción de perros.' });
+    this.meta.updateTag({ property: 'og:title', content: 'Adopta un amigo' });
+    this.meta.updateTag({ property: 'og:description', content: 'Conecta con mascotas que buscan un hogar.' });
  }
 
  loadPage(page: number) {
