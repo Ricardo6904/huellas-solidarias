@@ -1,55 +1,78 @@
-body {
-  font-family: 'Space Mono', monospace;
+section {
+  background-color: var(--color-alabaster);
+  display: flex; /* Asegura que la sección es flexible */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en líneas nuevas */
+  justify-content: center; /* Centra el contenido */
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'DM Sans', sans-serif;
+.card {
+  width: 100%; /* Ocupa el 100% del contenedor */
+  max-width: 250px; /* Mantiene un ancho máximo */
+  margin: 10px; /* Margen alrededor de las tarjetas */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: white;
+  color: var(--color-delft-blue);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
-.bg-card {
-  background-color: #d5b991;
-  border-radius: 8px;
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.text-muted-foreground {
-  color: hsl(36, 45%, 25%);
+.card img {
+  width: 100%; /* Imagen ocupa todo el ancho */
+  height: 200px; /* Altura fija para todas las imágenes */
+  object-fit: cover; /* Mantiene la imagen centrada y cubierta */
+  margin: 0; /* Elimina cualquier margen */
+  border-top-left-radius: 5px; /* Asegura que el borde superior izquierdo esté redondeado */
+  border-top-right-radius: 5px; /* Asegura que el borde superior derecho esté redondeado */
 }
 
-.bg-primary-foreground {
-  background-color: hsl(36, 45%, 11%);
-  color: hsl(36, 45%, 11%);
+.card-body {
+  text-align: left;
+  padding: 10px;
+  flex-grow: 1; /* Para llenar el espacio disponible y empujar el contenido hacia abajo */
 }
 
-// Estilos específicos para los botones
-button {
-  transition: background-color 0.2s ease, color 0.2s ease;
+.card-title {
+  font-size: 25px;
+  margin-bottom: 4px;
+  text-align: center;
+  font-weight: bold;
 }
 
-button:hover {
-  background-color: hsl(36, 64%, 57%);
-  color: hsl(36, 72%, 17%);
+.card-text {
+  margin-bottom: 5px;
+  color: #6b7280;
 }
 
-.bg-destructive {
-  background-color: hsl(0, 84%, 37%);
-  color: hsl(0, 0%, 98%);
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem; 
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-.bg-destructive:hover {
-  background-color: darken(hsl(0, 84%, 37%), 10%);
-  color: hsl(0, 0%, 98%);
+.btn-primary {
+  background-color: var(--color-4); 
+  color: white;
+  border: 1px solid var(--color-4);
 }
 
-// Estilos para imágenes
-.aspect-square {
-  aspect-ratio: 1;
+.btn-primary:hover {
+  background-color: var(--color-3);
 }
 
-.object-contain {
-  object-fit: contain;
-}
-
-// Espaciado entre los elementos
-.space-y-4 > *:not(:last-child) {
-  margin-bottom: 1rem; // Espaciado entre elementos de la lista
+.btn-secondary:hover {
+  background-color: var(--color-destruction-hover);
 }
