@@ -20,20 +20,20 @@
           <li class="p-4 hover:bg-gray-50 transition duration-150 ease-in-out">
             <div class="flex items-center space-x-4">
               <div class="flex-shrink-0">
-                <img [src]="adopcion.Mascotum.Storage.url" [alt]="adopcion.Mascotum.nombre" class="w-12 h-12 rounded-full object-cover">
+                <img [src]="adopcion.mascota.Storage.url" [alt]="adopcion.mascota.nombre" class="w-12 h-12 rounded-full object-cover">
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-gray-900 truncate">
-                  {{adopcion.Mascotum.nombre}}
+                  {{adopcion.mascota.nombre}}
                 </p>
                 <p class="text-sm text-gray-500 truncate">
-                  Solicitante: {{adopcion.Usuario.nombres}}
+                  Solicitante: {{adopcion.usuario.nombres}}
                 </p>
                 <p class="text-sm text-gray-500 truncate">
-                  Correo: {{adopcion.Usuario.email}}
+                  Correo: {{adopcion.usuario.email}}
                 </p>
                 <p class="text-sm text-gray-500 truncate">
-                  Cédula: {{adopcion.Usuario.cedula}}
+                  Cédula: {{adopcion.usuario.cedula}}
                 </p>
               </div>
               <div>
@@ -47,7 +47,7 @@
 
       </ul>
     </div>
-    @if (adoptions.length === 0) {
+    @if (adopciones()?.length === 0) {
       <div class="text-center text-gray-500 mt-8">
         No tienes solicitudes de adopción pendientes.
       </div>

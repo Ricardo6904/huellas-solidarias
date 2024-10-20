@@ -9,5 +9,5 @@ export interface Solicitud{
 export interface Solicitud{
   usuario?:Usuario,
   email: string,
-  mascota: Mascota
+  mascota: Mascota,
 }

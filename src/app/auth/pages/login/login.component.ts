@@ -26,13 +26,11 @@ export class LoginComponent {
   }
 
   login() {
-    console.log(this.loginForm.value);
+    
 
     this.authService.login(this.loginForm.value).subscribe(response => {
-      console.log(response);
 
       this.router.navigateByUrl('/mascotas/listar').then(()=>{
-        //window.location.reload()
         this.toastr.success('Bienvenido', 'Huellas Solidarias')
       })
 

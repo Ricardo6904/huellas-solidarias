@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../interfaces/Usuario';
 import { Auth } from '../interfaces/Auth';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs';
 import { StorageServiceService } from './storage-service.service';
 
@@ -15,7 +14,7 @@ export class AuthService {
   baseUrl = environment.baseUrl
 
 
-  constructor(private http: HttpClient, private router: Router, private cookies: CookieService, private storageService:StorageServiceService) {
+  constructor(private http: HttpClient, private router: Router, private storageService:StorageServiceService) {
 
   }
 
@@ -26,21 +25,18 @@ export class AuthService {
   login(auth: Auth) {
     return this.http.post<any>(`${this.baseUrl}/auth/login`, auth).pipe(
       map(response => {
-        console.log(response);
 
-        this.cookies.set('rol', response.rol)
-        this.cookies.set('token', response.token)
         this.storageService.setItem('token', response.token)
+        this.storageService.setItem('rol', response.rol)
         if (response.rol === 'refugio'){
-          this.cookies.set('idRefugio', response.refugio.id)
           this.storageService.setItem('idRefugio', response.refugio.id)
-          this.cookies.set('email', response.refugio.email)
-          this.cookies.set('nombre', response.refugio.nombre)
+          this.storageService.setItem('email', response.refugio.email)
+          this.storageService.setItem('nombre', response.refugio.nombre)
         }
         if(response.rol === 'usuario' || response.rol === 'admin'){
-          this.cookies.set('idUsuario', response.user.id)
-          this.cookies.set('email', response.user.email)
-          this.cookies.set('nombre', response.user.nombres)
+          this.storageService.setItem('idUsuario', response.user.id)
+          this.storageService.setItem('email', response.user.email)
+          this.storageService.setItem('nombre', response.user.nombres)
         }
 
 
@@ -53,29 +49,23 @@ export class AuthService {
   }
 
   logout() {
-    this.cookies.set('token', '')
-    this.cookies.set('idRegudio', '')
-    this.cookies.set('idUsuario', '')
-    this.cookies.set('email', '')
-    this.cookies.set('rol', '')
+    this.storageService.removeItem('token')
+    this.storageService.removeItem('idRefugio')
+    this.storageService.removeItem('idUsuario')
+    this.storageService.removeItem('email')
+    this.storageService.removeItem('rol')
     this.router.navigate(['/'])
-    window.location.reload()
   }
 
-  getIdToken() {
-    return this.cookies.get('token')
-  }
+
 
   getRol() {
-      return this.cookies.get('rol')
+      return this.storageService.getItem('rol')
   }
 
-  getIdRefugio() {
-    return this.cookies.get('idRefugio')
-  }
 
   estaLogeado() {
-    return this.cookies.get('token')
+    return this.storageService.getItem('token')
   }
 
 
