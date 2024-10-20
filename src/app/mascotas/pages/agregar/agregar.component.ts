@@ -63,7 +63,7 @@ export class AgregarComponent {
       condicion: [''],
       esEsterilizado: [''],
       idStorage: ['', Validators.required],
-      idRefugio: this.localStorage.getItem('IdRefugio')
+      idRefugio: this.localStorage.getItem('idRefugio')
     });
 
     if (this.isEditMode) {
