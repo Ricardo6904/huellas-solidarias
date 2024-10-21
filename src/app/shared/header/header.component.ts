@@ -21,13 +21,14 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private cookie:CookieService, private storageService:StorageServiceService) {
 
-    this.email = this.storageService.getItem('email')
-    this.nombre = this.storageService.getItem('nombre')
+
   }
 
 
   ngOnInit(){
     //document.addEventListener('click', (event) => this.closeUserMenu(event));
+    this.email = this.storageService.getItem('email')
+    this.nombre = this.storageService.getItem('nombre')
   }
 
   logout() {
