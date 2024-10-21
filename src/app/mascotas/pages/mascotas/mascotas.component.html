@@ -1,34 +1,34 @@
 
 <div class="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-4xl font-bold text-center text-[var(--color-3)] mb-8">Galería de Perros en Adopción</h1>
+    <h1 class="text-4xl font-bold text-center text-[#5c492c] mb-8">Galería de Perros en Adopción</h1>
 
     <!-- Filtros -->
-    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
-      <h2 class="text-2xl font-semibold mb-4">Filtrar Perros</h2>
+    <div class="bg-white border border-[var(--color-3)] p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-[#5c492c]">Filtrar Perros</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        <input  type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input  type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre" class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
 
-        <select [(ngModel)]="filtro.edad" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select [(ngModel)]="filtro.edad" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todas las edades</option>
           @for (age of ages; track $index) {
             <option  [value]="age">{{age}}</option>
 
           }
         </select>
-        <select [(ngModel)]="filtro.tamano" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select [(ngModel)]="filtro.tamano" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todos los tamaños</option>
           @for (size of sizes; track $index) {
             <option  [value]="size">{{size}}</option>
 
           }
         </select>
-        <select [(ngModel)]="filtro.raza" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select [(ngModel)]="filtro.raza" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todas las razas</option>
           <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
         </select>
 
-        <select  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todas las ubicaciones</option>
           @for (location of locations; track $index) {
             <option [value]="location">{{location}}</option>
@@ -39,8 +39,8 @@
     </div>
 
     <!-- Galería de Perros -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let mascota of mascotasService.mascotas()" class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+      <div *ngFor="let mascota of mascotasService.mascotas()" class="bg-white rounded-lg shadow-md overflow-hidden border border-[var(--color-3)]">
         <img [src]="mascota.Storage.url" [alt]="mascota.nombre"
         class="w-full h-48 aspect-square object-contain rounded-t-md block m-auto">
         <div class="p-6">
