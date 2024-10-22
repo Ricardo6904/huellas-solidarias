@@ -6,7 +6,7 @@
         <p class="text-[var(--color-5)]">Revisa el estado de tus solicitudes de adopción</p>
       </div>
       <div class="bg-blue-500 text-white text-xl font-bold rounded-full w-12 h-12 flex items-center justify-center">
-        {{adopciones()?.length}}
+        {{adopcionService.adopciones()!.length}}
       </div>
     </header>
 
@@ -16,7 +16,7 @@
       </div>
       <ul class="divide-y divide-gray-200">
 
-        @for (adopcion of adopciones(); track $index) {
+        @for (adopcion of adopcionService.adopciones(); track $index) {
           <li class="p-4 hover:bg-gray-50 transition duration-150 ease-in-out">
             <div class="flex items-center space-x-4">
               <div class="flex-shrink-0">
@@ -33,7 +33,7 @@
                   Correo: {{adopcion.usuario.email}}
                 </p>
                 <p class="text-sm text-gray-500 truncate">
-                  Cédula: {{adopcion.usuario.cedula}}
+                  Celular: {{adopcion.usuario.celular}}
                 </p>
               </div>
               <div>
@@ -47,7 +47,7 @@
 
       </ul>
     </div>
-    @if (adopciones()?.length === 0) {
+    @if (adopcionService.adopciones()!.length === 0) {
       <div class="text-center text-gray-500 mt-8">
         No tienes solicitudes de adopción pendientes.
       </div>

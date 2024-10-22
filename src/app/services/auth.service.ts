@@ -38,9 +38,6 @@ export class AuthService {
           this.storageService.setItem('email', response.user.email)
           this.storageService.setItem('nombre', response.user.nombres)
         }
-
-
-
       }
 
     )

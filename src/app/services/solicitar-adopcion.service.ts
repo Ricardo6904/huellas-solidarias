@@ -4,6 +4,7 @@
   import { Solicitud } from '@interfaces/Solicitud';
   import { Adopcion, AdopcionesResponse } from '@interfaces/Adopcion';
   import { map, tap } from 'rxjs';
+import { StorageServiceService } from './storage-service.service';
 
   interface State{
     adopciones: Adopcion[],
@@ -15,8 +16,13 @@
   })
   export class SolicitarAdopcionService {
     baseUrl = environment.baseUrl
-    constructor(private http:HttpClient) {
-      //this.obtenerAdopciones()
+    constructor(private http:HttpClient, private localStorage:StorageServiceService) {
+      
+      this.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!))
+
+    }
+
+    ngOnInit(){
     }
 
     #state = signal<State>({
@@ -36,7 +42,7 @@
       })
     }
 
-    obtenerAdopciones(){
+    /* obtenerAdopciones(){
       this.actualizarEstado({loading:true})
 
       this.http.get<AdopcionesResponse>(`${this.baseUrl}/adopcion`)
@@ -48,14 +54,18 @@
         this.actualizarEstado({adopciones, loading:false})
 
       })
-    }
+    } */
 
-    obtenerAdopcionesPorIdRefugio(idRefugio:number){
+    obtenerAdopcionesPorIdRefugio(idRefugio: number){
 
-      return this.http.get<AdopcionesResponse>(`${this.baseUrl}/adopcion/${idRefugio}`)
+      console.log(idRefugio);
+      this.http.get<AdopcionesResponse>(`${this.baseUrl}/adopcion/mascota/refugio/${idRefugio}`)
       .pipe(
         map(res => res.data)
-      );
+      ).
+      subscribe((adopciones) => {
+        this.actualizarEstado({adopciones, loading: false})
+      })
 
     }
 

@@ -16,13 +16,15 @@ import { StorageServiceService } from '../../../services/storage-service.service
 })
 export class AdopcionesComponent {
   public solicitarAdopcionService = inject(SolicitarAdopcionService)
-  public adopciones = toSignal<Adopcion[]>(this.solicitarAdopcionService.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!)))
+  //public adopciones = toSignal<Adopcion[]>(this.solicitarAdopcionService.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!)))
 
   pendingCount: number = 0;
 
   constructor(private cookie:CookieService, private route:ActivatedRoute, private toastr:ToastrService,
-    private localStorage:StorageServiceService
-  ){}
+    private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService
+  ){
+    
+  }
 
 
 

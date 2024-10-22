@@ -1,11 +1,9 @@
-import { afterRender, Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MascotaService } from '../../../services/mascota.service';
-import { Mascota } from '@interfaces/Mascota';
 import { Router } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { CookieService } from 'ngx-cookie-service';
 import { StorageServiceService } from '../../../services/storage-service.service';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mis-mascotas',
@@ -19,40 +17,14 @@ export class MisMascotasComponent {
     nombre: ''
   };
 
-  idRefugio!:number
-  /* public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.cookie.get('idRefugio')))) */
-  public mascotas = toSignal<Mascota[]>(this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.storageService.getItem('idRefugio')!)))
-
-  constructor(private mascotasService: MascotaService, private router: Router, private cookie: CookieService, private storageService:StorageServiceService){
-
-  }
-
-  //TODO
-
-  ngOnInit(){
-    const idRefugioTest = this.storageService.getItem('idRefugio')
-  }
+  constructor(public mascotasService: MascotaService, private router: Router, private storageService: StorageServiceService,
+    public toastr: ToastrService
+  ) {}
 
   onFiltroChange() {
-    const nombreFiltro = this.filtro.nombre.toLowerCase();
-  
-    // Obtener todas las mascotas del servicio
-    this.mascotasService.obtenerMascotasPorRefugio(parseInt(this.storageService.getItem('idRefugio')!)).subscribe({
-      next: (mascotas) => {
-        // Filtrar las mascotas por nombre
-        const mascotasFiltradas = mascotas.filter(mascota =>
-          mascota.nombre.toLowerCase().includes(nombreFiltro)
-        );
-  
-        // Actualizar el Signal con las mascotas filtradas
-        (this.mascotas as any).update(() => mascotasFiltradas);
-      },
-      error: (error) => {
-        console.error('Error al obtener mascotas:', error);
-      }
-    });
+    this.mascotasService.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!), this.filtro)
   }
-  
+
 
   verDetallesMascota(id: number): void {
     this.mascotasService.obtenerMascotasPorId(id).subscribe({
@@ -71,12 +43,22 @@ export class MisMascotasComponent {
     this.router.navigate([`/mascotas/editar`, id]);
   }
 
-  eliminarMascota(id: number): void {
+  eliminarMascota(id: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
+      this.mascotasService.eliminarMascota(id).subscribe(() => {
+        this.toastr.info('Mascota Eliminada!', 'Huellas Solidarias')
+      }, error => {
+        this.toastr.error(`Ha ocurrido un error! ${error}`,'Huellas Solidarias')
+      })
+    }
+  }
+
+  /* eliminarMascota(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
       this.mascotasService.eliminarMascota(id).subscribe({
         next: () => {
           alert('Mascota eliminada correctamente.');
-          
+
           const mascotasActuales = this.mascotas(); // Obtener el valor actual de las mascotas
           if (mascotasActuales) { // Verificar que no sea undefined
             const nuevasMascotas = mascotasActuales.filter(mascota => mascota.id !== id);
@@ -91,6 +73,6 @@ export class MisMascotasComponent {
         }
       });
     }
-  }
+  } */
 
 }

@@ -2,7 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Mascota, MascotaResponse, MascotasResponse } from '@interfaces/Mascota';
-import { delay, map, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { StorageServiceService } from './storage-service.service';
 
 interface State {
@@ -23,14 +23,23 @@ export class MascotaService {
     mascotas: []
   });
 
+  #state2 = signal<State>({
+    loading: false,
+    mascotas: []
+  });
+
   //señales computadas
   public mascotas = computed(() => this.#state().mascotas)
   public loading = computed(() => this.#state().loading)
 
+  //señal de prueba
+  public mascotasRefugio = computed(() => this.#state2().mascotas)
+  public loadingRefugio = computed(()=> this.#state2().loading)
+
   constructor(private http: HttpClient, private storageService: StorageServiceService) {
 
     this.obtenerMascotas(1, 10)
-    this.obtenerMascotasPorRefugio(parseInt(this.storageService.getItem('idRefugio')!))
+    this.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!))
   }
 
   private actualizarEstado(parteEstado: Partial<State>) {
@@ -40,7 +49,14 @@ export class MascotaService {
     })
   }
 
-  obtenerMascotas(page: number, limit: number, filtros?: {nombre: string, edad: string, raza:string}) {
+  private actualizarEstadoMascotaRefugio(parteEstado: Partial<State>){
+    this.#state2.set({
+      ...this.#state2(),
+      ...parteEstado
+    })
+  }
+
+  obtenerMascotas(page: number, limit: number, filtros?: { nombre: string, edad: string, raza: string }) {
     this.actualizarEstado({ loading: true })
 
     const params = {
@@ -77,12 +93,23 @@ export class MascotaService {
   }
 
 
-  obtenerMascotasPorRefugio(idRefugio: number) {
-    return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`).
+  obtenerMascotasPorRefugio(page: number, limit: number, idRefugio: number, filtros?: { nombre: string }) {
+    const params = {
+      page: page.toString(),
+      limit: limit.toString(),
+      ...filtros
+    }
+
+    this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`, {params}).
       pipe(
         map(res => res.data)
-      )
+      ).
+      subscribe( mascotas => {
+        this.actualizarEstadoMascotaRefugio({mascotas, loading:false})
+
+      })
   }
+
   obtenerMascotasPorRefugioNew(idRefugio: number) {
     return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`).
       pipe(

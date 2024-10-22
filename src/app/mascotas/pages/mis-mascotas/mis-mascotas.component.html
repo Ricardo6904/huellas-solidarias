@@ -9,8 +9,8 @@
       </div>
     </div>
     <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-      @for (mascota of mascotas() ; track $index) {
-      <li class="card flex flex-col h-full p-3"> 
+      @for (mascota of mascotasService.mascotasRefugio() ; track $index) {
+      <li class="card flex flex-col h-full p-3">
         <img [srcset]="mascota.Storage.url" [alt]="mascota.nombre" class="w-full h-auto object-contain card img">
         <div class="card-body">
           <h3 class="card-title" (click)="verDetallesMascota(mascota.id)" style="cursor: pointer;">{{ mascota.nombre }}</h3>

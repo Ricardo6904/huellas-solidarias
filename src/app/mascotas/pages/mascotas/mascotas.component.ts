@@ -28,11 +28,10 @@ export class MascotasComponent implements OnInit {
  public meta = inject(Meta);
  public title = inject(Title);
 
- filteredDogs: Mascota[] = [];
 
  ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Mayor'];
   sizes: string[] = ['Pequeño', 'Mediano', 'Grande'];
-  breeds: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua', 'Mestizo'];
+  breeds: string[] = ['Mestizo', 'Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua'];
   locations: string[] = ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Bilbao'];
 
  ngOnInit(): void {

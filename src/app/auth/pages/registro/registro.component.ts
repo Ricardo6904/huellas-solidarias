@@ -26,7 +26,8 @@ export class RegistroComponent {
     this.registroForm = this.formBuilder.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
-      cedula: ['', Validators.required],
+      celular: ['', Validators.required],
+      cedula: ['0000000000', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(6)]],
       provincia: [''],
