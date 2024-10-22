@@ -19,7 +19,7 @@ export class HeaderComponent {
   email:any
   nombre:any
 
-  constructor(private authService: AuthService, private cookie:CookieService, private storageService:StorageServiceService) {
+  constructor(public authService: AuthService, private cookie:CookieService, private storageService:StorageServiceService) {
 
 
   }

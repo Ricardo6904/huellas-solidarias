@@ -51,6 +51,7 @@ export class AuthService {
     this.storageService.removeItem('idUsuario')
     this.storageService.removeItem('email')
     this.storageService.removeItem('rol')
+    this.storageService.removeItem('nombre')
     this.router.navigate(['/'])
   }
 
@@ -65,5 +66,12 @@ export class AuthService {
     return this.storageService.getItem('token')
   }
 
+  getEmail(){
+    return this.storageService.getItem('email')
+  }
+
+  getNombre(){
+    return this.storageService.getItem('nombre')
+  }
 
 }
