@@ -2,7 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Mascota, MascotaResponse, MascotasResponse } from '@interfaces/Mascota';
-import { map, tap } from 'rxjs';
+import { delay, map, tap } from 'rxjs';
 import { StorageServiceService } from './storage-service.service';
 
 interface State {
@@ -67,8 +67,8 @@ export class MascotaService {
 
     this.http.get<MascotasResponse>(`${this.baseUrl}/mascota`, { params })
       .pipe(
-        //delay(500), // Simulación de retardo
-        tap(() => this.actualizarEstado({ loading: false })), // Desactivar loading
+        //delay(900), // Simulación de retardo
+        tap(() => this.actualizarEstado({ loading: false })),
         map(res => res.data)
       )
       .subscribe(mascotas => {

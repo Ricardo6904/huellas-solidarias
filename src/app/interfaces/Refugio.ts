@@ -6,10 +6,22 @@ export interface Refugio{
   provincia: string,
   celular: string,
   email: string,
+  redesSociales: RedesSociales[]
+}
+
+export interface RedesSociales{
+  id?: number
+  nombre: string
+  url: string
 }
 
 export interface RefugiosResponse{
  data: Refugio[]
+ support: Support
+}
+
+export interface RefugioResponse{
+ data: Refugio
  support: Support
 }
 

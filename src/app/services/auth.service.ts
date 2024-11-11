@@ -46,13 +46,10 @@ export class AuthService {
   }
 
   logout() {
-    this.storageService.removeItem('token')
-    this.storageService.removeItem('idRefugio')
-    this.storageService.removeItem('idUsuario')
-    this.storageService.removeItem('email')
-    this.storageService.removeItem('rol')
-    this.storageService.removeItem('nombre')
-    this.router.navigate(['/'])
+    this.storageService.clear()
+    this.router.navigate(['/']).then(() => {
+      window.location.reload()
+    })
   }
 
 
@@ -74,4 +71,7 @@ export class AuthService {
     return this.storageService.getItem('nombre')
   }
 
+  getIdRefugio(){
+    return parseInt(this.storageService.getItem('idRefugio')!)
+  }
 }

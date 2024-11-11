@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadChildren: () => import('./mascotas/mascotas.module').then(m => m.MascotasModule)
   },
   {
+    path: 'refugio',
+    loadChildren: () => import('./refugio/refugio.module').then(m => m.RefugioModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

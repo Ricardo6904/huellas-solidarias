@@ -6,6 +6,7 @@ import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.s
 import { Adopcion } from '@interfaces/Adopcion';
 import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-adopciones',
@@ -23,7 +24,7 @@ export class AdopcionesComponent {
   constructor(private cookie:CookieService, private route:ActivatedRoute, private toastr:ToastrService,
     private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService
   ){
-    
+
   }
 
 

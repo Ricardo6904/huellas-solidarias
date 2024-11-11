@@ -53,7 +53,6 @@ export class MascotasComponent implements OnInit {
 
 
  onFiltroChange(){
-  console.log(this.filtro);
 
   this.mascotasService.obtenerMascotas(1, 9, this.filtro)
  }

@@ -5,6 +5,7 @@
   import { Adopcion, AdopcionesResponse } from '@interfaces/Adopcion';
   import { map, tap } from 'rxjs';
 import { StorageServiceService } from './storage-service.service';
+import { AuthService } from './auth.service';
 
   interface State{
     adopciones: Adopcion[],
@@ -16,9 +17,10 @@ import { StorageServiceService } from './storage-service.service';
   })
   export class SolicitarAdopcionService {
     baseUrl = environment.baseUrl
-    constructor(private http:HttpClient, private localStorage:StorageServiceService) {
-      
-      this.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!))
+    constructor(private http:HttpClient, private localStorage:StorageServiceService, private authService:AuthService) {
+
+      //this.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!))
+      this.obtenerAdopcionesPorIdRefugio(this.authService.getIdRefugio())
 
     }
 

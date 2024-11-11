@@ -18,13 +18,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './mascota.component.scss'
 })
 export class MascotaComponent {
-
+  cargando = false
   private route = inject(ActivatedRoute);
   private mascotaServices = inject(MascotaService);
 
   constructor(private solicitarAdopcionService: SolicitarAdopcionService,
     private toastr: ToastrService, private localStorage: StorageServiceService,
-    
+
   ) { }
 
   ngOnInit() {
@@ -39,6 +39,7 @@ export class MascotaComponent {
   )
 
   solicitarAdopcion() {
+    this.cargando = true
     this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.id, parseInt(this.localStorage.getItem('idUsuario')!), 'pendiente', 'Adopción')
       .subscribe(() => {
 
@@ -53,14 +54,17 @@ export class MascotaComponent {
           this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res) => {
             console.log(res);
             this.toastr.success('Solicitud enviada exitosamente!', 'Huellas Solidarias')
+            this.cargando = false
           }, error => {
             console.error(error);
             this.toastr.error('Error en la solicitud', 'Huellas Solidarias')
+            this.cargando = false
           })
         }
 
       }, error => {
         this.toastr.error('Error al crear adopción', 'Huellas Solidarias')
+        this.cargando = false
       })
 
   }

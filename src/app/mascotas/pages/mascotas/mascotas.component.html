@@ -1,4 +1,3 @@
-
 <div class="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
     <h1 class="text-4xl font-bold text-center text-[#5c492c] mb-8">Galería de Perros en Adopción</h1>
@@ -7,31 +6,36 @@
     <div class="bg-white border border-[var(--color-3)] p-6 rounded-lg shadow-md mb-8">
       <h2 class="text-2xl font-semibold mb-4 text-[#5c492c]">Filtrar Perros</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        <input  type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre" class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
+        <input type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre"
+          class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
 
-        <select [(ngModel)]="filtro.edad" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
+        <select [(ngModel)]="filtro.edad" (change)="onFiltroChange()"
+          class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todas las edades</option>
           @for (age of ages; track $index) {
-            <option  [value]="age">{{age}}</option>
+          <option [value]="age">{{age}}</option>
 
           }
         </select>
-        <select [(ngModel)]="filtro.tamano" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
+        <select [(ngModel)]="filtro.tamano" (change)="onFiltroChange()"
+          class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todos los tamaños</option>
           @for (size of sizes; track $index) {
-            <option  [value]="size">{{size}}</option>
+          <option [value]="size">{{size}}</option>
 
           }
         </select>
-        <select [(ngModel)]="filtro.raza" (change)="onFiltroChange()"  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
+        <select [(ngModel)]="filtro.raza" (change)="onFiltroChange()"
+          class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todas las razas</option>
           <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
         </select>
 
-        <select  class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
+        <select
+          class="w-full px-3 py-2 border border-[var(--color-3)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100">
           <option value="">Todas las ubicaciones</option>
           @for (location of locations; track $index) {
-            <option [value]="location">{{location}}</option>
+          <option [value]="location">{{location}}</option>
 
           }
         </select>
@@ -40,27 +44,50 @@
 
     <!-- Galería de Perros -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
-      <div *ngFor="let mascota of mascotasService.mascotas()" class="bg-white rounded-lg shadow-md overflow-hidden border border-[var(--color-3)]">
+      @for (mascota of mascotasService.mascotas(); track $index) {
+      <div class="bg-white rounded-lg shadow-md overflow-hidden border border-[var(--color-3)]">
         <img [src]="mascota.Storage.url" [alt]="mascota.nombre"
-        class="w-full h-48 aspect-square object-contain rounded-t-md block m-auto">
+          class="w-full h-48 aspect-square object-contain rounded-t-md block m-auto">
         <div class="p-6">
-          <h2 class="text-2xl font-bold mb-2">{{mascota.nombre}}</h2>
+          <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold mb-2">{{mascota.nombre}}</h2>
+            <img
+              src="data:image/jpeg;base64,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"
+              alt="" srcset="" width="60">
+          </div>
           <p class="text-gray-600 mb-4">{{mascota.historia}}</p>
           <div class="flex flex-wrap gap-2 mb-4">
             <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">{{mascota.edad}}</span>
-            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">{{mascota.tamano}}</span>
-            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">{{mascota.raza}}</span>
+            <span
+              class="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">{{mascota.tamano}}</span>
+            <span
+              class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">{{mascota.raza}}</span>
             <!-- <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full">{{mascota||'5'}}</span> -->
           </div>
           <button [routerLink]="['/mascotas/detalle', mascota.id]"
-          class="w-full bg-[var(--color-4)]  text-white py-2 px-4 rounded-md hover:bg-[var(--color-3)] transition duration-300">
+            class="w-full bg-[var(--color-4)]  text-white py-2 px-4 rounded-md hover:bg-[var(--color-3)] transition duration-300">
             Adoptar a {{mascota.nombre}}
           </button>
         </div>
       </div>
+      }
+
+
     </div>
 
-    <div *ngIf="mascotasService.mascotas().length === 0" class="text-center py-12">
+    @if (mascotasService.loading() === true) {
+
+      <div class="flex justify-center items-center" role="status">
+        <svg aria-hidden="true" class="inline w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+        </svg>
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    }
+
+    <div *ngIf="mascotasService.mascotas().length === 0 && mascotasService.loading() === false" class="text-center py-12">
       <p class="text-2xl text-gray-600">No se encontraron perros que coincidan con los filtros seleccionados.</p>
     </div>
   </div>
@@ -81,34 +108,3 @@
   </div>
 </div>
 
-
-<!-- <div class="container mx-auto p-4">
-  <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
-    Conoce a Nuestros Amigos en Adopción
-  </h1>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    @for (mascota of mascotasService.mascotas(); track $index) {
-      <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-        <img
-          [src]="mascota.Storage.url"
-          alt="{{mascota.nombre}}"
-          class="w-full h-48 object-cover rounded-t-lg">
-
-        <div class="p-4">
-          <h2 class="text-xl font-semibold text-gray-800">{{ mascota.nombre }}</h2>
-          <p class="text-gray-500 italic">{{ mascota.raza }} - {{ mascota.tamano }}</p>
-          <p class="text-gray-600">{{ mascota.edad }} años</p>
-          <p class="text-gray-700 mt-2">{{ mascota.historia }}</p>
-
-          <button
-            class="bg-indigo-500 text-white font-semibold py-2 px-4 rounded mt-4 w-full hover:bg-indigo-600 transition-colors duration-300">
-            Adoptar a {{ mascota.nombre }}
-          </button>
-        </div>
-      </div>
-
-    }
-  </div>
-</div>
- -->
