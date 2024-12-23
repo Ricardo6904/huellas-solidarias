@@ -1,9 +1,9 @@
 <div class="bg-gray-100 p-4 rounded-lg max-w-4xl mx-auto shadow-lg mt-8">
   <!-- Encabezado -->
   <div class="text-center">
-      <img class="w-32 h-32 rounded-full mx-auto" src="https://via.placeholder.com/150" alt="Logo del Refugio">
+      <img class="w-32 h-32 rounded-full mx-auto" [src]="refugio()?.Storage?.url" alt="Logo del Refugio">
       <h1 class="text-3xl font-bold mt-2">{{ refugio()?.nombre }}</h1>
-      <p class="text-gray-600">{{ refugio()?.ciudad }}, {{ refugio()?.provincia }}</p>
+      <p class="text-gray-600">{{ refugio()?.ciudad }}, {{ refugio()?.provincia }}, {{refugio()?.direccion}}</p>
       <div class="mt-2 flex justify-center gap-3">
           <a href="tel:{{ refugio()?.celular }}" class="text-blue-500 hover:text-blue-700">
               📞 Llamar
@@ -25,7 +25,7 @@
   <!-- Redes Sociales -->
 <div class="mt-6 flex gap-4 justify-center">
   <a *ngFor="let red of refugio()?.redesSociales" [href]="red.url" target="_blank" class="hover:text-blue-500">
-    <i [ngClass]="getIconClass(red.nombre)"></i>
+    <i [ngClass]="[getIconClass(red.nombre), 'fa-2x']"></i>
   </a>
 </div>
 

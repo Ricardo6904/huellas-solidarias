@@ -1,3 +1,5 @@
+import { storage } from "./Storage"
+
 export interface Refugio{
   id: number,
   nombre: string,
@@ -7,6 +9,7 @@ export interface Refugio{
   celular: string,
   email: string,
   redesSociales: RedesSociales[]
+  Storage?: storage
 }
 
 export interface RedesSociales{

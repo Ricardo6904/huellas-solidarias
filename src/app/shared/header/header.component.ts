@@ -1,9 +1,10 @@
-import { Component, HostListener, afterNextRender, afterRender, inject } from '@angular/core';
+import { Component, HostBinding, HostListener, Inject, PLATFORM_ID, afterNextRender, afterRender, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { StorageServiceService } from '../../services/storage-service.service';
+import { WindowService } from '../../services/window.service';
 
 @Component({
   selector: 'app-header',
@@ -13,15 +14,26 @@ import { StorageServiceService } from '../../services/storage-service.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  @HostBinding('class.dark') isDarkMode = false;
+
   isNavFixed = false;
   menuOpen = false;
   userMenuOpen = false;
   email:any
   nombre:any
 
-  constructor(public authService: AuthService, private cookie:CookieService, private storageService:StorageServiceService) {
-
-
+  constructor(
+    public authService: AuthService,
+    private cookie: CookieService,
+    private storageService: StorageServiceService,
+    private windowService: WindowService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      const savedTheme = this.storageService.getItem('theme');
+      this.isDarkMode = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      this.updateTheme();
+    }
   }
 
 
@@ -29,6 +41,24 @@ export class HeaderComponent {
     //document.addEventListener('click', (event) => this.closeUserMenu(event));
     this.email = this.storageService.getItem('email')
     this.nombre = this.storageService.getItem('nombre')
+
+  }
+
+  toggleDarkMode(): void {
+    console.log("dark mode");
+
+    this.isDarkMode = !this.isDarkMode;
+    this.storageService.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+    this.updateTheme();
+  }
+
+  private updateTheme(): void {
+    const htmlElement = document.documentElement;
+    if (this.isDarkMode) {
+      htmlElement.classList.add('dark');
+    } else {
+      htmlElement.classList.remove('dark');
+    }
   }
 
   logout() {

@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'perfil/:id', component: PerfilComponent },
+      { path: 'perfil/:idRefugio', component: PerfilComponent },
       { path: 'registro', component: RegistroComponent},
       { path: '**', redirectTo: 'perfil' }
     ]

@@ -1,3 +1,5 @@
+import { Refugio } from "./Refugio";
+
 export interface Mascota {
   id: number,
   nombre: string,
@@ -14,6 +16,7 @@ export interface Mascota {
     url: string
   },
   idRefugio: number
+  refugio: Refugio
 }
 
 export interface MascotasResponse {

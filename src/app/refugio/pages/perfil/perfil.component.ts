@@ -15,7 +15,7 @@ import { ActivatedRoute, Route } from '@angular/router';
 export class PerfilComponent {
 
   private route = inject(ActivatedRoute);
-  constructor(public refugioService:RefugioService){
+  constructor(public refugioService:RefugioService, ){
 
   }
 

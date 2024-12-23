@@ -9,6 +9,8 @@ import { Solicitud } from '@interfaces/Solicitud';
 import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
 import { CommonModule } from '@angular/common';
+import { UsuarioService } from '../../../services/usuario.service';
+import { Usuario } from '@interfaces/Usuario';
 
 @Component({
   selector: 'app-mascota',
@@ -24,7 +26,7 @@ export class MascotaComponent {
 
   constructor(private solicitarAdopcionService: SolicitarAdopcionService,
     private toastr: ToastrService, private localStorage: StorageServiceService,
-
+    private usuarioService:UsuarioService
   ) { }
 
   ngOnInit() {
@@ -38,16 +40,21 @@ export class MascotaComponent {
     )
   )
 
-  solicitarAdopcion() {
+  public usuario = toSignal(
+    this.usuarioService.obtenerRefugioPorId(parseInt(this.localStorage.getItem('idUsuario')!))
+  )
+
+  solicitarAdopcion(idMascota:number) {
     this.cargando = true
-    this.solicitarAdopcionService.crearNotificacionDeAdopcion(this.mascota()!.id, parseInt(this.localStorage.getItem('idUsuario')!), 'pendiente', 'Adopción')
+    this.solicitarAdopcionService.crearNotificacionDeAdopcion(idMascota, parseInt(this.localStorage.getItem('idUsuario')!), 'pendiente', 'Adopción')
       .subscribe(() => {
 
         // Implementar lógica para solicitar adopción
         if (this.mascota()) {
           const solicitud: Solicitud = {
-            email: 'mnzioss@gmail.com',
-            mascota: this.mascota() as Mascota
+            email: this.localStorage.getItem('email')!.toString(),
+            mascota: this.mascota() as Mascota,
+            usuario: this.usuario() as Usuario
           };
 
           //Enviar la solicitud al servicio

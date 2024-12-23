@@ -10,3 +10,12 @@ export interface Usuario{
   provincia: string,
 }
 
+export interface UsuarioResponse {
+  data: Usuario;
+  support: Support;
+}
+
+export interface Support {
+  url: string;
+  text: string;
+}
