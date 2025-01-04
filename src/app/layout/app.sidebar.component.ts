@@ -3,6 +3,7 @@ import { LayoutService } from "./service/app.layout.service";
 
 @Component({
     selector: 'app-sidebar',
+    standalone: true,
     templateUrl: './app.sidebar.component.html'
 })
 export class AppSidebarComponent {

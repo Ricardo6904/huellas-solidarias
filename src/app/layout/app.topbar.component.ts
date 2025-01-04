@@ -4,6 +4,7 @@ import { LayoutService } from "./service/app.layout.service";
 
 @Component({
     selector: 'app-topbar',
+    standalone: true,
     templateUrl: './app.topbar.component.html'
 })
 export class AppTopBarComponent {

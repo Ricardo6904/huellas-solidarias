@@ -4,6 +4,7 @@ import { LayoutService } from './service/app.layout.service';
 
 @Component({
     selector: 'app-menu',
+    standalone: true,
     templateUrl: './app.menu.component.html'
 })
 export class AppMenuComponent implements OnInit {

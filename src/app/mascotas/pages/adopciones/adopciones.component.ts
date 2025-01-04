@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.service';
@@ -10,6 +9,7 @@ import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-adopciones',
+    standalone: true,
     imports: [],
     templateUrl: './adopciones.component.html',
     styleUrl: './adopciones.component.scss'
@@ -20,7 +20,7 @@ export class AdopcionesComponent {
 
   pendingCount: number = 0;
 
-  constructor(private cookie:CookieService, private route:ActivatedRoute, private toastr:ToastrService,
+  constructor(private route:ActivatedRoute, private toastr:ToastrService,
     private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService
   ){
 

@@ -4,6 +4,7 @@ import { MenuService } from '../app.menu.service';
 
 @Component({
     selector: 'app-config',
+    standalone: true,
     templateUrl: './app.config.component.html',
 })
 export class AppConfigComponent {

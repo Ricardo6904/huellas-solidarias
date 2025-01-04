@@ -20,12 +20,6 @@ import { AppLayoutComponent } from "./app.layout.component";
 
 @NgModule({
     declarations: [
-        AppMenuitemComponent,
-        AppTopBarComponent,
-        AppFooterComponent,
-        AppMenuComponent,
-        AppSidebarComponent,
-        AppLayoutComponent,
     ],
     imports: [
         BrowserModule,
@@ -39,8 +33,8 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule,
     ],
-    exports: [AppLayoutComponent]
+    exports: []
 })
 export class AppLayoutModule { }

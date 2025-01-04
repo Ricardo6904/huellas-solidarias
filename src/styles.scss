@@ -1,6 +1,5 @@
-@import 'ngx-toastr/toastr';
-
-@import 'assets/layout/styles/layout/layout.scss';
+@use 'ngx-toastr/toastr';
+@use 'assets/layout/styles/layout/layout.scss';
 
 /* You can add global styles to this file, and also import other style files */
 @tailwind base;
