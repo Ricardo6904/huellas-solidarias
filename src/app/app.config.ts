@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
+//import { AppLayoutModule } from './layout/app.layout.module';
 
 
 export const appConfig: ApplicationConfig = {
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     CookieService,
-    importProvidersFrom(HttpClientModule)
+    importProvidersFrom(HttpClientModule),
+    //AppLayoutModule
   ],
 };
