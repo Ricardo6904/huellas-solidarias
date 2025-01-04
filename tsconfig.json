@@ -3,6 +3,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@app/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"],
       "@interfaces/*": [
         "./src/app/interfaces/*"
       ],

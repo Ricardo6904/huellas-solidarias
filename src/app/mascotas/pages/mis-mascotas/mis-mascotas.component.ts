@@ -6,11 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-mis-mascotas',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './mis-mascotas.component.html',
-  styleUrl: './mis-mascotas.component.scss'
+    selector: 'app-mis-mascotas',
+    imports: [FormsModule],
+    templateUrl: './mis-mascotas.component.html',
+    styleUrl: './mis-mascotas.component.scss'
 })
 export class MisMascotasComponent {
   filtro = {

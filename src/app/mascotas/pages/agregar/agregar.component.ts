@@ -8,11 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
 
 @Component({
-  selector: 'app-agregar',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
-  templateUrl: './agregar.component.html',
-  styleUrl: './agregar.component.scss'
+    selector: 'app-agregar',
+    imports: [ReactiveFormsModule, FormsModule],
+    templateUrl: './agregar.component.html',
+    styleUrl: './agregar.component.scss'
 })
 export class AgregarComponent {
 

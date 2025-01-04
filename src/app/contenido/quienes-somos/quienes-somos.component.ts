@@ -6,11 +6,10 @@ interface Sponsor {
 }
 
 @Component({
-  selector: 'app-quienes-somos',
-  standalone: true,
-  imports: [],
-  templateUrl: './quienes-somos.component.html',
-  styleUrl: './quienes-somos.component.scss'
+    selector: 'app-quienes-somos',
+    imports: [],
+    templateUrl: './quienes-somos.component.html',
+    styleUrl: './quienes-somos.component.scss'
 })
 export class QuienesSomosComponent {
   sponsors: Sponsor[] = [

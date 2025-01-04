@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-registro',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+    selector: 'app-registro',
+    imports: [ReactiveFormsModule, FormsModule],
+    templateUrl: './registro.component.html',
+    styleUrl: './registro.component.scss'
 })
 export class RegistroComponent {
   refugioForm: any;

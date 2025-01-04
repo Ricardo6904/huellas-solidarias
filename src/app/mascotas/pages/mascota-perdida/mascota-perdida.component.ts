@@ -11,11 +11,10 @@ interface LostPet {
   imageUrl: string;
 }
 @Component({
-  selector: 'app-mascota-perdida',
-  standalone: true,
-  imports: [],
-  templateUrl: './mascota-perdida.component.html',
-  styleUrl: './mascota-perdida.component.scss'
+    selector: 'app-mascota-perdida',
+    imports: [],
+    templateUrl: './mascota-perdida.component.html',
+    styleUrl: './mascota-perdida.component.scss'
 })
 export class MascotaPerdidaComponent {
   lostPets: LostPet[] = [];

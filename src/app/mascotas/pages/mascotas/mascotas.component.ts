@@ -8,11 +8,10 @@ import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
-  selector: 'app-mascotas',
-  standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './mascotas.component.html',
-  styleUrl: './mascotas.component.scss'
+    selector: 'app-mascotas',
+    imports: [CommonModule, RouterModule, FormsModule],
+    templateUrl: './mascotas.component.html',
+    styleUrl: './mascotas.component.scss'
 })
 export class MascotasComponent implements OnInit {
   filtro = {

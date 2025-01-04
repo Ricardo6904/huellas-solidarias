@@ -9,11 +9,10 @@ import { StorageServiceService } from '../../../services/storage-service.service
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-adopciones',
-  standalone: true,
-  imports: [],
-  templateUrl: './adopciones.component.html',
-  styleUrl: './adopciones.component.scss'
+    selector: 'app-adopciones',
+    imports: [],
+    templateUrl: './adopciones.component.html',
+    styleUrl: './adopciones.component.scss'
 })
 export class AdopcionesComponent {
   public solicitarAdopcionService = inject(SolicitarAdopcionService)

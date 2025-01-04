@@ -13,11 +13,10 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '@interfaces/Usuario';
 
 @Component({
-  selector: 'app-mascota',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './mascota.component.html',
-  styleUrl: './mascota.component.scss'
+    selector: 'app-mascota',
+    imports: [CommonModule],
+    templateUrl: './mascota.component.html',
+    styleUrl: './mascota.component.scss'
 })
 export class MascotaComponent {
   cargando = false

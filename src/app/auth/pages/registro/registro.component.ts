@@ -7,11 +7,10 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-registro',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+    selector: 'app-registro',
+    imports: [FormsModule, ReactiveFormsModule],
+    templateUrl: './registro.component.html',
+    styleUrl: './registro.component.scss'
 })
 export class RegistroComponent {
     provincias: any = ['Azuay', 'Bolívar', 'Cañar', 'Carchi', 'Tungurahua']

@@ -2,16 +2,15 @@ import { Component, HostBinding, HostListener, Inject, PLATFORM_ID, afterNextRen
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { CookieService } from 'ngx-cookie-service';
 import { StorageServiceService } from '../../services/storage-service.service';
 import { WindowService } from '../../services/window.service';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [RouterLink, CommonModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    standalone: true,
+    imports: [RouterLink, CommonModule],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   @HostBinding('class.dark') isDarkMode = false;
@@ -24,7 +23,6 @@ export class HeaderComponent {
 
   constructor(
     public authService: AuthService,
-    private cookie: CookieService,
     private storageService: StorageServiceService,
     private windowService: WindowService,
     @Inject(PLATFORM_ID) private platformId: Object

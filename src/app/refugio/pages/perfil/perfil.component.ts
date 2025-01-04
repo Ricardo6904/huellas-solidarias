@@ -6,11 +6,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Route } from '@angular/router';
 
 @Component({
-  selector: 'app-perfil',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './perfil.component.html',
-  styleUrl: './perfil.component.scss'
+    selector: 'app-perfil',
+    imports: [CommonModule],
+    templateUrl: './perfil.component.html',
+    styleUrl: './perfil.component.scss'
 })
 export class PerfilComponent {
 
