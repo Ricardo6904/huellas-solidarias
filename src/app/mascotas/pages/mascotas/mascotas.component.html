@@ -1,16 +1,16 @@
 <div class="bg-[#F9FAFB] dark:bg-[#2E3440] min-h-screen py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-4xl font-bold text-center text-[#5C492C] dark:text-[#DDBEA9] mb-8">Galería de Perros en Adopción</h1>
+    <h1 class="text-4xl font-bold text-center text-[#5C492C] dark:text-[#DDBEA9] mb-8">Galería de Mascotas en Adopción</h1>
 
     <!-- Filtros -->
     <div class="bg-white dark:bg-[#3B4252] border border-[#DDBEA9] p-6 rounded-lg shadow-lg mb-8">
-      <h2 class="text-2xl font-semibold mb-4 text-[#5C492C] dark:text-[#DDBEA9]">Filtrar Perros</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-[#5C492C] dark:text-[#DDBEA9]">Filtrar Mascotas</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         <input type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre"
-          class="w-full px-3 py-2 border border-[#A7C957] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A] dark:placeholder-gray-400">
+          class="w-full px-3 py-2 border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] dark:text-gray-100 bg-[#F9FAFB] dark:bg-[#4C566A] dark:placeholder-gray-400">
 
         <select [(ngModel)]="filtro.edad" (change)="onFiltroChange()"
-          class="w-full px-3 py-2 border border-[#A7C957] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
+          class="w-full px-3 py-2 text-[#5C492C] dark:text-[#DDBEA9] border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
           <option value="">Todas las edades</option>
           @for (age of ages; track $index) {
           <option [value]="age">{{age}}</option>
@@ -18,7 +18,7 @@
           }
         </select>
         <select [(ngModel)]="filtro.tamano" (change)="onFiltroChange()"
-          class="w-full px-3 py-2 border border-[#A7C957] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
+          class="w-full px-3 py-2  border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9]">
           <option value="">Todos los tamaños</option>
           @for (size of sizes; track $index) {
           <option [value]="size">{{size}}</option>
@@ -26,13 +26,13 @@
           }
         </select>
         <select [(ngModel)]="filtro.raza" (change)="onFiltroChange()"
-          class="w-full px-3 py-2 border border-[#A7C957] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
+          class="w-full px-3 py-2 text-[#5C492C] dark:text-[#DDBEA9] border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
           <option value="">Todas las razas</option>
           <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
         </select>
 
         <select
-          class="w-full px-3 py-2 border border-[#A7C957] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
+          class="w-full px-3 py-2 text-[#5C492C] dark:text-[#DDBEA9] border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]">
           <option value="">Todas las ubicaciones</option>
           @for (location of locations; track $index) {
           <option [value]="location">{{location}}</option>
@@ -45,7 +45,7 @@
     <!-- Galería de Perros -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       @for (mascota of mascotasService.mascotas(); track $index) {
-      <div class="bg-white dark:bg-[#3B4252] rounded-lg shadow-lg overflow-hidden border border-[#A7C957] transition-transform transform hover:scale-105">
+      <div class="bg-white dark:bg-[#3B4252] rounded-lg shadow-lg overflow-hidden border border-[#DDBEA9] transition-transform transform hover:scale-105">
         <img [src]="mascota.Storage.url" [alt]="mascota.nombre"
           class="w-full h-48 aspect-square object-contain rounded-t-lg block m-auto">
         <div class="p-6">
@@ -59,14 +59,14 @@
           </div>
           <p class="text-gray-600 dark:text-gray-300 mb-4">{{mascota.historia}}</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-2 py-1 bg-[#A7C957] text-white text-xs font-semibold rounded-full">{{mascota.edad}}</span>
+            <span class="px-2 py-1 bg-lime-600 dark:bg-blue-400 text-white text-xs font-semibold rounded-full">{{mascota.edad}}</span>
             <span
-              class="px-2 py-1 bg-[#A7C957] text-white text-xs font-semibold rounded-full">{{mascota.tamano}}</span>
+              class="px-2 py-1 bg-lime-600 dark:bg-blue-400 text-white text-xs font-semibold rounded-full">{{mascota.tamano}}</span>
             <span
-              class="px-2 py-1 bg-[#A7C957] text-white text-xs font-semibold rounded-full">{{mascota.raza}}</span>
+              class="px-2 py-1 bg-lime-600 dark:bg-blue-400 text-white text-xs font-semibold rounded-full">{{mascota.raza}}</span>
           </div>
           <button [routerLink]="['/mascotas/detalle', mascota.id]"
-            class="w-full bg-[#A7C957] text-white py-2 px-4 rounded-md hover:bg-[#88C0D0] transition-colors">
+            class="w-full bg-lime-600 dark:bg-blue-300 text-white py-2 px-4 rounded-md hover:bg-lime-700 transition-colors">
             Adoptar a {{mascota.nombre}}
           </button>
         </div>
@@ -94,7 +94,7 @@
   </div>
   <div class="flex justify-center mt-6">
     <button (click)="loadPage(currentPage() - 1)" [disabled]="currentPage() === 1"
-      class="px-4 py-2 bg-[#88C0D0] hover:bg-[#A7C957] text-white rounded-l-md">
+      class="px-4 py-2 bg-[#88C0D0] hover:bg-lime-600 text-white rounded-l-md">
       Anterior
     </button>
 
@@ -103,7 +103,7 @@
     </span>
 
     <button (click)="loadPage(currentPage() + 1)" [disabled]="!mascotasService.mascotas()!.length"
-      class="px-4 py-2 bg-[#88C0D0] hover:bg-[#A7C957] text-white rounded-r-md">
+      class="px-4 py-2 bg-[#88C0D0] hover:bg-lime-600 text-white rounded-r-md">
       Siguiente
     </button>
   </div>

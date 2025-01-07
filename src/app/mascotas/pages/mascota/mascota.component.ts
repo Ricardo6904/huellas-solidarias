@@ -11,12 +11,13 @@ import { StorageServiceService } from '../../../services/storage-service.service
 import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '@interfaces/Usuario';
+import { nextTick } from 'process';
 
 @Component({
-    selector: 'app-mascota',
-    imports: [CommonModule],
-    templateUrl: './mascota.component.html',
-    styleUrl: './mascota.component.scss'
+  selector: 'app-mascota',
+  imports: [CommonModule],
+  templateUrl: './mascota.component.html',
+  styleUrl: './mascota.component.scss'
 })
 export class MascotaComponent {
   cargando = false
@@ -25,7 +26,7 @@ export class MascotaComponent {
 
   constructor(private solicitarAdopcionService: SolicitarAdopcionService,
     private toastr: ToastrService, private localStorage: StorageServiceService,
-    private usuarioService:UsuarioService
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class MascotaComponent {
     this.usuarioService.obtenerRefugioPorId(parseInt(this.localStorage.getItem('idUsuario')!))
   )
 
-  solicitarAdopcion(idMascota:number) {
+  solicitarAdopcion(idMascota: number) {
     this.cargando = true
     this.solicitarAdopcionService.crearNotificacionDeAdopcion(idMascota, parseInt(this.localStorage.getItem('idUsuario')!), 'pendiente', 'Adopción')
       .subscribe(() => {
@@ -56,20 +57,38 @@ export class MascotaComponent {
             usuario: this.usuario() as Usuario
           };
 
-          //Enviar la solicitud al servicio
-          this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res) => {
-            console.log(res);
-            this.toastr.success('Solicitud enviada exitosamente!', 'Huellas Solidarias')
+          //TODO corregir las mascotas, me permite enviar varias solicitudes
+          console.log(this.mascota()?.solicitudesPendientes);
+
+          const solicitudes = this.mascota()?.solicitudesPendientes ?? 0
+          if (solicitudes < 3) {
+
+            this.mascotaServices.incrementarSolicitudes(idMascota).subscribe({
+              next: () => console.log()
+            })
+
+
+            //Enviar la solicitud al servicio
+            this.solicitarAdopcionService.solicitarAdopcion(solicitud).subscribe((res) => {
+              console.log(res);
+              this.toastr.success('Solicitud enviada exitosamente!', 'Huellas Solidarias')
+              this.cargando = false
+            }, error => {
+              console.error(error);
+              this.toastr.error('Error en la solicitud', error.message)
+              this.cargando = false
+            })
+          } else {
+            this.toastr.info('La mascota que intenta adoptar ya no está disponible', 'Huellas Solidarias')
             this.cargando = false
-          }, error => {
-            console.error(error);
-            this.toastr.error('Error en la solicitud', 'Huellas Solidarias')
-            this.cargando = false
-          })
+            return
+          }
+
+
         }
 
       }, error => {
-        this.toastr.error('Error al crear adopción', 'Huellas Solidarias')
+        this.toastr.error(error.error.message, 'Error al crear adopción')
         this.cargando = false
       })
 

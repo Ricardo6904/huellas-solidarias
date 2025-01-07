@@ -128,4 +128,12 @@ export class MascotaService {
     return this.http.delete(`${this.baseUrl}/mascota/${idMascota}`)
   }
 
+  incrementarSolicitudes(idMascota:number){
+    return this.http.post(`${this.baseUrl}/mascota/${idMascota}/incrementar-solicitudes`, {})
+  }
+
+  decrementarSolicitudes(idMascota:number){
+    return this.http.post(`${this.baseUrl}/mascota/${idMascota}/decrementar-solicitudes`, {})
+  }
+
 }

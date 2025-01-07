@@ -1,45 +1,45 @@
-<div class="container mx-auto px-4 py-8 bg-gray-100">
-  <div class="border border-[var(--color-3)] bg-gray-200 shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto">
+<div class="container mx-auto px-4 py-8 bg-[#F9FAFB] dark:bg-[#2E3440]">
+  <div class="border border-[var(--color-3)]bg-white dark:bg-[#3B4252] shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto">
     <div class="md:flex">
       <div class="md:flex-shrink-0">
         <img class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48" [srcset]="mascota()?.Storage?.url" [alt]="mascota()?.nombre">
       </div>
       <div class="p-8">
-        <div class="uppercase tracking-wide text-sm text-amber-500 font-semibold">{{mascota()?.raza}}</div>
-        <h1 class="mt-1 text-3xl font-bold text-gray-900">{{mascota()?.nombre}}</h1>
-        <p class="mt-2 text-gray-600">{{mascota()?.historia}}</p>
+        <div class="uppercase tracking-wide text-sm text-lime-600 dark:text-blue-300 font-semibold">{{mascota()?.raza}}</div>
+        <h1 class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">{{mascota()?.nombre}}</h1>
+        <p class="mt-2 text-gray-400">{{mascota()?.historia}}</p>
       </div>
     </div>
-    <div class="px-8 py-4 bg-gray-100">
+    <div class="px-8 py-4 bg-gray-100 dark:bg-[#2E3440]">
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <p class="text-sm font-medium text-gray-500">Sexo</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.sexo}}</p>
+          <p class="text-sm font-medium text-gray-400">Sexo</p>
+          <p class="mt-1 text-sm text-gray-900 dark:text-white">{{mascota()?.sexo}}</p>
         </div>
         <div>
-          <p class="text-sm font-medium text-gray-500">Edad</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.edad}}</p>
+          <p class="text-sm font-medium text-gray-400">Edad</p>
+          <p class="mt-1 text-sm text-gray-900 dark:text-white">{{mascota()?.edad}}</p>
         </div>
         <div>
-          <p class="text-sm font-medium text-gray-500">Tamaño</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.tamano}}</p>
+          <p class="text-sm font-medium text-gray-400">Tamaño</p>
+          <p class="mt-1 text-sm text-gray-900 dark:text-white">{{mascota()?.tamano}}</p>
         </div>
         <div>
-          <p class="text-sm font-medium text-gray-500">Esterilizado</p>
-          <p class="mt-1 text-sm text-gray-900">{{mascota()?.esEsterilizado ? 'Sí' : 'No'}}</p>
+          <p class="text-sm font-medium text-gray-400">Esterilizado</p>
+          <p class="mt-1 text-sm text-gray-900 dark:text-white">{{mascota()?.esEsterilizado ? 'Sí' : 'No'}}</p>
         </div>
       </div>
     </div>
     <div class="px-8 py-4">
-      <h2 class="text-xl font-semibold text-gray-900">Características</h2>
-      <p class="mt-2 text-gray-600">{{mascota()?.caracteristica}}</p>
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Características</h2>
+      <p class="mt-2 text-gray-400">{{mascota()?.caracteristica}}</p>
     </div>
     <div class="px-8 py-4">
-      <h2 class="text-xl font-semibold text-gray-900">Condición</h2>
-      <p class="mt-2 text-gray-600">{{mascota()?.condicion}}</p>
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Condición</h2>
+      <p class="mt-2 text-gray-400">{{mascota()?.condicion || 'No existen novedades'}}</p>
     </div>
     <div class="px-8 py-4">
-      <button (click)="solicitarAdopcion(mascota()!.id)" [disabled]="cargando === true"  class="w-full inline-flex items-center justify-center whitespace-nowrap text-sm font-medium bg-[var(--color-4)] text-white py-2 px-4 rounded-md hover:bg-[var(--color-3)] transition duration-300">
+      <button (click)="solicitarAdopcion(mascota()!.id)" [disabled]="cargando === true"  class="w-full inline-flex items-center justify-center whitespace-nowrap text-sm font-medium  py-2 px-4 rounded-md bg-lime-600 dark:bg-blue-300 hover:bg-blue-300 dark:hover:bg-lime-600 text-white transition duration-300">
         @if (cargando === true) {
           <div class="mr-4" role="status">
             <svg aria-hidden="true" class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

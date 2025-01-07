@@ -16,7 +16,9 @@ export interface Mascota {
     url: string
   },
   idRefugio: number
-  refugio: Refugio
+  refugio: Refugio,
+  estado: string,
+  solicitudesPendientes: number | 0
 }
 
 export interface MascotasResponse {

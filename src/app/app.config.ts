@@ -14,7 +14,7 @@ import Aura from '@primeng/themes/aura';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    provideToastr({ timeOut: 1500, preventDuplicates: true }),
+    provideToastr({ timeOut: 2500, preventDuplicates: true, closeButton:true}),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),

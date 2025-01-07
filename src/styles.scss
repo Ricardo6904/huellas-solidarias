@@ -1,4 +1,6 @@
 @import 'ngx-toastr/toastr';
+@import 'assets/layout/styles/layout/layout.scss';
+@import "../node_modules/primeicons/primeicons.css";
 
 
 /* You can add global styles to this file, and also import other style files */
@@ -23,7 +25,7 @@
 }
 
 body{
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
   background-color: #f3f4f6;
 }

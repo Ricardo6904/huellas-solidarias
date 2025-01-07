@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LandingPageComponent } from './contenido/landing-page/landing-page.component';
 
 export const routes: Routes = [
   {

@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 
 
 
 @Component({
     selector: 'app-registro',
-    imports: [FormsModule, ReactiveFormsModule],
+    imports: [FormsModule, ReactiveFormsModule, CommonModule],
     templateUrl: './registro.component.html',
     styleUrl: './registro.component.scss'
 })
@@ -17,7 +19,7 @@ export class RegistroComponent {
 
   registroForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router) {
+  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router, private toastr:ToastrService) {
 
   }
 
@@ -44,7 +46,9 @@ export class RegistroComponent {
       console.log(this.registroForm.value); // Envía los datos del formulario al backend para registrar al usuario
       //this.registroForm.reset(); // Reinicia el formulario después de enviar los datos
     } else {
-      console.error('Formulario inválido. Por favor, complete correctamente todos los campos.');
+      this.toastr.warning('','Complete los campos requeridos')
     }
   }
+
+
 }
