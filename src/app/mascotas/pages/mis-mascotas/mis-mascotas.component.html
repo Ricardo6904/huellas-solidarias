@@ -2,19 +2,19 @@
   <div class="max-w-7xl mx-auto space-y-8 ">
     <h1 class="text-4xl font-bold text-center text-[var(--color-3)] mb-8">Mis Mascotas</h1>
     <!-- Filtros -->
-    <div class="text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400 p-6 rounded-lg shadow-md mb-8">
-      <h2 class="text-2xl font-semibold mb-4">Filtrar Perros</h2>
+    <div class="bg-white dark:bg-[#3B4252] border border-[#DDBEA9] dark:placeholder-gray-400 p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-[#5C492C] dark:text-[#DDBEA9]">Filtrar Mascotas</h2>
       <div class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 ">
         <input type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre"
         class="text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
     </div>
-    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
       @for (mascota of mascotasService.mascotasRefugio() ; track $index) {
-      <li class="card flex flex-col h-full p-3">
-        <img [srcset]="mascota.Storage.url" [alt]="mascota.nombre" class="w-full h-auto object-contain card img">
-        <div class="card-body">
-          <h3 class="card-title" (click)="verDetallesMascota(mascota.id)" style="cursor: pointer;">{{ mascota.nombre }}</h3>
+      <div class=" flex flex-col h-full p-3 bg-white dark:bg-[#3B4252]">
+        <img [srcset]="mascota.Storage.url" [alt]="mascota.nombre" class="w-full h-auto object-contain ">
+        <div class="card-body ">
+          <h3 class="" (click)="verDetallesMascota(mascota.id)" style="cursor: pointer;">{{ mascota.nombre }}</h3>
           <p class="card-text">{{ mascota.raza || 'Raza no especificada' }}</p>
         </div>
         <div class="flex items-center justify-center space-x-2 mt-auto">
@@ -25,10 +25,10 @@
             Eliminar
           </button>
         </div>
-      </li>
+      </div>
       } @empty {
       <li>No hay mascotas disponibles.</li>
       }
-    </ul>
+    </div>
   </div>
 </section>
