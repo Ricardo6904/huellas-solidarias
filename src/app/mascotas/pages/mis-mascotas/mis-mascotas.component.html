@@ -1,34 +1,87 @@
-<section class="py-5 px-3 md:px-5 lg:px-6 xl:px-3 bg-gray-100 dark:bg-gray-800">
+<section class="min-h-screen py-5 px-3 md:px-5 lg:px-6 xl:px-3 bg-gray-100 dark:bg-gray-800">
   <div class="max-w-7xl mx-auto space-y-8 ">
     <h1 class="text-4xl font-bold text-center text-[var(--color-3)] mb-8">Mis Mascotas</h1>
     <!-- Filtros -->
-    <div class="text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400 p-6 rounded-lg shadow-md mb-8">
+    <!-- <div class="text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400 p-6 rounded-lg shadow-md mb-8">
       <h2 class="text-2xl font-semibold mb-4">Filtrar Perros</h2>
       <div class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 ">
         <input type="text" [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Buscar por nombre"
         class="text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
+    </div>-->
+
+    <div class="">
+
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput [(ngModel)]="filtro.nombre" (input)="onFiltroChange()" placeholder="Ex. ium" #input>
+      </mat-form-field>
+
+
+      <table mat-table [dataSource]="this.mascotasService.mascotasRefugio()">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="raza">
+          <th mat-header-cell *matHeaderCellDef> Raza </th>
+          <td mat-cell *matCellDef="let element"> {{element.raza}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="sexo">
+          <th mat-header-cell *matHeaderCellDef> Sexo </th>
+          <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="edad">
+          <th mat-header-cell *matHeaderCellDef> Edad </th>
+          <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="tamano">
+          <th mat-header-cell *matHeaderCellDef> Tamaño </th>
+          <td mat-cell *matCellDef="let element"> {{element.tamano}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="esterilizado">
+          <th mat-header-cell *matHeaderCellDef> Esterilizado </th>
+          <td mat-cell *matCellDef="let element"> {{element.esEsterilizado ? 'SI' : 'NO' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <a class="cursor-pointer">
+              <mat-icon class="text-blue-700" (click)="editarMascota(element.id)" matTooltip="Editar"> edit </mat-icon>
+            </a>
+            <a class="cursor-pointer">
+              <mat-icon class="text-red-700" (click)="eliminarMascota(element.id)" matTooltip="Eliminar"> delete </mat-icon>
+            </a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+
     </div>
-    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-      @for (mascota of mascotasService.mascotasRefugio() ; track $index) {
-      <li class="card flex flex-col h-full p-3">
-        <img [srcset]="mascota.Storage.url" [alt]="mascota.nombre" class="w-full h-auto object-contain card img">
-        <div class="card-body">
-          <h3 class="card-title" (click)="verDetallesMascota(mascota.id)" style="cursor: pointer;">{{ mascota.nombre }}</h3>
-          <p class="card-text">{{ mascota.raza || 'Raza no especificada' }}</p>
-        </div>
-        <div class="flex items-center justify-center space-x-2 mt-auto">
-          <button (click)="editarMascota(mascota.id)" class="btn-primary">
-            Editar
-          </button>
-          <button (click)="eliminarMascota(mascota.id)" class="btn-primary">
-            Eliminar
-          </button>
-        </div>
-      </li>
-      } @empty {
-      <li>No hay mascotas disponibles.</li>
-      }
-    </ul>
+
+
   </div>
 </section>

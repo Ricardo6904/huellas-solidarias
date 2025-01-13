@@ -1,17 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MascotaService } from '../../../services/mascota.service';
 import { Router } from '@angular/router';
 import { StorageServiceService } from '../../../services/storage-service.service';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { Mascota } from '@interfaces/Mascota';
+import { MatPaginator } from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
     selector: 'app-mis-mascotas',
-    imports: [FormsModule],
+    imports: [FormsModule, MatTableModule, MatIconModule, MatTooltipModule, MatInputModule, MatFormFieldModule, MatPaginatorModule],
     templateUrl: './mis-mascotas.component.html',
     styleUrl: './mis-mascotas.component.scss'
 })
 export class MisMascotasComponent {
+  displayedColumns: string[] = ['position', 'nombre', 'raza', 'sexo', 'edad', 'sexo', 'tamano', 'esterilizado', 'acciones'];
+  //dataSource = new MatTableDataSource<Mascota>(ELEMENT_DATA);
+
+  dataSource = new MatTableDataSource<Mascota>(this.mascotasService.mascotasRefugio()) || null;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null;
+
+
   filtro = {
     nombre: ''
   };
@@ -20,10 +35,17 @@ export class MisMascotasComponent {
     public toastr: ToastrService
   ) {}
 
+  ngOninit(){
+    this.dataSource.paginator = this.paginator;
+  }
+
   onFiltroChange() {
     this.mascotasService.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!), this.filtro)
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   verDetallesMascota(id: number): void {
     this.mascotasService.obtenerMascotasPorId(id).subscribe({
@@ -51,27 +73,10 @@ export class MisMascotasComponent {
       })
     }
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource.filter);
 
-  /* eliminarMascota(id: number): void {
-    if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
-      this.mascotasService.eliminarMascota(id).subscribe({
-        next: () => {
-          alert('Mascota eliminada correctamente.');
-
-          const mascotasActuales = this.mascotas(); // Obtener el valor actual de las mascotas
-          if (mascotasActuales) { // Verificar que no sea undefined
-            const nuevasMascotas = mascotasActuales.filter(mascota => mascota.id !== id);
-            // Actualizar el valor de las mascotas usando `toSignal` o un mecanismo adecuado
-            // Dependiendo de cómo se esté gestionando el `Signal`, podrías necesitar otra manera de actualizarlo
-            (this.mascotas as any).update(() => nuevasMascotas); // Reemplaza `update()` con la forma adecuada de actualizar el Signal en tu caso
-          }
-        },
-        error: (error) => {
-          console.error('Error al eliminar la mascota:', error);
-          alert('No se pudo eliminar la mascota. Intenta nuevamente más tarde.');
-        }
-      });
-    }
-  } */
-
+  }
 }
