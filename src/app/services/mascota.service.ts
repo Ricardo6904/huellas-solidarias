@@ -136,4 +136,8 @@ export class MascotaService {
     return this.http.post(`${this.baseUrl}/mascota/${idMascota}/decrementar-solicitudes`, {})
   }
 
+  mascotaAdoptada(idMascota:number){
+    return this.http.put(`${this.baseUrl}/mascota/${idMascota}/mascotaAdoptada`, {})
+  }
+
 }

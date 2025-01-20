@@ -20,10 +20,10 @@ import { AuthService } from './auth.service';
     constructor(private http:HttpClient, private localStorage:StorageServiceService, private authService:AuthService) {
 
       //this.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!))
+      
       this.obtenerAdopcionesPorIdRefugio(this.authService.getIdRefugio())
-
     }
-
+    
     ngOnInit(){
     }
 
@@ -60,7 +60,6 @@ import { AuthService } from './auth.service';
 
     obtenerAdopcionesPorIdRefugio(idRefugio: number){
 
-      console.log(idRefugio);
       this.http.get<AdopcionesResponse>(`${this.baseUrl}/adopcion/mascota/refugio/${idRefugio}`)
       .pipe(
         map(res => res.data)
@@ -74,10 +73,24 @@ import { AuthService } from './auth.service';
     solicitarAdopcion(solicitud:Solicitud){
       return this.http.post(`${this.baseUrl}/mensajeria/solicitar-adopcion`, solicitud)
     }
+    
+    solicitudAceptada(id:number){
+      return this.http.post(`${this.baseUrl}/mensajeria/${id}/solicitud-aceptada`, {})
+    }
+    solicitudRechazada(id:number){
+      return this.http.post(`${this.baseUrl}/mensajeria/${id}/solicitud-rechazada`, {})
+    }
 
     crearNotificacionDeAdopcion(idMascota:number, idUsuario:number, estado:string, tipo: string){
       const params = {idMascota:idMascota, idUsuario:idUsuario, estado:estado, tipo: tipo}
       return this.http.post<Adopcion>(`${this.baseUrl}/adopcion`, params)
+    }
+
+    aprobarSolicitud(idSolicitud: number){
+      return this.http.put(`${this.baseUrl}/adopcion/${idSolicitud}/aprobarSolicitud`,{})
+    }
+    rechazarSolicitud(idSolicitud: number){
+      return this.http.put(`${this.baseUrl}/adopcion/${idSolicitud}/rechazarSolicitud`,{})
     }
 
   }

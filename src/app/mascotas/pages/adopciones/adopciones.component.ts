@@ -6,6 +6,7 @@ import { Adopcion } from '@interfaces/Adopcion';
 import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
 import { AuthService } from '../../../services/auth.service';
+import { MascotaService } from 'src/app/services/mascota.service';
 
 @Component({
     selector: 'app-adopciones',
@@ -21,7 +22,8 @@ export class AdopcionesComponent {
   pendingCount: number = 0;
 
   constructor(private route:ActivatedRoute, private toastr:ToastrService,
-    private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService
+    private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService,
+    private mascotaService:MascotaService
   ){
 
   }
@@ -29,7 +31,6 @@ export class AdopcionesComponent {
 
 
   ngOnInit() {
-
   }
 
   getStatusClass(estado: number): string {
@@ -39,4 +40,34 @@ export class AdopcionesComponent {
   getStatusText(estado: number): string {
     return estado === 0 ? 'Pendiente' : 'Aprobada';
   }
+
+  aprobar(id:number){
+    
+    try {
+      this.adopcionService.aprobarSolicitud(id).subscribe(() => {
+        this.adopcionService.solicitudAceptada(id).subscribe(() => {
+
+        })
+        this.toastr.success('Adopción Aprobada!')
+        
+      })
+    } catch (error) {
+      
+    }
+  }
+  rechazar(id:number){
+    console.log(id);
+    
+    try {
+      this.adopcionService.rechazarSolicitud(id).subscribe(() => {
+        this.adopcionService.solicitudRechazada(id).subscribe(()=>{
+          
+        })
+        this.toastr.show('Adopción rechazada!')
+        
+      })
+    } catch (error) {
+    }
+  }
+
 }
