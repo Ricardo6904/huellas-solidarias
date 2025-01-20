@@ -1,16 +1,39 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 w-full">
-  <div class="bg-white dark:bg-[#3B4252] border border-[#DDBEA9] shadow-sm mx-auto max-w-4xl w-full sm:w-11/12 md:w-3/4 lg:w-2/3  p-10 sm:p-8 my-2">
+<div
+  class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 w-full"
+>
+  <div
+    class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 shadow-sm mx-auto max-w-4xl w-full sm:w-11/12 md:w-3/4 lg:w-2/3 p-10 sm:p-8 my-2"
+  >
     <div class="flex flex-col items-center gap-6">
-      <div class="relative" data-id="3"><span
-          class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24 border">
-          <img class="aspect-square h-full w-full" alt="Pet Profile"
-            [src]="avatarUrl || 'https://generated.vusercontent.net/placeholder-user.jpg'">
+      <div class="relative" data-id="3">
+        <span
+          class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24 border"
+        >
+          <img
+            class="aspect-square h-full w-full"
+            alt="Pet Profile"
+            [src]="
+              avatarUrl ||
+              'https://generated.vusercontent.net/placeholder-user.jpg'
+            "
+          />
         </span>
-        <button (click)="subirImagen()"
-          class="absolute bottom-0 right-0 bg-[var(--color-4)] text-primary-foreground rounded-full p-3  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+        <button
+          (click)="subirImagen()"
+          class="absolute bottom-0 right-0 bg-gray-400 text-primary-foreground rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4"
+          >
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="17 8 12 3 7 8"></polyline>
             <line x1="12" x2="12" y1="3" y2="15"></line>
@@ -18,14 +41,25 @@
 
           <span class="sr-only">Upload image</span>
         </button>
-        <input type="file" #fileInput class="hidden" (change)="onFileSelected($event)" />
+        <input
+          type="file"
+          #fileInput
+          class="hidden"
+          (change)="onFileSelected($event)"
+        />
       </div>
       <div class="flex flex-col space-y-1.5 p-6">
-        <h3 class="text-[#5C492C] dark:text-[#DDBEA9] whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
-          {{ isEditMode ? 'Edita tu mascota' : 'Registra tu mascota' }}
+        <h3
+          class="text-gray-900 dark:text-stone-50 whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+        >
+          {{ isEditMode ? "Edita tu mascota" : "Registra tu mascota" }}
         </h3>
-        <p class="text-[#5C492C] dark:text-[#DDBEA9] text-sm">
-          {{ isEditMode ? 'Actualiza la información de tu mascota.' : 'Completa todo el formulario para agregar una nueva mascota' }}
+        <p class="text-gray-900 dark:text-stone-50 text-sm">
+          {{
+            isEditMode
+              ? "Actualiza la información de tu mascota."
+              : "Completa todo el formulario para agregar una nueva mascota"
+          }}
         </p>
       </div>
     </div>
@@ -35,105 +69,206 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="grid gap-2">
             <label
-              class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="nombre">Nombre de la mascota
-            </label>
+              for="nombre"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Nombre</label
+            >
             <input
-              class="flex h-10 w-full  border border-[var(--color-3)] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              id="nombre" formControlName="nombre" placeholder="Ingresa el nombre de tu mascota">
+              type="text"
+              id="nombre"
+              formControlName="nombre"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ej Firulais"
+              maxlength="20"
+            />
+            <small
+              *ngIf="
+                this.mascotaForm.get('nombre')?.invalid &&
+                this.mascotaForm.get('nombre')?.touched
+              "
+              class="text-red-700 dark:text-red-400"
+              >Campo admite solo letras</small
+            >
+            <small
+              *ngIf="this.mascotaForm.get('nombre')?.errors?.['required'] && this.mascotaForm.get('nombre')?.touched"
+              class="text-red-700 dark:text-red-400"
+              >Requerido</small
+            >
           </div>
-          <div class="grid gap-2"><label
-              class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="raza">Raza</label>
-            <select formControlName="raza" id="raza"
-              class="border border-[var(--color-3)] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] px-3 py-2 text-sm">
-              <option value="">Seleccione</option>
+          <div class="grid gap-2">
+            <!--  -->
+            <label
+              for="raza"
+              class="block text-sm font-medium text-gray-900 dark:text-white"
+              >Raza</label
+            >
+            <select
+              id="raza"
+              formControlName="raza"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
               @for (raza of razas; track $index) {
-              <option [value]="raza">{{raza}}</option>
-
+              <option [value]="raza">{{ raza }}</option>
               }
             </select>
+            <!--  -->
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div class="grid gap-2">
-            <label class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="sexo">Sexo mascota</label>
-            <select formControlName="sexo" id="sexo"
-              class="border border-[var(--color-3)] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9]  px-3 py-2 text-sm">
-              <option value="">Seleccione</option>
+            <label
+              for="sexo"
+              class="block text-sm font-medium text-gray-900 dark:text-white"
+              >Sexo</label
+            >
+            <select
+              id="sexo"
+              formControlName="sexo"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
               @for (sexo of sexoMascota; track $index) {
-              <option [value]="sexo">{{sexo}}</option>
+              <option [value]="sexo">{{ sexo }}</option>
 
               }
             </select>
-
           </div>
-          <div class="grid gap-2"><label
-              class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="edad">Edad Mascota</label>
-            <select formControlName="edad" id="edad"
-              class="border border-[var(--color-3)] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] px-3 py-2 text-sm">
-              <option value="">Seleccione</option>
+          <div class="grid gap-2">
+            <label
+              for="edad"
+              class="block text-sm font-medium text-gray-900 dark:text-white"
+              >Edad</label
+            >
+            <select
+              id="edad"
+              formControlName="edad"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
               @for (edad of edades; track $index) {
-              <option [value]="edad.age">{{edad.description}}</option>
+              <option [value]="edad.age">{{ edad.description }}</option>
 
               }
             </select>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div class="grid gap-2"><label
-              class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="tamano">Tamaño</label>
-            <select formControlName="tamano" id="tamano"
-              class="border border-[var(--color-3)] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] px-3 py-2 text-sm">
-              <option value="">Seleccione</option>
+          <div class="grid gap-2">
+            <label
+              for="tamano"
+              class="block text-sm font-medium text-gray-900 dark:text-white"
+              >Tamaño</label
+            >
+            <select
+              id="tamano"
+              formControlName="tamano"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
               @for (tamano of tamanoMascota; track $index) {
-              <option [value]="tamano">{{tamano}}</option>
+              <option [value]="tamano">{{ tamano }}</option>
 
               }
             </select>
-
           </div>
           <div class="grid gap-2">
-            <label class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="esEsterilizado">Es esterilizado?</label>
+            <label
+              for="especie"
+              class="block text-sm font-medium text-gray-900 dark:text-white"
+              >Especie</label
+            >
+            <select
+              id="especie"
+              formControlName="especie"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              @for (especie of especieMascota; track $index) {
+              <option [value]="especie">{{ especie }}</option>
 
-            <input
-              class="h-4 w-4 shrink-0 rounded-sm border border-[var(--color-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-              id="esEsterilizado" formControlName="esEsterilizado" type="checkbox">
+              }
+            </select>
           </div>
-        </div>
-        <div class="grid gap-2"><label
-            class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="historia">Historia corta</label><textarea
-            class="flex min-h-[80px] w-full  border border-[var(--color-3)] bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="historia" formControlName="historia" rows="3"
-            placeholder="Ingresa una corta historia de tu mascota"></textarea></div>
-        <div class="grid gap-2"><label
-            class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="caracteristica">Características de la mascota</label>
-          <textarea
-            class="bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="caracteristica" formControlName="caracteristica" rows="3"
-            placeholder="Ingresa características como cariñoso, alegre, inquieto"></textarea>
+          <div class="grid gap-2">
+            <label
+              class="block text-sm font-medium text-gray-900 dark:text-white"
+              for="esEsterilizado"
+            >
+              ¿Está esterilizado?
+            </label>
+
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                value=""
+                class="sr-only peer"
+                formControlName="esEsterilizado"
+                id="esEsterilizado"
+              />
+              <div
+                class="relative w-11 h-6 bg-gray-200 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+              ></div>
+              <span
+                class="ms-3 text-sm font-medium text-[#5C492C] dark:text-gray-300"
+                >{{
+                  this.mascotaForm.get("esEsterilizado")?.value === true
+                    ? "Sí"
+                    : "No"
+                }}</span
+              >
+            </label>
+          </div>
         </div>
         <div class="grid gap-2">
-          <label class="text-[#5C492C] dark:text-[#DDBEA9] text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="condicion">Condición</label>
-            <textarea
-            class="bg-[#F9FAFB] dark:bg-[#4C566A] text-[#5C492C] dark:text-[#DDBEA9] flex min-h-[80px] w-full  border border-[var(--color-3)] px-3 py-2 text-sm  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="condicion" formControlName="condicion" rows="3"
-            placeholder="Ingrese la condición de la mascota"></textarea>
+          <label
+            for="historia"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Historia Corta</label
+          >
+          <input
+            type="text"
+            id="historia"
+            formControlName="historia"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Ej: Encontrado en malas condiciones..."
+            required
+          />
+        </div>
+        <div class="grid gap-2">
+          <label
+            for="caracteristica"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Características de la mascota</label
+          >
+          <input
+            type="text"
+            id="caracteristica"
+            formControlName="caracteristica"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Ej: Amigale, amistoso, le gusta jugar..."
+            required
+          />
+        </div>
+        <div class="grid gap-2">
+          <label
+            for="condicion"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Condición médica</label
+          >
+          <input
+            type="text"
+            id="condicion"
+            formControlName="condicion"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Ej: No tiene visión en un ojo, pata lastimada..."
+            required
+          />
         </div>
       </form>
     </div>
     <div class="items-center p-6 flex justify-end">
       <button
-        class="ext-white bg-lime-600 dark:bg-blue-300 hover:bg-lime-500 dark:hover:bg-blue-400 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 b h-10 px-4 py-2"
-        type="submit" (click)="onSubmit()">
-        {{ isEditMode ? 'Actualizar mascota' : 'Registrar mascota' }}
+        class="text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 b h-10 px-4 py-2"
+        type="submit"
+        (click)="onSubmit()"
+      >
+        {{ isEditMode ? "Actualizar mascota" : "Registrar mascota" }}
       </button>
     </div>
   </div>

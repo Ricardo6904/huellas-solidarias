@@ -1,13 +1,13 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-  <div class="w-[25%] mx-auto m-10 p-6 my-28 bg-[#F9FAFB] dark:bg-[#2E3440] rounded-lg shadow-xl border border-[#DDBEA9]">
+  <div class="w-full max-w-md mx-10 p-6 my-28 rounded-lg shadow-xl bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600">
     <div class=" w-full space-y-8 ">
       <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-lime-600 dark:text-blue-300">
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-stone-50">
           Iniciar Sesión
         </h2>
         <p class="mt-2 text-center text-sm text-gray-600">
           O
-          <a routerLink="/auth/registro" class="font-medium text-indigo-600 hover:text-indigo-500">
+          <a routerLink="/auth/registro" class="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
             regístrate si aún no tienes una cuenta
           </a>
         </p>
@@ -16,17 +16,64 @@
         <input type="hidden" name="remember" value="true">
         <div class="space-y-1">
           <div>
-            <label for="email-address" class="sr-only">Correo electrónico</label>
-            <input id="email-address" name="email" type="email" autocomplete="email" formControlName="email" required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-[var(--color-3)] text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400"
-              placeholder="Correo electrónico">
+
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Correo Electrónico</label
+            >
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              autocomplete="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="ejemplo@gmail.com"
+              maxlength="20"
+            />
+            <small
+              *ngIf="
+                this.loginForm.get('email')?.hasError('mail') &&
+                this.loginForm.get('email')?.touched
+              "
+              class="text-red-700 dark:text-red-400"
+              >*ingrese un email válido</small
+            >
+            <small
+              *ngIf="
+                this.loginForm.get('email')?.hasError('required') &&
+                this.loginForm.get('email')?.touched
+              "
+              class="text-red-700 dark:text-red-400"
+              >*requerido</small
+            >
+
           </div>
           <div>
-            <label for="clave" class="sr-only">Contraseña</label>
-            <input id="clave" name="clave" type="password" autocomplete="current-password" formControlName="clave"
-              required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-[var(--color-3)] text-black dark:text-gray-100 bg-gray-100 dark:bg-[#4C566A] dark:placeholder-gray-400"
-              placeholder="Contraseña">
+
+
+              <label
+            for="clave"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Contraseña</label
+          >
+          <input
+            type="password"
+            id="clave"
+            formControlName="clave"
+            autocomplete="current-password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="******"
+            maxlength="30"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              loginForm.get('clave')?.invalid &&
+              loginForm.get('clave')?.touched
+            "
+            >*requerido</small
+          >
           </div>
         </div>
 
@@ -34,10 +81,10 @@
 
         <div>
           <button type="submit"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-lime-600 dark:bg-blue-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
-              <svg class="h-5 w-5 text-lime-300 group-hover:text-indigo-400 dark:text-blue-600" xmlns="http://www.w3.org/2000/svg"
+              <svg class="h-5 w-5 text-lime-300 group-hover:text-indigo-400 dark:text-blue-300" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"

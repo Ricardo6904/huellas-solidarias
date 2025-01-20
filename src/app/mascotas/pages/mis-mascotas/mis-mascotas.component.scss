@@ -1,78 +1,21 @@
-section {
-  background-color: var(--color-alabaster);
-  display: flex; /* Asegura que la sección es flexible */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan en líneas nuevas */
-  justify-content: center; /* Centra el contenido */
+.mat-select-value {
+  color: rgb(255 255 255); /* Color del texto en modo oscuro */
 }
 
-.card {
-  width: 100%; /* Ocupa el 100% del contenedor */
-  max-width: 250px; /* Mantiene un ancho máximo */
-  margin: 10px; /* Margen alrededor de las tarjetas */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-  background-color: white;
-  color: var(--color-delft-blue);
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+.mat-select-placeholder {
+  color: rgb(156 163 175); /* Color del texto placeholder */
 }
 
-.card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.mat-select-panel {
+  background-color: rgb(31 41 55); /* Fondo del dropdown en modo oscuro */
+  color: rgb(255 255 255); /* Color del texto de las opciones */
 }
 
-.card img {
-  width: 100%; /* Imagen ocupa todo el ancho */
-  height: 200px; /* Altura fija para todas las imágenes */
-  object-fit: cover; /* Mantiene la imagen centrada y cubierta */
-  margin: 0; /* Elimina cualquier margen */
-  border-top-left-radius: 5px; /* Asegura que el borde superior izquierdo esté redondeado */
-  border-top-right-radius: 5px; /* Asegura que el borde superior derecho esté redondeado */
+.mat-option {
+  background-color: rgb(31 41 55); /* Fondo de cada opción */
+  color: rgb(255 255 255); /* Color del texto de cada opción */
 }
 
-.card-body {
-  text-align: left;
-  padding: 10px;
-  flex-grow: 1; /* Para llenar el espacio disponible y empujar el contenido hacia abajo */
-}
-
-.card-title {
-  font-size: 25px;
-  margin-bottom: 4px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.card-text {
-  margin-bottom: 5px;
-  color: #6b7280;
-}
-
-.btn-primary, .btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.875rem; 
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: var(--color-4); 
-  color: white;
-  border: 1px solid var(--color-4);
-}
-
-.btn-primary:hover {
-  background-color: var(--color-3);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-destruction-hover);
+.mat-option:hover {
+  background-color: rgb(55 65 81); /* Color al pasar el mouse */
 }

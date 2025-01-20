@@ -4,10 +4,11 @@ import { AuthService } from '../../../services/auth.service';
 import { Auth } from '../../../interfaces/Auth';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
-    imports: [ReactiveFormsModule, RouterLink],
+    imports: [ReactiveFormsModule, RouterLink, CommonModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'
 })
@@ -34,6 +35,7 @@ export class LoginComponent {
       })
 
     }, error => {
+      this.loginForm.markAllAsTouched()
       console.log('Algo salió mal: ', error);
     })
   }

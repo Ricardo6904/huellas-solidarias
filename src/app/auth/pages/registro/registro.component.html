@@ -1,109 +1,294 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+<div
+  class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800"
+>
   <div
-    class="w-[45%] mx-auto m-10 p-6 bg-[#F9FAFB] dark:bg-[#2E3440] rounded-lg shadow-xl border border-[var(--color-3)]">
-    <h2 class="text-2xl font-bold mb-6 text-center text-[#5C492C] dark:text-[ ]">Registro de Usuario</h2>
-    <p class="mb-6 text-center text-[#5C492C] dark:text-[#DDBEA9]">Por favor, completa todos los campos para crear tu
-      cuenta.</p>
+    class="mx-auto max-w-4xl w-full sm:w-11/12 md:w-3/4 lg:w-2/3 p-10 sm:p-8 my-2 bg-white dark:bg-slate-700 rounded-lg shadow-xl border border-gray-300 dark:border-gray-600"
+  >
+    <h2
+      class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-stone-50"
+    >
+      Registro de Usuario
+    </h2>
+    <p class="mb-6 text-center text-gray-900 dark:text-stone-50">
+      Por favor, completa todos los campos para crear tu cuenta.
+    </p>
 
     <form [formGroup]="registroForm" class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label for="nombres" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Nombres</label>
-          <input type="text" id="nombres" formControlName="nombres"
-            class="mt-1 block w-full border border-[var(--color-3)] shadow-sm dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-          <small class="text-red-500"
-            *ngIf="registroForm.get('nombres')?.invalid && registroForm.get('nombres')?.touched">*requerido</small>
+          <label
+            for="nombres"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Nombres</label
+          >
+          <input
+            type="text"
+            id="nombres"
+            formControlName="nombres"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Ej Luis Fernando"
+            maxlength="30"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('nombres')?.invalid &&
+              registroForm.get('nombres')?.touched
+            "
+            >*requerido</small
+          >
         </div>
         <div>
-          <label for="apellidos" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Apellidos</label>
-          <input type="text" id="apellidos" formControlName="apellidos"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-          <small class="text-red-500"
-            *ngIf="registroForm.get('apellidos')?.invalid && registroForm.get('apellidos')?.touched">*requerido</small>
-
+          <label
+            for="nombres"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Apellidos</label
+          >
+          <input
+            type="text"
+            id="apellidos"
+            formControlName="apellidos"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Ej Acosta Freire"
+            maxlength="30"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('apellidos')?.invalid &&
+              registroForm.get('apellidos')?.touched
+            "
+            >*requerido</small
+          >
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
         <div>
-          <label for="celular" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Celular</label>
-          <input type="text" id="celular" formControlName="celular"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-          <small class="text-red-500"
-            *ngIf="registroForm.get('celular')?.invalid && registroForm.get('celular')?.touched">*requerido</small>
-
+          <label
+            for="celular"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Celular</label
+          >
+          <input
+            type="text"
+            id="celular"
+            formControlName="celular"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="098XXXXXXX"
+            maxlength="10"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('celular')?.invalid &&
+              registroForm.get('celular')?.touched
+            "
+            >*requerido</small
+          >
         </div>
 
         <div>
-          <label for="email" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Correo
-            Electrónico</label>
-          <input type="email" id="email" formControlName="email"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-          <small class="text-red-500"
-            *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched">*requerido</small>
-
+          <label
+            for="cedula"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Número de Cédula</label
+          >
+          <input
+            type="text"
+            id="cedula"
+            formControlName="cedula"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="180XXXXXXX"
+            maxlength="10"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('cedula')?.hasError('required') &&
+              registroForm.get('cedula')?.touched
+            "
+            >*requerido</small
+          >
+          <small
+            *ngIf="
+              registroForm.get('cedula')?.hasError('cedulaInvalida') &&
+              registroForm.get('cedula')?.touched
+            "
+            class="text-red-500"
+          >
+            *la cédula ingresada no es válida
+          </small>
         </div>
-
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
         <div>
-          <label for="clave" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Contraseña</label>
-          <input type="password" id="clave" formControlName="clave"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-            <small class="text-red-500" *ngIf="registroForm.get('clave')?.invalid && registroForm.get('clave')?.touched">*requerido</small>
-
-          </div>
-
-        <div>
-          <label for="clave" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Confirmar
-            contraseña</label>
-          <input type="password" id="clave" formControlName="clave"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Correo Electrónico</label
+          >
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            maxlength="30"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('email')?.invalid &&
+              registroForm.get('email')?.touched
+            "
+            >*requerido</small
+          >
         </div>
-
+        <div>
+          <label
+            for="clave"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Contraseña</label
+          >
+          <input
+            type="password"
+            id="clave"
+            formControlName="clave"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            maxlength="30"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('clave')?.hasError('required') &&
+              registroForm.get('clave')?.touched
+            "
+            >*requerido</small
+          >
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('clave')?.hasError('minlength') &&
+              registroForm.get('clave')?.touched
+            "
+            >*contraseña demasiado corta</small
+          >
+        </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label for="provincia" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Provincia</label>
-          <select id="provincia" formControlName="provincia"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
+          <label
+            for="confirmarClave"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Confirmar Contraseña</label
+          >
+          <input
+            type="password"
+            id="confirmarClave"
+            formControlName="confirmarClave"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            maxlength="30"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.hasError('passwordsNoMatch') &&
+              registroForm.get('confirmarClave')?.touched
+            "
+            >*Las contraseñas no coinciden</small
+          >
+        </div>
+        <div>
+          <label
+            for="provincia"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Provincia</label
+          >
+          <select
+            id="provincia"
+            formControlName="provincia"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
             <option value="">Selecciona una provincia</option>
             @for (provincia of provincias; track $index) {
-            <option [value]="provincia">{{provincia}}</option>
+            <option [value]="provincia">{{ provincia }}</option>
             }
           </select>
-          <small class="text-red-500" *ngIf="registroForm.get('provincia')?.invalid && registroForm.get('provincia')?.touched">*requerido</small>
-
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('provincia')?.invalid &&
+              registroForm.get('provincia')?.touched
+            "
+            >*requerido</small
+          >
         </div>
-        <div>
-          <label for="ciudad" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Ciudad</label>
-          <input type="text" id="ciudad" formControlName="ciudad"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-            <small class="text-red-500" *ngIf="registroForm.get('ciudad')?.invalid && registroForm.get('ciudad')?.touched">*requerido</small>
-
-          </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label for="direccion" class="block text-sm font-medium text-[#5C492C] dark:text-[#DDBEA9]">Dirección</label>
-          <input type="text" id="direccion" formControlName="direccion"
-            class="mt-1 block w-full border border-[var(--color-3)] dark:text-gray-100 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400">
-            <small class="text-red-500" *ngIf="registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched">*requerido</small>
-
-          </div>
-
+          <label
+            for="provincia"
+            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Ciudad</label
+          >
+          <select
+            id="ciudad"
+            formControlName="ciudad"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">Selecciona una provincia</option>
+            @for (ciudad of ciudades; track $index) {
+            <option [value]="ciudad">{{ ciudad }}</option>
+            }
+          </select>
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('ciudad')?.invalid &&
+              registroForm.get('ciudad')?.touched
+            "
+            >*requerido</small
+          >
+        </div>
+        <div>
+          <label
+            for="direccion"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Dirección</label
+          >
+          <input
+            type="text"
+            id="direccion"
+            formControlName="direccion"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            maxlength="100"
+          />
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('direccion')?.invalid &&
+              registroForm.get('direccion')?.touched
+            "
+            >*requerido</small
+          >
+        </div>
       </div>
     </form>
-    <div class="mt-8 items-center  flex justify-end">
-      <button class="w-[100%] rounded-md  whitespace-nowrap text-sm font-medium transition-colors
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-      text-white bg-lime-600 dark:bg-blue-300 hover:bg-lime-700 dark:hover:bg-blue-400 px-7 py-3" type="submit"
-        (click)="registrar()">Registrarme</button>
+    <div class="mt-8 items-center flex justify-end">
+      <button
+        class="w-full rounded-md whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 px-7 py-3"
+        type="submit"
+        (click)="registrar()"
+      >
+        Registrarme
+      </button>
     </div>
   </div>
 </div>

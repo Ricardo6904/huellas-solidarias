@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { MascotaService } from '../../../services/mascota.service';
 import { Router } from '@angular/router';
 import { StorageServiceService } from '../../../services/storage-service.service';
@@ -12,17 +12,19 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-mis-mascotas',
-    imports: [FormsModule, MatTableModule, MatIconModule, MatTooltipModule, MatInputModule, MatFormFieldModule, MatPaginatorModule],
+    imports: [FormsModule, MatTableModule, MatIconModule, MatTooltipModule, MatInputModule, MatFormFieldModule, MatPaginatorModule, CommonModule],
     templateUrl: './mis-mascotas.component.html',
     styleUrl: './mis-mascotas.component.scss'
 })
 export class MisMascotasComponent {
   displayedColumns: string[] = ['position', 'nombre', 'raza', 'sexo', 'edad', 'sexo', 'tamano', 'esterilizado', 'acciones'];
   //dataSource = new MatTableDataSource<Mascota>(ELEMENT_DATA);
-
+  public currentPage = signal<number>(1);
+ 
   dataSource = new MatTableDataSource<Mascota>(this.mascotasService.mascotasRefugio()) || null;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null;
 
@@ -42,6 +44,13 @@ export class MisMascotasComponent {
   onFiltroChange() {
     this.mascotasService.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!), this.filtro)
   }
+
+  loadPage(page: number) {
+    // Actualizar la página actual
+    this.currentPage.set(page);
+    this.mascotasService.obtenerMascotasPorRefugio(page, 10, parseInt(this.storageService.getItem('idRefugio')!), this.filtro);
+  }
+ 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

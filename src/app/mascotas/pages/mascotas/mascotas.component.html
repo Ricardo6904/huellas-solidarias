@@ -1,8 +1,180 @@
-<div class="bg-[#F9FAFB] dark:bg-[#2E3440] min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+<div
+  class="bg-gray-100 dark:bg-gray-800 min-h-screen py-8 px-4 sm:px-4 lg:px-8"
+>
+  <div class="max-w-7xl mx-auto">
+    <h1
+      class="text-xl font-bold text-center text-gray-900 dark:text-stone-50 mb-7"
+    >
+      Mascotas en Adopción
+    </h1>
+
+    <div class="flex flex-col sm:flex-row gap-6">
+      <!-- Mascotas -->
+      <div
+        class="w-full sm:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
+        <div
+          *ngFor="let mascota of mascotasService.mascotas()"
+          class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
+        >
+          <!-- Imagen de la mascota -->
+          <div class="relative">
+            <img
+              [src]="mascota.Storage.url"
+              [alt]="mascota.nombre"
+              class="w-full h-48 object-cover rounded-t-lg"
+            />
+            <img
+              [src]="
+                mascota.refugio.Storage?.url ||
+                '../../../../assets/default-image.webp'
+              "
+              alt="Refugio logo"
+              [routerLink]="['/refugio/perfil', mascota.idRefugio]"
+              class="absolute bottom-2 right-2 w-12 h-12 rounded-full border border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer transition-transform transform hover:scale-110"
+            />
+          </div>
+
+          <!-- Contenido de la tarjeta -->
+          <div class="p-4">
+            <!-- Nombre de la mascota -->
+            <h2
+              class="text-xl font-bold text-gray-900 dark:text-stone-50 truncate"
+            >
+              {{ mascota.nombre }}
+            </h2>
+
+            <!-- Breve historia -->
+            <p
+              class="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3"
+            >
+              {{ mascota.historia }}
+            </p>
+
+            <!-- Etiquetas de información -->
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span
+                class="flex items-center gap-1 px-3 py-1 bg-[#A8DADC] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
+              >
+                📏 {{ mascota.tamano }}
+              </span>
+              <span
+                class="flex items-center gap-1 px-3 py-1 bg-[#F4A261] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
+              >
+                🐾 {{ mascota.raza }}
+              </span>
+              <span
+                class="flex items-center gap-1 px-3 py-1 bg-[#2A9D8F] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
+              >
+                🕒 {{ mascota.edad }}
+              </span>
+            </div>
+
+            <!-- Botón de adopción -->
+            <button
+              [routerLink]="['/mascotas/detalle', mascota.id]"
+              class="w-full bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 rounded-md mt-4 hover:bg-lime-600 dark:hover:bg-blue-400 transition-colors"
+            >
+              <!-- Adoptar a {{ mascota.nombre }} -->
+              Más detalles
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- filtros -->
+      <div
+        class="w-full max-h-96 sm:w-1/4 bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-6 rounded-lg shadow-lg"
+      >
+        <h2
+          class="text-xl font-semibold mb-4 text-gray-900 dark:text-stone-50"
+        >
+          Búsqueda
+        </h2>
+        <div class="grid gap-4">
+          <input
+            type="text"
+            [(ngModel)]="filtro.nombre"
+            (input)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Buscar Nombre"
+            maxlength="20"
+          />
+          <!-- select example -->
+          <select
+            [(ngModel)]="filtro.edad"
+            (change)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">Todas las Edades</option>
+            @for (age of ages; track $index) {
+            <option [value]="age">{{ age }}</option>
+
+            }
+          </select>
+          <!--  -->
+          <select
+          [(ngModel)]="filtro.tamano"
+          (change)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+          <option value="">Todos los Tamaños</option>
+          @for (size of sizes; track $index) {
+          <option [value]="size">{{ size }}</option>
+
+          }
+          </select>
+          <select
+          [(ngModel)]="filtro.raza"
+          (change)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+          <option value="">Todas las Razas</option>
+          <option *ngFor="let breed of breeds" [value]="breed">
+            {{ breed }}
+          </option>
+          </select><!-- 
+          <select
+            class="w-full px-3 py-2 text-[#5C492C] dark:text-[#DDBEA9] border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]"
+          >
+            <option value="">Todas las ubicaciones</option>
+            @for (location of locations; track $index) {
+            <option [value]="location">{{ location }}</option>
+
+            }
+          </select> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-center mt-6">
+      <button
+        (click)="loadPage(currentPage() - 1)"
+        [disabled]="currentPage() === 1"
+        class="bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 hover:bg-lime-600 dark:hover:bg-blue-400 rounded-l-md"
+      >
+        Anterior
+      </button>
+      <span
+        class="px-4 py-2 bg-[#F9FAFB] dark:bg-[#4C566A] text-gray-600 dark:text-gray-200"
+      >
+        Página {{ currentPage() }}
+      </span>
+      <button
+        (click)="loadPage(currentPage() + 1)"
+        [disabled]="!mascotasService.mascotas()!.length"
+        class="bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 hover:bg-lime-600 dark:hover:bg-blue-400 rounded-r-md"
+      >
+        Siguiente
+      </button>
+    </div>
+  </div>
+</div>
+<!-- <div class="bg-[#F9FAFB] dark:bg-[#2E3440] min-h-screen py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
     <h1 class="text-4xl font-bold text-center text-[#5C492C] dark:text-[#DDBEA9] mb-8">Galería de Mascotas en Adopción</h1>
 
-    <!-- Filtros -->
     <div class="bg-white dark:bg-[#3B4252] border border-[#DDBEA9] p-6 rounded-lg shadow-lg mb-8">
       <h2 class="text-2xl font-semibold mb-4 text-[#5C492C] dark:text-[#DDBEA9]">Filtrar Mascotas</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
@@ -42,70 +214,7 @@
       </div>
     </div>
 
-    <!-- Galería de Perros -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      @for (mascota of mascotasService.mascotas(); track $index) {
-      <div class="bg-white dark:bg-[#3B4252] rounded-lg shadow-lg overflow-hidden border border-[#DDBEA9] transition-transform transform hover:scale-105">
-        <img [src]="mascota.Storage.url" [alt]="mascota.nombre"
-          class="w-full h-48 aspect-square object-contain rounded-t-lg block m-auto">
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold text-[#5C492C] dark:text-[#ECEFF4]">{{mascota.nombre}}</h2>
-            <img
-              [src]="mascota.refugio.Storage?.url ? mascota.refugio.Storage?.url : '../../../../assets/default-image.webp'"
-              alt="logo"  width="40"
-              [routerLink]="['/refugio/perfil', mascota.idRefugio]"
-              class="w-10 h-10 rounded-full border border-[#DDBEA9] cursor-pointer" />
-          </div>
-          <p class="text-gray-600 dark:text-gray-300 mb-4">{{mascota.historia}}</p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-2 py-1 bg-lime-600 dark:bg-blue-400 text-white text-xs font-semibold rounded-full">{{mascota.edad}}</span>
-            <span
-              class="px-2 py-1 bg-lime-600 dark:bg-blue-400 text-white text-xs font-semibold rounded-full">{{mascota.tamano}}</span>
-            <span
-              class="px-2 py-1 bg-lime-600 dark:bg-blue-400 text-white text-xs font-semibold rounded-full">{{mascota.raza}}</span>
-          </div>
-          <button [routerLink]="['/mascotas/detalle', mascota.id]"
-            class="w-full bg-lime-600 dark:bg-blue-300 text-white py-2 px-4 rounded-md hover:bg-lime-700 transition-colors">
-            Adoptar a {{mascota.nombre}}
-          </button>
-        </div>
-      </div>
-      }
-
-
-    </div>
-
-    @if (mascotasService.loading() === true) {
-
-      <div class="flex justify-center mt-6">
-        <svg aria-hidden="true" class="inline w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-        </svg>
-        <span class="sr-only">Loading...</span>
-    </div>
-
-    }
-
-    <div *ngIf="mascotasService.mascotas().length === 0 && mascotasService.loading() === false" class="text-center py-12">
-      <p class="text-2xl text-gray-600">No se encontraron perros que coincidan con los filtros seleccionados.</p>
-    </div>
-  </div>
-  <div class="flex justify-center mt-6">
-    <button (click)="loadPage(currentPage() - 1)" [disabled]="currentPage() === 1"
-      class="px-4 py-2 bg-[#88C0D0] hover:bg-lime-600 text-white rounded-l-md">
-      Anterior
-    </button>
-
-    <span class="px-4 py-2 bg-[#F9FAFB] dark:bg-[#4C566A] text-gray-600 dark:text-gray-200">
-      Página {{ currentPage() }}
-    </span>
-
-    <button (click)="loadPage(currentPage() + 1)" [disabled]="!mascotasService.mascotas()!.length"
-      class="px-4 py-2 bg-[#88C0D0] hover:bg-lime-600 text-white rounded-r-md">
-      Siguiente
-    </button>
-  </div>
+    
 </div>
 
+ -->

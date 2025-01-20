@@ -18,4 +18,8 @@ export class UsuarioService {
     )
   }
 
+  actualizarAdopcionPendiente(idUsurario:number){
+    return this.http.put<UsuarioResponse>(`${this.baseUrl}/usuario/${idUsurario}/solicitudPendiente`, {})
+  }
+
 }

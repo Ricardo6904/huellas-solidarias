@@ -6,10 +6,15 @@ import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-agregar',
-    imports: [ReactiveFormsModule, FormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSlideToggleModule],
     templateUrl: './agregar.component.html',
     styleUrl: './agregar.component.scss'
 })
@@ -18,6 +23,7 @@ export class AgregarComponent {
 
   sexoMascota: string[] = ['Macho', 'Hembra']
   tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
+  especieMascota: string[] = ['Gato', 'Perro', 'Otro'];
   razas: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua', 'Mestizo'];
   edades = [
     { age: 'Cachorro', description: 'Cachorro (0-1 año)' },
@@ -31,7 +37,7 @@ export class AgregarComponent {
 
   idStorage: number | undefined;
 
-  mascotaForm!: FormGroup;
+  mascotaForm: FormGroup;
 
   mascotaId!: number | null;
   isEditMode: boolean = false;
@@ -44,26 +50,32 @@ export class AgregarComponent {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    private localStorage: StorageServiceService) { }
+    private localStorage: StorageServiceService) { 
+
+      this.mascotaForm = this.formBuilder.group({
+        nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/), Validators.maxLength(20)]],
+        raza: ['', Validators.required],
+        sexo: ['', Validators.required],
+        edad: ['', Validators.required],
+        tamano: ['', Validators.required],
+        historia: [''],
+        caracteristica: [''],
+        condicion: [''],
+        esEsterilizado: [''],
+        idStorage: ['', Validators.required],
+        idRefugio: this.localStorage.getItem('idRefugio'),
+        especie: ['', Validators.required]
+      });
+
+      this.mascotaForm.untouched
+
+    }
 
   ngOnInit() {
     this.mascotaId = Number(this.route.snapshot.paramMap.get('idMascota'));
 
     this.isEditMode = !!this.mascotaId;
 
-    this.mascotaForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      raza: ['', Validators.required],
-      sexo: ['', Validators.required],
-      edad: ['', Validators.required],
-      tamano: ['', Validators.required],
-      historia: [''],
-      caracteristica: [''],
-      condicion: [''],
-      esEsterilizado: [''],
-      idStorage: ['', Validators.required],
-      idRefugio: this.localStorage.getItem('idRefugio')
-    });
 
     if (this.isEditMode) {
       this.mascotasService.obtenerMascotasPorId(this.mascotaId).subscribe(mascota => {
@@ -76,7 +88,7 @@ export class AgregarComponent {
   }
 
   onSubmit() {
-    console.log(this.mascotaForm.value);
+    console.log(this.mascotaForm.get('nombre'));
 
     if (this.mascotaForm.valid) {
       if (this.isEditMode) {
@@ -98,7 +110,7 @@ export class AgregarComponent {
         });
       }
     } else {
-      window.alert('Formulario incompleto o incorrecto');
+      this.toastr.warning('Formulario incompleto o incorrecto');
     }
   }
 
