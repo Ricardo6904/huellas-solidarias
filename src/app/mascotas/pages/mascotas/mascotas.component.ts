@@ -47,7 +47,7 @@ export class MascotasComponent implements OnInit {
    // Actualizar la página actual
    this.currentPage.set(page);
    // Cargar mascotas para la página correspondiente
-   this.mascotasService.obtenerMascotas(page, 9);
+   this.mascotasService.obtenerMascotas(page, 8);
  }
 
 
