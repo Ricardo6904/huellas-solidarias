@@ -21,24 +21,30 @@ import { CommonModule } from '@angular/common';
     styleUrl: './mis-mascotas.component.scss'
 })
 export class MisMascotasComponent {
+[x: string]: any;
   displayedColumns: string[] = ['position', 'nombre', 'raza', 'sexo', 'edad', 'sexo', 'tamano', 'esterilizado', 'acciones'];
   //dataSource = new MatTableDataSource<Mascota>(ELEMENT_DATA);
   public currentPage = signal<number>(1);
+  public totalPages:number = 0;
  
-  dataSource = new MatTableDataSource<Mascota>(this.mascotasService.mascotasRefugio()) || null;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null;
-
-
   filtro = {
     nombre: ''
   };
 
   constructor(public mascotasService: MascotaService, private router: Router, private storageService: StorageServiceService,
     public toastr: ToastrService
-  ) {}
+  ) {
+    console.log('total',this.mascotasService.mascotas());
+  }
 
-  ngOninit(){
-    this.dataSource.paginator = this.paginator;
+  ngOnInit() {
+    this.calculateTotalPages();
+  }
+  
+  calculateTotalPages() {
+    const totalItems = this.mascotasService.mascotasRefugio().length; // Total de datos
+    const itemsPerPage = 10; // Cantidad de elementos por página
+    this.totalPages = Math.ceil(totalItems / itemsPerPage); // Redondeo hacia arriba
   }
 
   onFiltroChange() {
@@ -51,11 +57,6 @@ export class MisMascotasComponent {
     this.mascotasService.obtenerMascotasPorRefugio(page, 10, parseInt(this.storageService.getItem('idRefugio')!), this.filtro);
   }
  
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   verDetallesMascota(id: number): void {
     this.mascotasService.obtenerMascotasPorId(id).subscribe({
       next: (mascota) => {
@@ -82,10 +83,5 @@ export class MisMascotasComponent {
       })
     }
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.filter);
 
-  }
 }

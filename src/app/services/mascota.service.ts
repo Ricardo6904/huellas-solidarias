@@ -7,7 +7,9 @@ import { StorageServiceService } from './storage-service.service';
 
 interface State {
   mascotas: Mascota[],
-  loading: boolean
+  loading: boolean,
+  total?: number,
+  totalPages?: number
 }
 
 @Injectable({
@@ -20,21 +22,27 @@ export class MascotaService {
   //usando señales el simbolo '#' se usa para propiedades privadas pero no reemplaza a private:
   #state = signal<State>({
     loading: false,
-    mascotas: []
+    mascotas: [],
+    total: 0,
+    totalPages: 0
   });
 
-  #state2 = signal<State>({
+/*   #state2 = signal<State>({
     loading: false,
-    mascotas: []
+    mascotas: [],
+    total: 0,
+    totalPages: 0
   });
-
+ */
   //señales computadas
   public mascotas = computed(() => this.#state().mascotas)
   public loading = computed(() => this.#state().loading)
 
   //señal de prueba
-  public mascotasRefugio = computed(() => this.#state2().mascotas)
-  public loadingRefugio = computed(()=> this.#state2().loading)
+  public mascotasRefugio = computed(() => this.#state().mascotas)
+  public loadingRefugio = computed(() => this.#state().loading)
+  public totalPagesMascotasRefugio = computed(() => this.#state().totalPages)
+  public totalMascotasRefugio = computed(() => this.#state().total)
 
   constructor(private http: HttpClient, private storageService: StorageServiceService) {
 
@@ -49,12 +57,12 @@ export class MascotaService {
     })
   }
 
-  private actualizarEstadoMascotaRefugio(parteEstado: Partial<State>){
+/*   private actualizarEstadoMascotaRefugio(parteEstado: Partial<State>){
     this.#state2.set({
       ...this.#state2(),
       ...parteEstado
     })
-  }
+  } */
 
   obtenerMascotas(page: number, limit: number, filtros?: { nombre: string, edad: string, raza: string }) {
     this.actualizarEstado({ loading: true })
@@ -92,29 +100,21 @@ export class MascotaService {
       )
   }
 
-
   obtenerMascotasPorRefugio(page: number, limit: number, idRefugio: number, filtros?: { nombre: string }) {
+    this.actualizarEstadoMascotaRefugio({ loading: true })
     const params = {
       page: page.toString(),
       limit: limit.toString(),
       ...filtros
     }
 
-    this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`, {params}).
-      pipe(
-        map(res => res.data)
-      ).
-      subscribe( mascotas => {
-        this.actualizarEstadoMascotaRefugio({mascotas, loading:false})
-
+    this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`, {params})
+    .pipe(
+      tap(() => this.actualizarEstadoMascotaRefugio({ loading: false })),
+    )
+    .subscribe( res => {
+        this.actualizarEstadoMascotaRefugio({mascotas: res.data, loading:false, total:res.total, totalPages:res.totalPages})
       })
-  }
-
-  obtenerMascotasPorRefugioNew(idRefugio: number) {
-    return this.http.get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`).
-      pipe(
-        map(res => res.data)
-      )
   }
 
   actualizarMascota(idMascota: number, mascota: Partial<Mascota>) {

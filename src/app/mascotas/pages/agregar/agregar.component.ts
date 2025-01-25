@@ -104,7 +104,7 @@ export class AgregarComponent {
         // Modo de agregar: Crear nueva mascota
         this.mascotasService.crearMascota(this.mascotaForm.value).subscribe(res => {
           console.log('Mascota registrada:', res);
-          this.router.navigateByUrl('/mascotas/listar');
+          this.router.navigateByUrl('/mascotas/agregar');
         }, error => {
           console.log('Error al registrar la mascota:', error);
         });
