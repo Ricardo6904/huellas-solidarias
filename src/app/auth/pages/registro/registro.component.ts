@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { CustomValidators } from './services/custom-validators';
+import { ProvinciaCiudadService } from 'src/app/services/provincia-ciudad.service';
 
 @Component({
   selector: 'app-registro',
@@ -29,7 +30,8 @@ export class RegistroComponent {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public provinciaCiudadService: ProvinciaCiudadService
   ) {}
 
   ngOnInit(): void {
@@ -81,4 +83,12 @@ export class RegistroComponent {
       this.toastr.warning('', 'Complete los campos requeridos');
     }
   }
+
+ async cargarCiudades(event:Event){
+  const idProvincia = (event.target as HTMLSelectElement).value;
+  
+  this.provinciaCiudadService.obtenerCiudadesPorIdProvincia(parseInt(idProvincia))
+
+  console.log(this.provinciaCiudadService.ciudades())
+ }
 }

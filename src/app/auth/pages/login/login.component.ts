@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
     styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
+  loginMsg:string = "";
   loginForm: FormGroup
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router:Router,
@@ -27,7 +27,6 @@ export class LoginComponent {
 
   login() {
     
-
     this.authService.login(this.loginForm.value).subscribe(response => {
 
       this.router.navigateByUrl('/mascotas/listar').then(()=>{
@@ -36,6 +35,7 @@ export class LoginComponent {
 
     }, error => {
       this.loginForm.markAllAsTouched()
+      this.loginMsg="Correo o contraseña incorrectos"
       console.log('Algo salió mal: ', error);
     })
   }

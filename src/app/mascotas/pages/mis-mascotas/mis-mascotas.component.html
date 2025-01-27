@@ -6,6 +6,33 @@
       Mis Mascotas
     </h1>
 
+    <!-- Loading Spinner -->
+    <div
+      *ngIf="mascotasService.loading()"
+      class="flex justify-center items-center min-h-[200px]"
+    >
+      <svg
+        class="animate-spin h-8 w-8 text-blue-500"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"
+        ></path>
+      </svg>
+    </div>
+
     <!-- Tabla -->
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative">
@@ -36,7 +63,7 @@
       />
     </div>
 
-    <div class="overflow-x-auto">
+    <div *ngIf="!mascotasService.loading()" class="overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -50,48 +77,66 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let mascota of mascotasService.mascotasRefugio()"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-          >
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+          <ng-container *ngIf="!mascotasService.loading(); else loadingRow">
+            @for(mascota of mascotasService.mascotasRefugio();track mascota.id){
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
-              {{ mascota.nombre }}
-            </th>
-            <td class="px-6 py-4">{{ mascota.edad }}</td>
-            <td class="px-6 py-4">{{ mascota.raza }}</td>
-            <td class="px-6 py-4">
-              <span
-                class="px-2 py-1 text-xs font-medium rounded-lg"
-                [ngClass]="{
-                  'bg-green-100 text-green-800': mascota.estado === 'Adoptada',
-                  'bg-yellow-100 text-yellow-800':
-                    mascota.estado === 'Disponible',
-                  'bg-red-100 text-red-800': mascota.estado === 'Pendiente'
-                }"
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
               >
-                {{ mascota.estado }}
-              </span>
-            </td>
-            <td class="px-6 py-4">
-              <button
-                class="text-blue-600 hover:underline dark:text-blue-500 me-4"
-                (click)="editarMascota(mascota.id)"
-              >
-                Editar
-              </button>
-              <button
-                class="text-red-600 hover:underline dark:text-red-500"
-                (click)="eliminarMascota(mascota.id)"
-              >
-                Eliminar
-              </button>
-            </td>
-          </tr>
+                {{ mascota.nombre }}
+              </th>
+              <td class="px-6 py-4">{{ mascota.edad }}</td>
+              <td class="px-6 py-4">{{ mascota.raza }}</td>
+              <td class="px-6 py-4">
+                <span
+                  class="px-2 py-1 text-xs font-medium rounded-lg capitalize"
+                  [ngClass]="{
+                    'bg-green-100 text-green-800':
+                      mascota.estado === 'adoptado',
+                    'bg-yellow-100 text-yellow-800':
+                      mascota.estado === 'disponible',
+                    'bg-red-100 text-red-800': mascota.estado === 'pendiente'
+                  }"
+                >
+                  {{ mascota.estado }}
+                </span>
+              </td>
+              <td class="px-6 py-4">
+                <button
+                  class="text-blue-600 hover:underline dark:text-blue-500 me-4"
+                  (click)="editarMascota(mascota.id)"
+                >
+                  Editar
+                </button>
+                <button
+                  class="text-red-600 hover:underline dark:text-red-500"
+                  (click)="eliminarMascota(mascota.id)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            }
+          </ng-container>
         </tbody>
       </table>
+
+      <!-- Spinner Row -->
+      <ng-template #loadingRow>
+        <tr>
+          <td colspan="5" class="text-center py-4">
+            <div class="flex justify-center items-center space-x-2">
+              <div
+                class="animate-spin w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full"
+              ></div>
+              <span>Cargando datos...</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
     </div>
     <!-- Paginación -->
     <nav
@@ -110,9 +155,9 @@
           {{ currentPage() * 10 }}
         </span>
         de
-        <!-- <span class="font-semibold text-gray-900 dark:text-white">
-          {{ mascotasService.totalMascotas }}
-        </span> -->
+        <span class="font-semibold text-gray-900 dark:text-white">
+          {{ currentPage() }}
+        </span>
       </span>
       <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
         <li>
@@ -124,21 +169,27 @@
             Anterior
           </button>
         </li>
-        <li *ngFor="let page of [].constructor((mascotasService.mascotasRefugio())); let i = index">
+        <li
+          *ngFor="
+            let page of [].constructor(mascotasService.totalPagesMR());
+            let i = index
+          "
+        >
           <a
             class="flex cursor-pointer items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             [ngClass]="{
               'text-blue-600 border-blue-300 bg-blue-50 dark:bg-gray-700 dark:text-white':
-                currentPage() === i+1
+                currentPage() === i + 1
             }"
-            (click)="loadPage(i+1)"
+            (click)="loadPage(i + 1)"
           >
-            {{ i+1 }}
+            {{ i + 1 }}
           </a>
         </li>
         <li>
           <button
             (click)="loadPage(currentPage() + 1)"
+            [disabled]="!mascotasService.mascotasRefugio()!.length"
             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             Siguiente

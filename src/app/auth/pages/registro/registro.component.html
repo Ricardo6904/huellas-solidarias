@@ -212,11 +212,12 @@
           <select
             id="provincia"
             formControlName="provincia"
+            (change)="cargarCiudades($event)"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="">Selecciona una provincia</option>
-            @for (provincia of provincias; track $index) {
-            <option [value]="provincia">{{ provincia }}</option>
+            @for (provincia of provinciaCiudadService.provincias(); track $index) {
+            <option [value]="provincia.id" >{{ provincia.nombre }}</option>
             }
           </select>
           <small
@@ -242,9 +243,9 @@
             formControlName="ciudad"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option value="">Selecciona una provincia</option>
-            @for (ciudad of ciudades; track $index) {
-            <option [value]="ciudad">{{ ciudad }}</option>
+            <option value="">Selecciona una ciudad</option>
+            @for (ciudad of provinciaCiudadService.ciudades(); track $index) {
+            <option [value]="ciudad.id">{{ ciudad.nombre }}</option>
             }
           </select>
           <small

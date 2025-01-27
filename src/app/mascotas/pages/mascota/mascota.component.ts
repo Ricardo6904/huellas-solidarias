@@ -30,9 +30,7 @@ export class MascotaComponent {
     private localStorage: StorageServiceService,
     private usuarioService: UsuarioService
   ) {}
-
-  ngOnInit() {}
-
+  
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
     this.route.params.pipe(
@@ -42,18 +40,17 @@ export class MascotaComponent {
     )
   );
 
-  public usuario = toSignal(
-    this.usuarioService.obtenerRefugioPorId(
-      parseInt(this.localStorage.getItem('idUsuario')!)
-    )
-  );
+  ngOnInit() {
+    this.usuarioService.obtenerUsuarioPorId
+  }
+
 
   solicitarAdopcion(idMascota: number) {
     this.cargando = true;
     this.solicitarAdopcionService
       .crearNotificacionDeAdopcion(
         idMascota,
-        parseInt(this.localStorage.getItem('idUsuario')!),
+        this.usuarioService.usuario()?.id ?? 0,
         'pendiente',
         'Adopción'
       )
@@ -64,7 +61,7 @@ export class MascotaComponent {
             const solicitud: Solicitud = {
               email: this.localStorage.getItem('email')!.toString(),
               mascota: this.mascota() as Mascota,
-              usuario: this.usuario() as Usuario,
+              usuario: this.usuarioService.usuario() as Usuario,
             };
 
             const solicitudes = this.mascota()?.solicitudesPendientes ?? 0;

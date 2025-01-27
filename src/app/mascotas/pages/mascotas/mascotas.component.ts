@@ -27,6 +27,10 @@ export class MascotasComponent implements OnInit {
  public meta = inject(Meta);
  public title = inject(Title);
 
+ constructor(){
+    this.loadPage(1)
+ }
+
 
  ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Mayor'];
   sizes: string[] = ['Pequeño', 'Mediano', 'Grande'];
@@ -35,8 +39,8 @@ export class MascotasComponent implements OnInit {
 
  ngOnInit(): void {
    // Cargar la primera página de mascotas
-   this.loadPage(this.currentPage());
-
+   //this.loadPage(this.currentPage());
+   this.loadPage(1);
    this.title.setTitle('Adopta una huella - Adopción de mascotas');
     this.meta.updateTag({ name: 'description', content: 'Encuentra a tu mejor amigo en nuestra plataforma de adopción de perros.' });
     this.meta.updateTag({ property: 'og:title', content: 'Adopta un amigo' });
