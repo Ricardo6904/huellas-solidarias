@@ -6,7 +6,7 @@ import {
   ProvinciaResponse,
   ProvinciasResponse,
 } from '@interfaces/Provincia';
-import { map, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface State {
@@ -69,27 +69,11 @@ export class ProvinciaCiudadService {
       });
   }
 
-  obtenerCiudadesPorIdProvincia(idProvincia: number) {
+  obtenerCiudadesPorIdProvincia(idProvincia: number){
     return this.http
       .get<CiudadesResponse>(
         `${this.baseurl}/ciudades/provincia/${idProvincia}`
       )
-      .pipe(map((res) => res.data))
+      .pipe(map((res) => res.data));
   }
- /*  obtenerCiudadesPorIdProvincia(idProvincia: number) {
-    console.log('click en html');
-    
-    this.actualizarEstadoCiudad({ loadingC: true });
-
-    this.http
-      .get<CiudadesResponse>(
-        `${this.baseurl}/ciudades/provincia/${idProvincia}`
-      )
-      .pipe(map((res) => res.data))
-      .subscribe((ciudades) => {
-        
-        this.actualizarEstadoCiudad({ ciudades, loadingC: false });
-        console.log(this.ciudades());
-      });
-  } */
 }

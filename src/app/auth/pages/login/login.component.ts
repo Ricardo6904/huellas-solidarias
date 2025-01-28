@@ -31,6 +31,7 @@ export class LoginComponent {
 
       this.router.navigateByUrl('/mascotas/listar').then(()=>{
         this.toastr.success('Bienvenido', 'Huellas Solidarias')
+        window.location.reload()
       })
 
     }, error => {

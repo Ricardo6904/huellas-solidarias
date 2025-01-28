@@ -28,7 +28,7 @@ export class MascotaComponent {
     private solicitarAdopcionService: SolicitarAdopcionService,
     private toastr: ToastrService,
     private localStorage: StorageServiceService,
-    private usuarioService: UsuarioService
+    public usuarioService: UsuarioService
   ) {}
   
   //public mascota = signal<Mascota | undefined>(undefined);
@@ -42,6 +42,8 @@ export class MascotaComponent {
 
   ngOnInit() {
     this.usuarioService.obtenerUsuarioPorId
+
+    
   }
 
 
@@ -67,7 +69,6 @@ export class MascotaComponent {
             const solicitudes = this.mascota()?.solicitudesPendientes ?? 0;
             if (solicitudes < 3) {
               this.mascotaServices.incrementarSolicitudes(idMascota).subscribe({
-                next: () => console.log(),
               });
 
               this.usuarioService.actualizarAdopcionPendiente(
@@ -79,7 +80,6 @@ export class MascotaComponent {
                 .solicitarAdopcion(solicitud)
                 .subscribe(
                   (res) => {
-                    console.log(res);
                     this.toastr.success(
                       'Solicitud enviada exitosamente!',
                       'Huellas Solidarias'
