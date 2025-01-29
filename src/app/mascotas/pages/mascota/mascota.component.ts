@@ -30,7 +30,7 @@ export class MascotaComponent {
     private localStorage: StorageServiceService,
     public usuarioService: UsuarioService
   ) {}
-  
+
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
     this.route.params.pipe(
@@ -41,11 +41,8 @@ export class MascotaComponent {
   );
 
   ngOnInit() {
-    this.usuarioService.obtenerUsuarioPorId
-
-    
+    this.usuarioService.obtenerUsuarioPorId;
   }
-
 
   solicitarAdopcion(idMascota: number) {
     this.cargando = true;
@@ -66,40 +63,28 @@ export class MascotaComponent {
               usuario: this.usuarioService.usuario() as Usuario,
             };
 
-            const solicitudes = this.mascota()?.solicitudesPendientes ?? 0;
-            if (solicitudes < 3) {
-              this.mascotaServices.incrementarSolicitudes(idMascota).subscribe({
-              });
-
-              this.usuarioService.actualizarAdopcionPendiente(
-                parseInt(this.localStorage.getItem('idUsuario')!)
+            //Enviar la solicitud al servicio
+            this.solicitarAdopcionService
+              .solicitarAdopcion(solicitud)
+              .subscribe(
+                (res) => {
+                  this.usuarioService.actualizarAdopcionPendiente(
+                    parseInt(this.localStorage.getItem('idUsuario')!)
+                  ).subscribe({
+                    next: () => {}
+                  });
+                  this.toastr.success(
+                    'Solicitud enviada exitosamente!',
+                    'Huellas Solidarias'
+                  );
+                  this.cargando = false;
+                },
+                (error) => {
+                  console.error(error);
+                  this.toastr.error('Error en la solicitud', error.message);
+                  this.cargando = false;
+                }
               );
-
-              //Enviar la solicitud al servicio
-              this.solicitarAdopcionService
-                .solicitarAdopcion(solicitud)
-                .subscribe(
-                  (res) => {
-                    this.toastr.success(
-                      'Solicitud enviada exitosamente!',
-                      'Huellas Solidarias'
-                    );
-                    this.cargando = false;
-                  },
-                  (error) => {
-                    console.error(error);
-                    this.toastr.error('Error en la solicitud', error.message);
-                    this.cargando = false;
-                  }
-                );
-            } else {
-              this.toastr.info(
-                'La mascota que intenta adoptar ya no está disponible',
-                'Huellas Solidarias'
-              );
-              this.cargando = false;
-              return;
-            }
           }
         },
         (error) => {

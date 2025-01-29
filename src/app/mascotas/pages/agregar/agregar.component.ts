@@ -121,7 +121,7 @@ export class AgregarComponent {
           .actualizarMascota(this.mascotaId!, this.mascotaForm.value)
           .subscribe({
             next: () => {
-              this.router.navigateByUrl('/mascotas/listar');
+              this.router.navigateByUrl('/mascotas/mis-mascotas');
               this.toastr.success('Mascota modificada!');
             },
             error: () => {}

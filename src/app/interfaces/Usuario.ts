@@ -7,8 +7,8 @@ export class Usuario{
   correo?: string
   clave?: string
   rol?: string
-  idProvincia?: string
-  idCiudad?: string
+  idProvincia?: number
+  idCiudad?: number
 }
 
 export interface UsuarioResponse {

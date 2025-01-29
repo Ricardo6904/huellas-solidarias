@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
 import { AuthService } from '../../../services/auth.service';
 import { MascotaService } from 'src/app/services/mascota.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
     selector: 'app-adopciones',
@@ -23,12 +24,10 @@ export class AdopcionesComponent {
 
   constructor(private route:ActivatedRoute, private toastr:ToastrService,
     private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService,
-    private mascotaService:MascotaService
+    private authService:AuthService, private usuarioService:UsuarioService
   ){
 
   }
-
-
 
   ngOnInit() {
   }
@@ -46,7 +45,8 @@ export class AdopcionesComponent {
     try {
       this.adopcionService.aprobarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudAceptada(id).subscribe(() => {
-
+          this.adopcionService.obtenerAdopcionesPorIdRefugio(this.authService.getIdRefugio())
+          this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
         })
         this.toastr.success('Adopción Aprobada!')
         
@@ -61,7 +61,7 @@ export class AdopcionesComponent {
     try {
       this.adopcionService.rechazarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudRechazada(id).subscribe(()=>{
-          
+          this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
         })
         this.toastr.show('Adopción rechazada!')
         

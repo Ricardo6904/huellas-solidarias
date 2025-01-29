@@ -43,8 +43,6 @@ export class HeaderComponent {
   }
 
   toggleDarkMode(): void {
-    console.log("dark mode");
-
     this.isDarkMode = !this.isDarkMode;
     this.storageService.setItem('theme', this.isDarkMode ? 'dark' : 'light');
     this.updateTheme();

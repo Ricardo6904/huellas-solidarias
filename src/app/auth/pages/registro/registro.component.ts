@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControlOptions,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -61,10 +62,10 @@ export class RegistroComponent {
           Validators.minLength(6),
         ]),
         confirmarClave: new FormControl<string>('', Validators.required),
-        idProvincia: new FormControl<number | null>(null, [Validators.required]),
-        idCiudad: new FormControl<number | null>(
+        idProvincia: new FormControl<number>(0, [Validators.required]),
+        idCiudad: new FormControl<number>(
           {
-            value: null,
+            value: 0,
             disabled: true,
           },
           [Validators.required]
@@ -74,16 +75,23 @@ export class RegistroComponent {
       },
       {
         validators: [CustomValidators.matchPasswords], // Agregamos la validación personalizada
-      }
+      }as AbstractControlOptions
     );
   }
 
   ngOnInit(): void {}
 
   registrar(): void {
-    if (this.registroForm.valid) {
+     if (this.registroForm.valid) {
+
+      const payload = {
+        ...this.registroForm.value,
+        idProvincia: parseInt(this.registroForm.get('idProvincia')!.value),
+        idCiudad: parseInt(this.registroForm.get('idCiudad')!.value),
+      };
+
       this.subscription = this.authService
-        .registrar(this.registroForm.value)
+        .registrar(payload)
         .subscribe(() => {
           this.router.navigateByUrl('/auth/login');
         });

@@ -30,7 +30,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe(response => {
 
       this.router.navigateByUrl('/mascotas/listar').then(()=>{
-        this.toastr.success('Bienvenido', 'Huellas Solidarias')
+        this.toastr.success('Bienvenido', 'Adopta Huellas')
         window.location.reload()
       })
 
