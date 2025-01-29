@@ -46,6 +46,11 @@ export class MascotaComponent {
 
   solicitarAdopcion(idMascota: number) {
     this.cargando = true;
+    if(!this.localStorage.getItem('token')){
+      this.toastr.warning('Inicie sesión para enviar solicitudes','Sesión requerida')
+      this.cargando=false
+      return 
+    }
     this.solicitarAdopcionService
       .crearNotificacionDeAdopcion(
         idMascota,

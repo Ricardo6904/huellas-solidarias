@@ -26,9 +26,6 @@ export class UsuarioService {
 
   constructor(private http: HttpClient, private localStorage: StorageServiceService) {
     this.obtenerUsuarioPorId(parseInt(this.localStorage.getItem('idUsuario')!))
-    console.log(this.usuario());
-    console.log('idusuario ',this.localStorage.getItem('idUsuario')!);
-    
   }
 
   private actualizarEstado(parteEstado: Partial<State>) {
