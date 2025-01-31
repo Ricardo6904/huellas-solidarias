@@ -152,7 +152,7 @@ export class AgregarComponent {
       const file = input.files[0];
       const reader = new FileReader();
       const formData = new FormData();
-      formData.append('myfile', file);
+      formData.append('file', file);
 
       this.storageService.subirImagen(formData).subscribe((file) => {
         this.idStorage = file.data.id;
