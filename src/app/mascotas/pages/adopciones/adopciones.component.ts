@@ -35,8 +35,6 @@ export class AdopcionesComponent {
     this.subscription = this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio()).subscribe({
       next: res => { this.adopciones = res }
     })
-    console.log(this.adopciones);
-    
   }
 
   getStatusClass(estado: number): string {
@@ -63,8 +61,6 @@ export class AdopcionesComponent {
     }
   }
   rechazar(id:number){
-    console.log(id);
-    
     try {
       this.adopcionService.rechazarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudRechazada(id).subscribe(()=>{
