@@ -8,51 +8,90 @@
       Mascotas en Adopción
     </h1>
 
-    <div class="flex flex-col sm:flex-row gap-6">
+    <!-- Filtros en la parte superior (solo en móviles/tablets) -->
+    <div
+      class="w-full bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-4 rounded-lg shadow-lg sm:hidden"
+    >
+      <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-stone-50">
+        Búsqueda
+      </h2>
+      <div class="grid gap-4">
+        <input
+          type="text"
+          [(ngModel)]="filtro.nombre"
+          (input)="onFiltroChange()"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Buscar Nombre"
+          maxlength="20"
+        />
+
+        <select
+          [(ngModel)]="filtro.edad"
+          (change)="onFiltroChange()"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="">Todas las Edades</option>
+          @for (age of ages; track $index) {
+          <option [value]="age">{{ age }}</option>
+          }
+        </select>
+
+        <select
+          [(ngModel)]="filtro.tamano"
+          (change)="onFiltroChange()"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="">Todos los Tamaños</option>
+          @for (size of sizes; track $index) {
+          <option [value]="size">{{ size }}</option>
+          }
+        </select>
+
+        <select
+          [(ngModel)]="filtro.raza"
+          (change)="onFiltroChange()"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="">Todas las Razas</option>
+          <option *ngFor="let breed of breeds" [value]="breed">
+            {{ breed }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-6 mt-6">
       <!-- Mascotas -->
       <div
         class="w-full sm:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
       >
-        @if(!mascotasService.loading()){ @for (mascota of
-        mascotasService.mascotas() ; track mascota.id) {
+        @if(!mascotasService.loading() && mascotasService.mascotas().length >
+        0){ @for (mascota of mascotasService.mascotas() ; track mascota.id) {
         <div
           class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
         >
-          <!-- Imagen de la mascota -->
           <div class="relative">
             <img
-              [src]="mascota.Storage.url"
+              [src]="
+                mascota.Storage.url ||
+                '../../../../assets/images/defaultImage.png'
+              "
               [alt]="mascota.nombre"
+              loading="lazy"
               class="w-full h-48 object-cover rounded-t-lg"
             />
-            <img
-              [src]="
-                mascota.refugio.Storage?.url ||
-                '../../../../assets/default-image.webp'
-              "
-              alt="Refugio logo"
-              [routerLink]="['/refugio/perfil', mascota.idRefugio]"
-              class="absolute bottom-2 right-2 w-12 h-12 rounded-full border border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer transition-transform transform hover:scale-110"
-            />
           </div>
-
-          <!-- Contenido de la tarjeta -->
           <div class="p-4">
-            <!-- Nombre de la mascota -->
             <h2
               class="text-xl font-bold text-gray-900 dark:text-stone-50 truncate"
             >
               {{ mascota.nombre }}
             </h2>
-
-            <!-- Breve historia -->
             <p
               class="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3"
             >
               {{ mascota.historia }}
             </p>
-
-            <!-- Etiquetas de información -->
             <div class="flex flex-wrap gap-2 mt-4">
               <span
                 class="flex items-center gap-1 px-3 py-1 bg-[#A8DADC] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
@@ -70,26 +109,16 @@
                 🕒 {{ mascota.edad }}
               </span>
             </div>
-
-            <!-- Botón de adopción -->
             <button
               [routerLink]="['/mascotas/detalle', mascota.id]"
               class="w-full bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 rounded-md mt-4 hover:bg-lime-600 dark:hover:bg-blue-400 transition-colors"
             >
-              <!-- Adoptar a {{ mascota.nombre }} -->
               Más detalles
             </button>
           </div>
         </div>
-        }@empty {
-        <div
-          class="col-span-1 sm:col-span-2 lg:col-span-4 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-700 rounded-lg"
-        >
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-stone-50">
-            No se encontraron resultados...
-          </h3>
-        </div>
-        } }@else{
+        } } @else if (mascotasService.loading() &&
+        mascotasService.mascotas().length === 0) {
         <div
           class="col-span-6 sm:col-span-2 lg:col-span-4 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-700 rounded-lg"
         >
@@ -98,12 +127,20 @@
           ></div>
           <span>Cargando datos...</span>
         </div>
+        } @else {
+        <div
+          class="col-span-1 sm:col-span-2 lg:col-span-4 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-700 rounded-lg"
+        >
+          <h3 class="text-xl font-semibold text-gray-800 dark:text-stone-50">
+            No se encontraron resultados...
+          </h3>
+        </div>
         }
       </div>
 
-      <!-- filtros -->
+      <!-- Filtros en la parte lateral (solo en pantallas grandes) -->
       <div
-        class="w-full max-h-96 sm:w-1/4 bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-6 rounded-lg shadow-lg"
+        class="hidden w-full max-h-96 sm:block sm:w-1/4 bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-6 rounded-lg shadow-lg"
       >
         <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-stone-50">
           Búsqueda
@@ -149,21 +186,11 @@
             <option value="">Todas las Razas</option>
             <option *ngFor="let breed of breeds" [value]="breed">
               {{ breed }}
-            </option></select
-          ><!-- 
-          <select
-            class="w-full px-3 py-2 text-[#5C492C] dark:text-[#DDBEA9] border border-[#DDBEA9] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88C0D0] bg-[#F9FAFB] dark:bg-[#4C566A]"
-          >
-            <option value="">Todas las ubicaciones</option>
-            @for (location of locations; track $index) {
-            <option [value]="location">{{ location }}</option>
-
-            }
-          </select> -->
+            </option>
+          </select>
         </div>
       </div>
     </div>
-
     <!-- Paginación -->
     <div class="flex justify-center mt-6">
       <button

@@ -8,6 +8,7 @@ import { StorageServiceService } from '../../../services/storage-service.service
 import { AuthService } from '../../../services/auth.service';
 import { MascotaService } from 'src/app/services/mascota.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-adopciones',
@@ -18,9 +19,10 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class AdopcionesComponent {
   public solicitarAdopcionService = inject(SolicitarAdopcionService)
-  //public adopciones = toSignal<Adopcion[]>(this.solicitarAdopcionService.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!)))
-
+  adopciones:Adopcion[]=[]
   pendingCount: number = 0;
+
+   subscription = new Subscription();
 
   constructor(private route:ActivatedRoute, private toastr:ToastrService,
     private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService,
@@ -30,6 +32,11 @@ export class AdopcionesComponent {
   }
 
   ngOnInit() {
+    this.subscription = this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio()).subscribe({
+      next: res => { this.adopciones = res }
+    })
+    console.log(this.adopciones);
+    
   }
 
   getStatusClass(estado: number): string {
@@ -45,7 +52,7 @@ export class AdopcionesComponent {
     try {
       this.adopcionService.aprobarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudAceptada(id).subscribe(() => {
-          this.adopcionService.obtenerAdopcionesPorIdRefugio(this.authService.getIdRefugio())
+          this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio())
           this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
         })
         this.toastr.success('Adopción Aprobada!')

@@ -19,7 +19,7 @@
         <li>
           <button
             class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
-            routerLink="/mascotas/listar">Adopta</button>
+            routerLink="/mascotas">Adopta</button>
 
         </li>
         <!-- <li>
@@ -39,7 +39,7 @@
 
 
     <div class="flex items-center gap-5">
-      @if (!estaLogead()) {
+      @if (!isStateVerified) {
       <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
         routerLink="/auth/registro">Registrarse</a>
       <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"

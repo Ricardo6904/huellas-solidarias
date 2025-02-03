@@ -15,11 +15,13 @@ import { WindowService } from '../../services/window.service';
 export class HeaderComponent {
   @HostBinding('class.dark') isDarkMode = false;
 
+  isAuthenticated:boolean = false
   isNavFixed = false;
   menuOpen = false;
   userMenuOpen = false;
   email:any
   nombre:any
+  isStateVerified:boolean = false
 
   constructor(
     public authService: AuthService,
@@ -40,6 +42,7 @@ export class HeaderComponent {
     this.email = this.storageService.getItem('email')
     this.nombre = this.storageService.getItem('nombre')
 
+    if(this.authService.isAuthenticated()) this.isStateVerified = true
   }
 
   toggleDarkMode(): void {

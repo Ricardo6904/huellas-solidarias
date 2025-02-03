@@ -19,12 +19,10 @@ import { AuthService } from './auth.service';
     baseUrl = environment.baseUrl
     constructor(private http:HttpClient, private localStorage:StorageServiceService, private authService:AuthService) {
 
-      //this.obtenerAdopcionesPorIdRefugio(parseInt(this.localStorage.getItem('idRefugio')!))
-      
-      this.obtenerAdopcionesPorIdRefugio(this.authService.getIdRefugio())
     }
     
     ngOnInit(){
+      
     }
 
     #state = signal<State>({
@@ -58,7 +56,7 @@ import { AuthService } from './auth.service';
       })
     } */
 
-    obtenerAdopcionesPorIdRefugio(idRefugio: number){
+   /*  obtenerAdopcionesPorIdRefugio(idRefugio: number){
 
       this.http.get<AdopcionesResponse>(`${this.baseUrl}/adopcion/mascota/refugio/${idRefugio}`)
       .pipe(
@@ -67,6 +65,14 @@ import { AuthService } from './auth.service';
       subscribe((adopciones) => {
         this.actualizarEstado({adopciones, loading: false})
       })
+
+    } */
+    obtenerAdopcionesPorIdRefugioNew(idRefugio: number){
+
+      return this.http.get<AdopcionesResponse>(`${this.baseUrl}/adopcion/mascota/refugio/${idRefugio}`)
+      .pipe(
+        map(res => res.data)
+      )
 
     }
 

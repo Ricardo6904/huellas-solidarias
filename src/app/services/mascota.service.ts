@@ -56,8 +56,11 @@ export class MascotaService {
     private storageService: StorageServiceService
   ) {
     this.obtenerMascotas(1, 10);
-    this.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!));
     
+  }
+
+  ngOnInit(){
+    this.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!));
   }
 
   private actualizarEstado(parteEstado: Partial<State>) {
@@ -138,7 +141,34 @@ export class MascotaService {
         });
       });
   }
+ /*  obtenerMascotasPorRefugio(
+    page: number,
+    limit: number,
+    idRefugio: number,
+    filtros?: { nombre: string }
+  ) {
+    this.actualizarEstadoMR({ loading: true });
+    const params = {
+      page: page.toString(),
+      limit: limit.toString(),
+      ...filtros,
+    };
 
+    this.http
+      .get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`, {
+        params,
+      })
+      .pipe(tap(() => this.actualizarEstadoMR({ loading: false })))
+      .subscribe((res) => {
+        this.actualizarEstadoMR({
+          mascotasR: res.data,
+          loading: false,
+          total: res.total,
+          totalPages: res.totalPages,
+        });
+      });
+  }
+ */
   actualizarMascota(idMascota: number, mascota: Partial<Mascota>) {
     return this.http
       .put<Mascota>(`${this.baseUrl}/mascota/${idMascota}`, mascota)

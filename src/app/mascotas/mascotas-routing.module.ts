@@ -6,19 +6,20 @@ import { MascotaComponent } from './pages/mascota/mascota.component';
 import { MisMascotasComponent } from './pages/mis-mascotas/mis-mascotas.component';
 import { MascotaPerdidaComponent } from './pages/mascota-perdida/mascota-perdida.component';
 import { AdopcionesComponent } from './pages/adopciones/adopciones.component';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'agregar', component: AgregarComponent },
+      { path: 'agregar', component: AgregarComponent, canActivate: [authGuard], data: {rol:'refugio'} },
       { path: 'editar/:idMascota', component: AgregarComponent },
-      { path: 'listar', component: MascotasComponent },
+      { path: '', component: MascotasComponent },
       { path: 'detalle/:idMascota', component: MascotaComponent },
-      { path: 'mis-mascotas', component: MisMascotasComponent },
+      { path: 'mis-mascotas', component: MisMascotasComponent, canActivate: [authGuard], data: {rol:'refugio'}  },
       { path: 'mascota-perdida', component: MascotaPerdidaComponent},
-      { path: 'adopciones', component: AdopcionesComponent},
-      { path: '**', redirectTo: 'listar' },
+      { path: 'adopciones', component: AdopcionesComponent, canActivate: [authGuard], data: {rol:'refugio'} },
+      { path: '**', redirectTo: '' },
     ]
   }
 ];

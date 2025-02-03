@@ -23,6 +23,7 @@ export class AuthService {
   }
 
   login(auth: Auth) {
+    this.storageService.clear()
     return this.http.post<any>(`${this.baseUrl}/auth/login`, auth).pipe(
       map(response => {
 
@@ -73,5 +74,14 @@ export class AuthService {
 
   getIdRefugio(){
     return parseInt(this.storageService.getItem('idRefugio')!)
+  }
+
+  isAuthenticated(){
+    return this.storageService.getItem('token')
+  }
+  hasRole(requiredRole:string){
+    const rol = this.storageService.getItem('rol')
+
+    return rol?.includes(requiredRole)
   }
 }
