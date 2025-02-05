@@ -121,22 +121,21 @@
             </tr>
             }
           </ng-container>
+          <!-- Spinner Row -->
+          <ng-template #loadingRow>
+            <tr>
+              <td colspan="5" class="text-center py-4">
+                <div class="flex justify-center items-center space-x-2">
+                  <div
+                    class="animate-spin w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full"
+                  ></div>
+                  <span>Cargando datos...</span>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
         </tbody>
       </table>
-
-      <!-- Spinner Row -->
-      <ng-template #loadingRow>
-        <tr>
-          <td colspan="5" class="text-center py-4">
-            <div class="flex justify-center items-center space-x-2">
-              <div
-                class="animate-spin w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full"
-              ></div>
-              <span>Cargando datos...</span>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
     </div>
     <!-- Paginación -->
     <nav

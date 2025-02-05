@@ -2,69 +2,86 @@
   <div
     class="border dark:bg-[#3B4252] shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto"
   >
-    <div class="md:flex">
-      <div class="md:flex-shrink-0">
-        <img
-          class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48"
-          [src]="mascota()?.Storage?.url"
-          [alt]="mascota()?.nombre"
-          loading="lazy"
-        />
-      </div>
-      <div class="p-8">
-        <div
-          class="uppercase tracking-wide text-sm text-lime-600 dark:text-blue-300 font-semibold"
-        >
-          {{ mascota()?.raza }}
-        </div>
-        <h1 class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">
-          {{ mascota()?.nombre }}
-        </h1>
-        <p class="mt-2 text-gray-400">{{ mascota()?.historia }}</p>
+    <!-- Skeleton Loader -->
+    <div
+      *ngIf="!mascota(); else contentLoaded"
+      class="animate-pulse space-y-4 p-8"
+    >
+      <div class="h-48 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      <div class="h-6 w-3/4 bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      <div class="h-4 w-1/2 bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div class="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+        <div class="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
       </div>
     </div>
-    <div class="px-8 py-4 bg-gray-100 dark:bg-[#2E3440]">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <p class="text-sm font-medium text-gray-400">Sexo</p>
-          <p class="mt-1 text-sm text-gray-900 dark:text-white">
-            {{ mascota()?.sexo }}
-          </p>
+
+    <ng-template #contentLoaded>
+
+      <div class="md:flex">
+        <div class="md:flex-shrink-0">
+          <img
+            class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48"
+            [src]="mascota()?.Storage?.url"
+            [alt]="mascota()?.nombre"
+            loading="lazy"
+          />
         </div>
-        <div>
-          <p class="text-sm font-medium text-gray-400">Edad</p>
-          <p class="mt-1 text-sm text-gray-900 dark:text-white">
-            {{ mascota()?.edad }}
-          </p>
-        </div>
-        <div>
-          <p class="text-sm font-medium text-gray-400">Tamaño</p>
-          <p class="mt-1 text-sm text-gray-900 dark:text-white">
-            {{ mascota()?.tamano }}
-          </p>
-        </div>
-        <div>
-          <p class="text-sm font-medium text-gray-400">Esterilizado</p>
-          <p class="mt-1 text-sm text-gray-900 dark:text-white">
-            {{ mascota()?.esEsterilizado ? "Sí" : "No" }}
-          </p>
+        <div class="p-8">
+          <div
+            class="uppercase tracking-wide text-sm text-lime-600 dark:text-blue-300 font-semibold"
+          >
+            {{ mascota()?.raza }}
+          </div>
+          <h1 class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">
+            {{ mascota()?.nombre }}
+          </h1>
+          <p class="mt-2 text-gray-400">{{ mascota()?.historia }}</p>
         </div>
       </div>
-    </div>
-    <div class="px-8 py-4">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-        Características
-      </h2>
-      <p class="mt-2 text-gray-400">{{ mascota()?.caracteristica }}</p>
-    </div>
-    <div class="px-8 py-4">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-        Condición
-      </h2>
-      <p class="mt-2 text-gray-400">
-        {{ mascota()?.condicion || "No existen novedades" }}
-      </p>
-    </div>
+      <div class="px-8 py-4 bg-gray-100 dark:bg-[#2E3440]">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm font-medium text-gray-400">Sexo</p>
+            <p class="mt-1 text-sm text-gray-900 dark:text-white">
+              {{ mascota()?.sexo }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-400">Edad</p>
+            <p class="mt-1 text-sm text-gray-900 dark:text-white">
+              {{ mascota()?.edad }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-400">Tamaño</p>
+            <p class="mt-1 text-sm text-gray-900 dark:text-white">
+              {{ mascota()?.tamano }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-400">Esterilizado</p>
+            <p class="mt-1 text-sm text-gray-900 dark:text-white">
+              {{ mascota()?.esEsterilizado ? "Sí" : "No" }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="px-8 py-4">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Características
+        </h2>
+        <p class="mt-2 text-gray-400">{{ mascota()?.caracteristica }}</p>
+      </div>
+      <div class="px-8 py-4">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Condición
+        </h2>
+        <p class="mt-2 text-gray-400">
+          {{ mascota()?.condicion || "No existen novedades" }}
+        </p>
+      </div>
+    </ng-template>
     <div class="px-8 py-4">
       <button
         (click)="solicitarAdopcion(mascota()!.id)"
