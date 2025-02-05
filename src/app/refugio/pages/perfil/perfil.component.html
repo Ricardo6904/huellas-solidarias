@@ -1,96 +1,109 @@
-<div class="bg-gray-100 p-4 rounded-lg max-w-4xl mx-auto shadow-lg mt-8">
-  <!-- Encabezado -->
-  <div class="text-center">
-      <img class="w-32 h-32 rounded-full mx-auto" [src]="refugio()?.Storage?.url" alt="Logo del Refugio">
-      <h1 class="text-3xl font-bold mt-2">{{ refugio()?.nombre }}</h1>
-      <p class="text-gray-600">{{ refugio()?.ciudad }}, {{ refugio()?.provincia }}, {{refugio()?.direccion}}</p>
-      <div class="mt-2 flex justify-center gap-3">
-          <a href="tel:{{ refugio()?.celular }}" class="text-blue-500 hover:text-blue-700">
-              📞 Llamar
-          </a>
-          <a href="mailto:{{ refugio()?.email }}" class="text-blue-500 hover:text-blue-700">
-              ✉️ Email
-          </a>
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Encabezado del Refugio -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+      <!-- Banner Superior -->
+      <div class="h-48 bg-gradient-to-r from-purple-600 to-indigo-600 relative">
+        <!-- Logo del Refugio -->
+        <div class="absolute -bottom-16 left-6">
+          <img
+            [src]="refugio()?.Storage?.url || 'https://via.placeholder.com/128'"
+            alt="Logo del Refugio"
+            class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 object-cover shadow-lg"
+          />
+        </div>
       </div>
-  </div>
-
-  <!-- Información General -->
-  <div class="mt-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Sobre Nosotros</h2>
-      <p class="text-gray-700">
-          {{ refugio()?.direccion }}
-      </p>
-  </div>
-
-  <!-- Redes Sociales -->
-<div class="mt-6 flex gap-4 justify-center">
-  <a *ngFor="let red of refugio()?.redesSociales" [href]="red.url" target="_blank" class="hover:text-blue-500">
-    <i [ngClass]="[getIconClass(red.nombre), 'fa-2x']"></i>
-  </a>
-</div>
-
-  <!-- Galería de Fotos -->
-  <div class="mt-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Galería</h2>
-      <div class="grid grid-cols-3 gap-2">
-          <!-- <img *ngFor="let foto of fotos" [src]="foto.url" class="rounded-lg shadow-md hover:scale-105 transition duration-200"> -->
+      <!-- Información del Refugio -->
+      <div class="px-6 py-4 mt-16">
+        <!-- Nombre y Ubicación -->
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white">
+          {{ refugio()?.nombre }}
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300 mt-2">
+          {{ refugio()?.ciudad }}, {{ refugio()?.provincia }}
+        </p>
       </div>
-  </div>
+    </div>
 
-  <!-- CTA Voluntariado y Donaciones -->
-  <div class="mt-6 text-center">
-      <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-700">
-          Únete como Voluntario
+    <!-- Sección de Información -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Sobre Nosotros -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+          Sobre Nosotros
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+          {{ refugio()?.descripcion || "Información sobre el refugio." }}
+        </p>
+      </div>
+
+      <!-- Contacto y Redes Sociales -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+          Contacto
+        </h2>
+        <div class="space-y-4">
+          <p class="text-gray-600 dark:text-gray-300">
+            📞 {{ refugio()?.celular }}
+          </p>
+          <p class="text-gray-600 dark:text-gray-300">
+            ✉️ {{ refugio()?.email }}
+          </p>
+          <div class="flex gap-4">
+            <a
+              *ngFor="let red of refugio()?.redesSociales"
+              [href]="red.url"
+              target="_blank"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-500 transition duration-200"
+            >
+              <i [ngClass]="[getIconClass(red.nombre), 'fa-2x']"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa de Google Maps -->
+    <div
+      class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+    >
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white p-6">
+        Ubicación
+      </h2>
+      <div class="h-96 w-full">
+        <!-- <iframe
+          width="100%"
+          height="100%"
+          frameborder="0"
+          style="border: 0"
+          [src]="getSafeMapUrl(refugio()?.direccion)"
+          allowfullscreen
+        ></iframe> -->
+        <iframe
+          width="600"
+          height="450"
+          style="border: 0"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093673!2d144.96305791531854!3d-37.81627977975148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1f9f5b1%3A0x5045675218ce6e0!2sMelbourne%2C%20Australia!5e0!3m2!1sen!2sus!4v1625904389203!5m2!1sen!2sus"
+        >
+        </iframe>
+      </div>
+    </div>
+
+    <!-- CTA Voluntariado y Donaciones -->
+    <div class="mt-8 text-center">
+      <button
+        class="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200 font-semibold"
+      >
+        Únete como Voluntario
       </button>
-      <button class="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-700 ml-2">
-          Haz una Donación
+      <button
+        class="bg-yellow-600 text-white px-8 py-3 rounded-full hover:bg-yellow-700 ml-4 transition duration-200 font-semibold"
+      >
+        Haz una Donación
       </button>
-  </div>
-
-  <!-- Mascotas en Adopción -->
-  <div class="mt-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Mascotas en Adopción</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-           <!-- <div *ngFor="let mascota of mascotas" class="p-4 bg-white rounded-lg shadow-md">
-              <img [src]="mascota.foto" class="w-full h-32 object-cover rounded-lg">
-              <h3 class="mt-2 text-lg font-semibold text-gray-800">{{ mascota.nombre }}</h3>
-          </div> -->
-      </div>
+    </div>
   </div>
 </div>
-<!--
- <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-  <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-32"></div>
-  <div class="px-6 py-4 relative">
-    <div class="absolute -top-16 left-6">
-      <img ngSrc="/placeholder.svg" width="128" height="128" alt="Logo del refugio" class="w-32 h-32 rounded-full border-4 border-white bg-white object-cover" priority>
-    </div>
-    <div class="mt-16">
-      <h1 class="text-3xl font-bold text-gray-800">{{ refugioService.refugio()?.nombre }}</h1>
-      <p class="text-gray-600 mt-2">ID: {{ refugioService.refugio()?.id }}</p>
-    </div>
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <h2 class="text-xl font-semibold text-gray-700">Ubicación</h2>
-        <p class="text-gray-600">{{ refugioService.refugio()?.direccion }}</p>
-        <p class="text-gray-600">{{ refugioService.refugio()?.ciudad }}, {{ refugioService.refugio()?.provincia }}</p>
-      </div>
-      <div>
-        <h2 class="text-xl font-semibold text-gray-700">Contacto</h2>
-        <p class="text-gray-600">Celular: {{ refugioService.refugio()?.celular }}</p>
-        <p class="text-gray-600">Email: {{ refugioService.refugio()?.email }}</p>
-      </div>
-    </div>
-    <div class="mt-6">
-      <h2 class="text-xl font-semibold text-gray-700">Redes Sociales</h2>
-      <p class="text-gray-600">{{ refugioService.refugio()?.redesSociales.nombre }}</p>
-    </div>
-  </div>
-  <div class="px-6 py-4 bg-gray-100">
-    <button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1">
-      Contactar Refugio
-    </button>
-  </div>
-</div>
-
- -->

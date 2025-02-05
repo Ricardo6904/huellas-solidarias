@@ -124,7 +124,9 @@ export class AgregarComponent {
               this.router.navigateByUrl('/mascotas/mis-mascotas');
               this.toastr.success('Mascota modificada!');
             },
-            error: () => {}
+            error: () => {
+              this.toastr.error('Error al modificar mascota')
+            }
           }
           );
       } else {
@@ -132,9 +134,11 @@ export class AgregarComponent {
         this.mascotasService.crearMascota(this.mascotaForm.value).subscribe({
           next: () => {
             this.router.navigateByUrl('/mascotas/mis-mascotas');
-            this.toastr.success('Creado exitosamente!');
+            this.toastr.success('Mascota creada exitosamente!');
           },
-          error: (error) => {},
+          error: (error) => {
+            this.toastr.error('Error al crear mascota')
+          },
         });
       }
     } else {
@@ -154,15 +158,17 @@ export class AgregarComponent {
       const formData = new FormData();
       formData.append('file', file);
 
-      this.storageService.subirImagen(formData).subscribe((file) => {
-        this.idStorage = file.data.id;
-
-        //Actualiza el campo idStorage en el formulario
-        this.mascotaForm.patchValue({
-          idStorage: this.idStorage,
-        });
-      });
-
+      this.storageService.subirImagen(formData).subscribe({
+        next: file => {
+          this.idStorage = file.data.id
+          this.mascotaForm.patchValue({
+            idStorage: this.idStorage,
+          });
+        },
+        error: () => {
+          this.toastr.error('Error al subir imagen', 'Formato no adecuado')
+        }
+      })
       reader.onload = () => {
         this.avatarUrl = reader.result;
       };

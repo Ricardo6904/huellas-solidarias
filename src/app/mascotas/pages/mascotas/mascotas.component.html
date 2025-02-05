@@ -70,17 +70,22 @@
         <div
           class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
         >
-          <div class="relative">
-            <img
-              [src]="
-                mascota.Storage.url ||
-                '../../../../assets/images/defaultImage.png'
-              "
-              [alt]="mascota.nombre"
-              loading="lazy"
-              class="w-full h-48 object-cover rounded-t-lg"
-            />
-          </div>
+        <div class="relative">
+          <img
+            [src]="mascota.Storage.url"
+            [alt]="mascota.nombre"
+            class="w-full h-48 object-cover rounded-t-lg"
+          />
+          <img
+            [src]="
+              mascota.refugio.Storage?.url ||
+              '../../../../assets/default-image.webp'
+            "
+            alt="Refugio logo"
+            [routerLink]="['/refugio/perfil', mascota.idRefugio]"
+            class="absolute bottom-2 right-2 w-12 h-12 rounded-full border border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer transition-transform transform hover:scale-110"
+          />
+        </div>
           <div class="p-4">
             <h2
               class="text-xl font-bold text-gray-900 dark:text-stone-50 truncate"

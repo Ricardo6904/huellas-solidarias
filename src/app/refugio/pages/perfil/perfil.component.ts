@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Route } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-perfil',
@@ -12,7 +13,7 @@ import { ActivatedRoute, Route } from '@angular/router';
     styleUrl: './perfil.component.scss'
 })
 export class PerfilComponent {
-
+  private sanitizer = inject(DomSanitizer);
   private route = inject(ActivatedRoute);
   constructor(public refugioService:RefugioService, ){
 
@@ -29,6 +30,12 @@ export class PerfilComponent {
     console.log(this.refugio());
 
   }
+  getSafeMapUrl(direccion: string): SafeResourceUrl {
+    const mapUrl = `https://www.google.com/maps/embed/v1/place?key=TU_API_KEY&q=${encodeURIComponent(
+      direccion
+    )}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(mapUrl);
+  }
 
   getIconClass(nombre: string): string {
     switch (nombre) {
@@ -42,6 +49,8 @@ export class PerfilComponent {
         default:
             return ''; // Asegúrate de devolver una cadena vacía o una clase predeterminada.
     }
+
+    
 }
 
 

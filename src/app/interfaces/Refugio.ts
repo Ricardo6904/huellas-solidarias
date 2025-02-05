@@ -9,7 +9,8 @@ export interface Refugio{
   celular: string,
   email: string,
   redesSociales: RedesSociales[]
-  Storage?: storage
+  Storage?: storage,
+  descripcion: string
 }
 
 export interface RedesSociales{

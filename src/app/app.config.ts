@@ -8,7 +8,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { authInterceptor } from './interceptors/auth.interceptor';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {

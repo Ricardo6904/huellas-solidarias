@@ -6,7 +6,6 @@ import { AgregarComponent } from './pages/agregar/agregar.component';
 import { MascotaComponent } from './pages/mascota/mascota.component';
 import { MascotasComponent } from './pages/mascotas/mascotas.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { mascotasInterceptor } from '../interceptors/mascotas.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { mascotasInterceptor } from '../interceptors/mascotas.interceptor';
   ],
   providers:[
     provideHttpClient(withInterceptors([
-      mascotasInterceptor
     ])),
   ]
 })
