@@ -40,9 +40,7 @@ export class HeaderComponent {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      console.log('antes',this.isStateVerified);
       this.isStateVerified = this.authService.isAuthenticated();
-      console.log(this.isStateVerified);
       
       const savedTheme = this.storageService.getItem('theme');
       this.isDarkMode =

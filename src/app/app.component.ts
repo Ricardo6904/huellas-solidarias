@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterRender, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/header/header.component';
@@ -23,15 +23,16 @@ export class AppComponent {
   title = 'Adopta Huellas';
   isLoading: boolean = true; // Controla si la pantalla de carga está visible
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    // Simula la verificación de autenticación
-    /* setTimeout(() => {
-      this.isLoading = false; // Oculta la pantalla de carga
-    }, 5000);  */
-    this.authService.isAuthenticatedScreen().subscribe((isAuthenticated) => {
-      this.isLoading = false; // Oculta la pantalla de carga
+  constructor(private authService: AuthService) {
+    // Usa afterRender para asegurarte de que el token esté disponible
+    afterRender(() => {
+      this.authService.isAuthenticatedScreen().subscribe((isAuthenticated) => {
+        setTimeout(() => {
+          this.isLoading = false; // Oculta la pantalla de carga
+        });
+      });
     });
   }
+
+  
 }
