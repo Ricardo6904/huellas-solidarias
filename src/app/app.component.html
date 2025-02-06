@@ -1,7 +1,16 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 
 <router-outlet/>
 
 
 <app-footer></app-footer>
 
+ -->
+ <app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+ <div *ngIf="!isLoading">
+   <!-- Tu contenido principal aquí -->
+   <app-header></app-header>
+   <router-outlet></router-outlet>
+   <app-footer></app-footer>
+ </div>

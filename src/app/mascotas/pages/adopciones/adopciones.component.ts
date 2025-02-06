@@ -32,6 +32,10 @@ export class AdopcionesComponent {
   }
 
   ngOnInit() {
+    this.getAdopcionesPorIdRefugio()
+  }
+
+  getAdopcionesPorIdRefugio(){
     this.subscription = this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio()).subscribe({
       next: res => { this.adopciones = res }
     })
@@ -52,6 +56,7 @@ export class AdopcionesComponent {
         this.adopcionService.solicitudAceptada(id).subscribe(() => {
           this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio())
           this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
+          this.getAdopcionesPorIdRefugio()
         })
         this.toastr.success('Adopción Aprobada!')
         
@@ -65,6 +70,7 @@ export class AdopcionesComponent {
       this.adopcionService.rechazarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudRechazada(id).subscribe(()=>{
           this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
+          this.getAdopcionesPorIdRefugio()
         })
         this.toastr.show('Adopción rechazada!')
         

@@ -1,7 +1,6 @@
-<header
-  class="py-4 bg-[#F9FAFB] dark:bg-[#2E3440] border-b border-[#DDBEA9] dark:border-[#4C566A] transition-colors duration-300">
-  <nav class="mx-auto flex justify-between items-center w-[95%] ">
-
+<header class="py-4 bg-[#F9FAFB] dark:bg-[#2E3440] border-b border-[#DDBEA9] dark:border-[#4C566A] transition-colors duration-300">
+  <nav class="mx-auto flex justify-between items-center w-[95%]">
+    <!-- Logo y otros elementos -->
     <div class="flex items-center text-2xl font-semibold">
       <a routerLink="/" class="flex items-center gap-2">
         <span class="block dark:hidden"><img src="../../../assets/logos/logo.png" alt=""></span>
@@ -13,106 +12,80 @@
       </a>
     </div>
 
-    <div
-      class="nav-links bg-[#F9FAFB] dark:bg-[#2E3440] md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10 transition-all duration-300 ease-in-out">
-      <ul class="flex md:flex-row flex-col  md:items-center md:gap-[4vw] gap-6">
+    <!-- Menú de navegación -->
+    <div class="nav-links bg-[#F9FAFB] dark:bg-[#2E3440] md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10 transition-all duration-300 ease-in-out">
+      <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-6">
         <li>
-          <button
-            class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
-            routerLink="/mascotas">Adopta</button>
-
+          <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/mascotas">Adopta</button>
         </li>
-        <!-- <li>
-          <button
-            class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
-            routerLink="/mascotas/mascota-perdida">Mascotas perdidas</button>
-        </li> -->
         <li>
-          <button
-            class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
-            routerLink="/quienes-somos">Nosotros</button>
+          <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/quienes-somos">Nosotros</button>
         </li>
       </ul>
     </div>
 
-
-
-
+    <!-- Contenido dinámico basado en autenticación -->
     <div class="flex items-center gap-5">
-      @if (!isStateVerified) {
-      <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
-        routerLink="/auth/registro">Registrarse</a>
-      <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]"
-        routerLink="/auth/login">Iniciar sesión</a>
-      } @else {
-      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
-        <button (click)="toggleUserMenu()" type="button"
-          class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-          aria-expanded="false">
+      <!-- Mostrar un esqueleto (skeleton) mientras se carga -->
+      <div *ngIf="!isLoaded" class="skeleton-loader">
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+      </div>
+
+      <!-- Opciones para usuarios no autenticados -->
+      <div *ngIf="isLoaded && !isStateVerified">
+        <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/auth/registro">Registrarse</a>
+        <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/auth/login">Iniciar sesión</a>
+      </div>
+
+      <!-- Opciones para usuarios autenticados -->
+      <div *ngIf="isLoaded && isStateVerified" class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <button (click)="toggleUserMenu()" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false">
           <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full"
-            src="https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png" alt="user">
+          <img class="w-8 h-8 rounded-full" src="https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png" alt="user">
         </button>
 
-        <!-- Dropdown menu controlado por Angular -->
-        <div *ngIf="userMenuOpen"
-          class="user-dropdown absolute right-0 z-50  top-[10.3%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-          id="user-dropdown">
+        <!-- Menú desplegable -->
+        <div *ngIf="userMenuOpen" class="user-dropdown absolute right-0 z-50 top-[10.3%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 dark:text-white"> {{authService.getNombre()}} </span>
-            <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{authService.getEmail()}}</span>
+            <span class="block text-sm text-gray-900 dark:text-white">{{ authService.getNombre() }}</span>
+            <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{ authService.getEmail() }}</span>
           </div>
           <ul class="py-2 divide-gray-100">
             @if (rol() === 'refugio') {
-            <li><a routerLink="/mascotas/adopciones"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Notificaciones</a>
+            <li>
+              <a routerLink="/mascotas/adopciones" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Notificaciones</a>
             </li>
-            <li><a routerLink="/mascotas/mis-mascotas"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis
-                mascotas</a></li>
-            <li><a routerLink="/mascotas/agregar"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Agregar
-                Mascota</a></li>
-            }@else {
-            <!-- <li><a routerLink="/mascotas/mascota-perdida"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mascota
-                perdida</a></li> -->
+            <li>
+              <a routerLink="/mascotas/mis-mascotas" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis mascotas</a>
+            </li>
+            <li>
+              <a routerLink="/mascotas/agregar" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Agregar Mascota</a>
+            </li>
             }
           </ul>
-
-          <li><a (click)="logout()"
-              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar
-              sesión</a></li>
+          <li>
+            <a (click)="logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</a>
+          </li>
         </div>
       </div>
-      }
 
-      <button
-      (click)="toggleDarkMode()"
-      class="w-11 h-11 rounded-full p-0 border-2 border-yellow-400 dark:border-blue-400 bg-yellow-100 dark:bg-blue-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-blue-500"
-    >
-      <span
-        class="relative  transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0"
-      >
-        {{ isDarkMode ? '☀️' : '🌙' }}
-      </span>
-    </button>
+      <!-- Botón de modo oscuro -->
+      <button (click)="toggleDarkMode()" class="w-11 h-11 rounded-full p-0 border-2 border-yellow-400 dark:border-blue-400 bg-yellow-100 dark:bg-blue-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-blue-500">
+        <span class="relative transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+          {{ isDarkMode ? '☀️' : '🌙' }}
+        </span>
+      </button>
     </div>
 
-
-
-
+    <!-- Botón de menú móvil -->
     <button class="sm:hidden" (click)="onToggleMenu()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current " width="32" height="32" viewBox="0 0 24 24"
-        stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M4 6l16 0" />
         <path d="M4 12l16 0" />
         <path d="M4 18l16 0" />
       </svg>
     </button>
-
-
-
   </nav>
 </header>

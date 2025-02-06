@@ -3,26 +3,35 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { PrimeNG, PrimeNGConfigType } from 'primeng/config';
+import { LoadingScreenComponent } from './shared/loading-screen/loading-screen.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, FooterComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    HeaderComponent,
+    FooterComponent,
+    LoadingScreenComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'huellas-solidarias';
+  title = 'Adopta Huellas';
+  isLoading: boolean = true; // Controla si la pantalla de carga está visible
 
-  constructor(private primengConfig: PrimeNG) { }
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.primengConfig.ripple.set(true);       //enables core ripple functionality
-
-    
+    // Simula la verificación de autenticación
+    /* setTimeout(() => {
+      this.isLoading = false; // Oculta la pantalla de carga
+    }, 5000);  */
+    this.authService.isAuthenticatedScreen().subscribe((isAuthenticated) => {
+      this.isLoading = false; // Oculta la pantalla de carga
+    });
   }
-
-
-
 }
