@@ -70,6 +70,10 @@ export class AuthService {
     return parseInt(this.storageService.getItem('idRefugio')!);
   }
 
+  getidUsuario() {
+    return parseInt(this.storageService.getItem('idUsuario')!);
+  }
+
   isAuthenticated() {
     return this.storageService.getItem('token') ? true : false;
   }

@@ -7,7 +7,10 @@ export class Usuario{
   correo?: string
   clave?: string
   rol?: string
+  direccion?: string
+  estado?: string
   idProvincia?: number
+  adopcionPendiente?:boolean
   idCiudad?: number
 }
 

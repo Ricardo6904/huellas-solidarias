@@ -76,9 +76,7 @@ export class AdopcionesComponent {
           this.adopcionService.obtenerAdopcionesPorIdRefugioNew(
             this.authService.getIdRefugio()
           );
-          this.usuarioService.actualizarAdopcionPendiente(
-            parseInt(this.localStorage.getItem('idUsuario')!)
-          );
+          
           this.getAdopcionesPorIdRefugio();
         });
         this.toastr.success('Adopción Aprobada!');
@@ -89,9 +87,7 @@ export class AdopcionesComponent {
     try {
       this.adopcionService.rechazarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudRechazada(id).subscribe(() => {
-          this.usuarioService.actualizarAdopcionPendiente(
-            parseInt(this.localStorage.getItem('idUsuario')!)
-          );
+          
           this.getAdopcionesPorIdRefugio();
         });
         this.toastr.show('Adopción rechazada!');

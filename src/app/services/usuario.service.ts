@@ -47,10 +47,20 @@ export class UsuarioService {
       });
   }
 
+  obtenerUsuarioPorIdNew(idUsuario: number) {
+    return this.http
+      .get<UsuarioResponse>(`${this.baseUrl}/usuario/${idUsuario}`)
+      .pipe(
+        tap(() => this.actualizarEstado({ loading: false })),
+        map((res) => res.data)
+      )
+  }
+
   actualizarAdopcionPendiente(idUsuario: number) {
     return this.http.put<UsuarioResponse>(
       `${this.baseUrl}/usuario/${idUsuario}/solicitudPendiente`,
       {}
     );
   }
+
 }

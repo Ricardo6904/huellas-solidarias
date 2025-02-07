@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadChildren: () => import('./refugio/refugio.module').then(m => m.RefugioModule)
   },
   {
+    path: 'usuario',
+    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }
