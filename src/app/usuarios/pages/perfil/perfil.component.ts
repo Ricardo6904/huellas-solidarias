@@ -51,7 +51,7 @@ export class PerfilComponent {
   perfilForm: FormGroup;
   ciudades: Ciudad[] = [];
   subscription?: Subscription;
-
+  isLoading=true;
   constructor(
     private usuarioService: UsuarioService,
     private authService: AuthService,
@@ -93,8 +93,7 @@ export class PerfilComponent {
     try {
       this.usuarioService.obtenerUsuarioPorIdNew(userId).subscribe({
         next: (res) => {
-          console.log(res);
-
+          this.isLoading=false;
           this.usuario = res.data;
 
           // Llenar el formulario con los datos del usuario
@@ -113,6 +112,7 @@ export class PerfilComponent {
           }
         },
         error: (error) => {
+          this.isLoading=false
           this.toastr.error('Error al cargar el perfil', 'Error');
         },
       });

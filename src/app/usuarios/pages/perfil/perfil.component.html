@@ -17,7 +17,11 @@
       <div class="px-6 py-4 mt-16">
         <!-- Nombre y Rol -->
         <h1 class="text-4xl font-bold text-gray-800 dark:text-white">
-          {{ usuario.nombres }} {{ usuario.apellidos }}
+          @if (isLoading) {
+            <div class="h-8 bg-gray-200 dark:bg-gray-600 rounded w-1/2 animate-pulse"></div>
+          } @else {
+            {{ usuario.nombres }} {{ usuario.apellidos }}
+          }
         </h1>
       </div>
     </div>
@@ -34,42 +38,62 @@
             <!-- Nombres -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombres</label>
-              <input
-                *ngIf="editMode"
-                formControlName="nombres"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.nombres }}</p>
+              @if (isLoading) {
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+              } @else {
+                <input
+                  *ngIf="editMode"
+                  formControlName="nombres"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.nombres }}</p>
+              }
             </div>
             <!-- Apellidos -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-              <input
-                *ngIf="editMode"
-                formControlName="apellidos"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.apellidos }}</p>
+              @if (isLoading) {
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+              } @else {
+                <input
+                  *ngIf="editMode"
+                  formControlName="apellidos"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.apellidos }}</p>
+              }
             </div>
             <!-- Cédula -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cédula</label>
-              <p class="text-gray-600 dark:text-gray-300">{{ usuario.cedula }}</p>
+              @if (isLoading) {
+                <div class="h-6 bg-gray-200 dark:bg-gray-600 rounded w-1/2 animate-pulse"></div>
+              } @else {
+                <p class="text-gray-600 dark:text-gray-300">{{ usuario.cedula }}</p>
+              }
             </div>
             <!-- Celular -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-              <input
-                *ngIf="editMode"
-                formControlName="celular"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.celular }}</p>
+              @if (isLoading) {
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+              } @else {
+                <input
+                  *ngIf="editMode"
+                  formControlName="celular"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.celular }}</p>
+              }
             </div>
             <!-- Email -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-              <p class="text-gray-600 dark:text-gray-300">{{ usuario.email }}</p>
+              @if (isLoading) {
+                <div class="h-6 bg-gray-200 dark:bg-gray-600 rounded w-3/4 animate-pulse"></div>
+              } @else {
+                <p class="text-gray-600 dark:text-gray-300">{{ usuario.email }}</p>
+              }
             </div>
           </div>
         </form>
@@ -85,45 +109,57 @@
             <!-- Provincia -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
-              <select
-                *ngIf="editMode"
-                id="idProvincia"
-                formControlName="idProvincia"
-                (change)="cargarCiudades($event)"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option disabled value="">Selecciona una provincia</option>
-                @for (provincia of provinciaCiudadService.provincias(); track $index) {
-                <option [value]="provincia.id">{{ provincia.nombre }}</option>
-                }
-              </select>
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.provincia?.nombre }}</p>
+              @if (isLoading) {
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+              } @else {
+                <select
+                  *ngIf="editMode"
+                  id="idProvincia"
+                  formControlName="idProvincia"
+                  (change)="cargarCiudades($event)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled value="">Selecciona una provincia</option>
+                  @for (provincia of provinciaCiudadService.provincias(); track $index) {
+                  <option [value]="provincia.id">{{ provincia.nombre }}</option>
+                  }
+                </select>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.provincia?.nombre }}</p>
+              }
             </div>
             <!-- Ciudad -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
-              <select
-                *ngIf="editMode"
-                id="idCiudad"
-                formControlName="idCiudad"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option disabled value="">Selecciona una ciudad</option>
-                @for (ciudad of ciudades; track $index) {
-                <option [value]="ciudad.id">{{ ciudad.nombre }}</option>
-                }
-              </select>
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.ciudad?.nombre }}</p>
+              @if (isLoading) {
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+              } @else {
+                <select
+                  *ngIf="editMode"
+                  id="idCiudad"
+                  formControlName="idCiudad"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled value="">Selecciona una ciudad</option>
+                  @for (ciudad of ciudades; track $index) {
+                  <option [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                  }
+                </select>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.ciudad?.nombre }}</p>
+              }
             </div>
             <!-- Dirección -->
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dirección</label>
-              <input
-                *ngIf="editMode"
-                formControlName="direccion"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.direccion }}</p>
+              @if (isLoading) {
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+              } @else {
+                <input
+                  *ngIf="editMode"
+                  formControlName="direccion"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">{{ usuario.direccion }}</p>
+              }
             </div>
           </div>
         </form>
@@ -132,27 +168,29 @@
 
     <!-- Botones de Acción -->
     <div class="mt-8 text-center">
-      <button
-        *ngIf="!editMode"
-        (click)="toggleEditMode()"
-        class="bg-indigo-600 text-white px-8 py-3 rounded-full hover:bg-indigo-700 transition duration-200 font-semibold"
-      >
-        Editar Perfil
-      </button>
-      <button
-        *ngIf="editMode"
-        (click)="guardarCambios()"
-        class="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200 font-semibold"
-      >
-        Guardar Cambios
-      </button>
-      <button
-        *ngIf="editMode"
-        (click)="toggleEditMode()"
-        class="bg-gray-600 text-white px-8 py-3 rounded-full hover:bg-gray-700 ml-4 transition duration-200 font-semibold"
-      >
-        Cancelar
-      </button>
+      @if (!isLoading) {
+        <button
+          *ngIf="!editMode"
+          (click)="toggleEditMode()"
+          class="bg-indigo-600 text-white px-8 py-3 rounded-full hover:bg-indigo-700 transition duration-200 font-semibold"
+        >
+          Editar Perfil
+        </button>
+        <button
+          *ngIf="editMode"
+          (click)="guardarCambios()"
+          class="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200 font-semibold"
+        >
+          Guardar Cambios
+        </button>
+        <button
+          *ngIf="editMode"
+          (click)="toggleEditMode()"
+          class="bg-gray-600 text-white px-8 py-3 rounded-full hover:bg-gray-700 ml-4 transition duration-200 font-semibold"
+        >
+          Cancelar
+        </button>
+      }
     </div>
   </div>
 </div>
