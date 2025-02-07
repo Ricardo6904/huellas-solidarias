@@ -19,6 +19,8 @@
         <input
           type="text"
           [(ngModel)]="filtro.nombre"
+          id="nombre"
+          name="nombre"
           (input)="onFiltroChange()"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Buscar Nombre"
@@ -27,6 +29,8 @@
 
         <select
           [(ngModel)]="filtro.edad"
+          id="edad"
+          name="edad"
           (change)="onFiltroChange()"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
@@ -38,6 +42,8 @@
 
         <select
           [(ngModel)]="filtro.tamano"
+          id="tamano"
+          name="tamano"
           (change)="onFiltroChange()"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
@@ -49,6 +55,8 @@
 
         <select
           [(ngModel)]="filtro.raza"
+          id="raza"
+          name="raza"
           (change)="onFiltroChange()"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
@@ -154,6 +162,8 @@
           <input
             type="text"
             [(ngModel)]="filtro.nombre"
+            id="nombreB"
+            name="nombreB"
             (input)="onFiltroChange()"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Buscar Nombre"
@@ -163,6 +173,8 @@
           <select
             [(ngModel)]="filtro.edad"
             (change)="onFiltroChange()"
+            id="edadB"
+            name="edadB"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="">Todas las Edades</option>
@@ -174,6 +186,8 @@
           <!--  -->
           <select
             [(ngModel)]="filtro.tamano"
+            id="tamanoB"
+            name="tamanoB"
             (change)="onFiltroChange()"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
@@ -185,6 +199,8 @@
           </select>
           <select
             [(ngModel)]="filtro.raza"
+            id="razaB"
+            name="razaB"
             (change)="onFiltroChange()"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >

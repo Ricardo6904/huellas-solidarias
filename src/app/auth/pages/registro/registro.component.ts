@@ -24,8 +24,6 @@ import { Subscription } from 'rxjs';
   styleUrl: './registro.component.scss',
 })
 export class RegistroComponent {
-  provincias: any = ['Azuay', 'Bolívar', 'Cañar', 'Carchi', 'Tungurahua'];
-  ciudades1: any = ['Ambato', 'Baños de Agua Santa', 'Santa Rosa'];
   ciudades: Ciudad[] = [];
   subscription?: Subscription;
 

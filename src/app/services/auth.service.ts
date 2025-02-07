@@ -19,9 +19,12 @@ export class AuthService {
     private storageService: StorageServiceService
   ) {}
 
-  registrar(usuario: Usuario) {
-    return this.http.post(`${this.baseUrl}/auth/register`, usuario);
+  registrar(payload: any) {
+    return this.http.post(`${this.baseUrl}/auth/register`, payload);
   }
+  /* registrar(usuario: Usuario) {
+    return this.http.post(`${this.baseUrl}/auth/register`, usuario);
+  } */
 
   login(auth: Auth) {
     this.storageService.clear();
@@ -50,6 +53,9 @@ export class AuthService {
     });
   }
 
+  recuperarContrasena(email:string){
+    return this.http.post(`${this.baseUrl}/auth/recuperarContrasena`, {email})
+  }
   getRol() {
     return this.storageService.getItem('rol');
   }

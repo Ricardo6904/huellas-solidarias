@@ -41,7 +41,7 @@ export class MascotasComponent implements OnInit {
    // Cargar la primera página de mascotas
    //this.loadPage(this.currentPage());
    this.loadPage(1);
-   this.title.setTitle('Adopta una huella - Adopción de mascotas');
+   this.title.setTitle('Adopta Huellas - Galería');
     this.meta.updateTag({ name: 'description', content: 'Encuentra a tu mejor amigo en nuestra plataforma de adopción de perros.' });
     this.meta.updateTag({ property: 'og:title', content: 'Adopta un amigo' });
     this.meta.updateTag({ property: 'og:description', content: 'Conecta con mascotas que buscan un hogar.' });

@@ -50,10 +50,11 @@ export class UsuarioService {
   obtenerUsuarioPorIdNew(idUsuario: number) {
     return this.http
       .get<UsuarioResponse>(`${this.baseUrl}/usuario/${idUsuario}`)
-      .pipe(
-        tap(() => this.actualizarEstado({ loading: false })),
-        map((res) => res.data)
-      )
+     
+  }
+
+  actualizarUsuario(usuario:Usuario, idUsuario:number){
+    return this.http.put(`${this.baseUrl}/usuario/${idUsuario}`, usuario)
   }
 
   actualizarAdopcionPendiente(idUsuario: number) {

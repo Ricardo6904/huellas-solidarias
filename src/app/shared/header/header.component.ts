@@ -57,7 +57,10 @@ export class HeaderComponent {
     this.nombre = this.storageService.getItem('nombre');
     this.isLoaded = true;
     if (this.authService.isAuthenticated()) this.isStateVerified = true;
+
   }
+
+
 
   toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;

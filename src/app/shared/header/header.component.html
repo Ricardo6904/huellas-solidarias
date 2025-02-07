@@ -26,49 +26,85 @@
 
     <!-- Contenido dinámico basado en autenticación -->
     <div class="flex items-center gap-5">
-      <!-- Mostrar un esqueleto (skeleton) mientras se carga -->
-      <div *ngIf="!isLoaded" class="skeleton-loader">
-        <div class="skeleton-item"></div>
-        <div class="skeleton-item"></div>
-      </div>
-
-      <!-- Opciones para usuarios no autenticados -->
+     
       <div *ngIf="isLoaded && !isStateVerified">
         <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/auth/registro">Registrarse</a>
         <a class="mx-3 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/auth/login">Iniciar sesión</a>
       </div>
+      <!-- Opciones para usuarios no autenticados -->
+    <div *ngIf="isLoaded && isStateVerified" class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+  <button (click)="toggleUserMenu()" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false">
+    <span class="sr-only">Open user menu</span>
+    <img class="w-8 h-8 rounded-full" src="https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png" alt="user">
+  </button>
 
-      <!-- Opciones para usuarios autenticados -->
-      <div *ngIf="isLoaded && isStateVerified" class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <button (click)="toggleUserMenu()" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false">
-          <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full" src="https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png" alt="user">
-        </button>
-
-        <!-- Menú desplegable -->
-        <div *ngIf="userMenuOpen" class="user-dropdown absolute right-0 z-50 top-[10.3%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-          <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 dark:text-white">{{ authService.getNombre() }}</span>
-            <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{ authService.getEmail() }}</span>
-          </div>
-          <ul class="py-2 divide-gray-100">
-            @if (rol() === 'refugio') {
-            <li>
-              <a routerLink="/mascotas/adopciones" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Notificaciones</a>
-            </li>
-            <li>
-              <a routerLink="/mascotas/mis-mascotas" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis mascotas</a>
-            </li>
-            <li>
-              <a routerLink="/mascotas/agregar" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Agregar Mascota</a>
-            </li>
-            }
-          </ul>
-          <li>
-            <a (click)="logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</a>
-          </li>
-        </div>
-      </div>
+  <!-- Menú desplegable -->
+  <div *ngIf="userMenuOpen" class="user-dropdown absolute right-0 z-50 top-[10.3%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+    <div class="px-4 py-3">
+      <span class="block text-sm text-gray-900 dark:text-white">{{ authService.getNombre() }}</span>
+      <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{ authService.getEmail() }}</span>
+    </div>
+    <ul class="py-2 divide-gray-100">
+      @if (rol() === 'refugio') {
+      <li>
+        <a routerLink="/mascotas/adopciones" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bell mr-2">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+            <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+          </svg>
+          Notificaciones
+        </a>
+      </li>
+      <li>
+        <a routerLink="/mascotas/mis-mascotas" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-paw mr-2">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 10c-1.32 0 -1.983 .421 -2.931 1.924c-.317 .57 -.069 1.076 .669 1.076c.603 0 1.262 -.376 2.262 -.376c.998 0 1.659 .376 2.262 .376c.738 0 .986 -.506 .669 -1.076c-.948 -1.503 -1.611 -1.924 -2.931 -1.924z" />
+            <path d="M20.188 8.082a1.039 1.039 0 0 0 -.406 -.082h-.015c-.735 .012 -1.56 .75 -1.993 1.866c-.519 1.335 -.28 2.7 .538 3.052c.129 .055 .267 .082 .406 .082c.739 0 1.575 -.742 2.011 -1.866c.516 -1.335 .273 -2.7 -.54 -3.052z" />
+            <path d="M9.474 9c.055 0 .109 0 .163 -.011c.944 -.128 1.533 -1.346 1.32 -2.722c-.203 -1.297 -1.047 -2.267 -1.932 -2.267c-.055 0 -.109 0 -.163 .011c-.944 .128 -1.533 1.346 -1.32 2.722c.204 1.293 1.048 2.267 1.933 2.267z" />
+            <path d="M16.456 6.733c.214 -1.376 -.375 -2.594 -1.32 -2.722a1.164 1.164 0 0 0 -.162 -.011c-.885 0 -1.728 .97 -1.93 2.267c-.214 1.376 .375 2.594 1.32 2.722c.054 .007 .108 .011 .162 .011c.885 0 1.73 -.974 1.93 -2.267z" />
+            <path d="M5.69 12.918c.816 -.352 1.054 -1.717 .536 -3.052c-.436 -1.115 -1.271 -1.866 -2.009 -1.866c-.14 0 -.277 .027 -.406 .082c-.816 .352 -1.054 1.717 -.536 3.052c.436 1.115 1.271 1.866 2.009 1.866c.14 0 .277 -.027 .406 -.082z" />
+          </svg>
+          Mis mascotas
+        </a>
+      </li>
+      <li>
+        <a routerLink="/mascotas/agregar" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus mr-2">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 5l0 14" />
+            <path d="M5 12l14 0" />
+          </svg>
+          Agregar Mascota
+        </a>
+      </li>
+      }@else {
+      <li>
+        <a routerLink="/usuario/perfil" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user mr-2">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+          </svg>
+          Mi perfil
+        </a>
+      </li>
+      }
+    </ul>
+    <li>
+      <a (click)="logout()" class="cursor-pointer flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout mr-2">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+          <path d="M9 12h12l-3 -3" />
+          <path d="M18 15l3 -3" />
+        </svg>
+        Cerrar sesión
+      </a>
+    </li>
+  </div>
+</div>
 
       <!-- Botón de modo oscuro -->
       <button (click)="toggleDarkMode()" class="w-11 h-11 rounded-full p-0 border-2 border-yellow-400 dark:border-blue-400 bg-yellow-100 dark:bg-blue-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-blue-500">
