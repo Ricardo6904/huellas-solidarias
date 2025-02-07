@@ -9,74 +9,93 @@ import { AuthService } from '../../../services/auth.service';
 import { MascotaService } from 'src/app/services/mascota.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-adopciones',
-    standalone: true,
-    imports: [],
-    templateUrl: './adopciones.component.html',
-    styleUrl: './adopciones.component.scss'
+  selector: 'app-adopciones',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './adopciones.component.html',
+  styleUrl: './adopciones.component.scss',
 })
 export class AdopcionesComponent {
-  public solicitarAdopcionService = inject(SolicitarAdopcionService)
-  adopciones:Adopcion[]=[]
+  public solicitarAdopcionService = inject(SolicitarAdopcionService);
+  adopciones: Adopcion[] = [];
   pendingCount: number = 0;
+  loading = true;
+  page = 1;
+  limit = 5;
+  totalAdopciones = 0;
+  Math = Math; 
 
-   subscription = new Subscription();
+  subscription = new Subscription();
 
-  constructor(private route:ActivatedRoute, private toastr:ToastrService,
-    private localStorage:StorageServiceService, public adopcionService:SolicitarAdopcionService,
-    private authService:AuthService, private usuarioService:UsuarioService
-  ){
-
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    private localStorage: StorageServiceService,
+    public adopcionService: SolicitarAdopcionService,
+    private authService: AuthService,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit() {
-    this.getAdopcionesPorIdRefugio()
+    this.getAdopcionesPorIdRefugio();
   }
 
-  getAdopcionesPorIdRefugio(){
-    this.subscription = this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio()).subscribe({
-      next: res => { this.adopciones = res }
-    })
+  getAdopcionesPorIdRefugio() {
+    this.subscription = this.adopcionService
+      .obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio(), this.page, this.limit)
+      .subscribe({
+        next: (res) => {
+          this.loading = false;
+          this.adopciones = res.data;
+        },
+      });
+  }
+
+  cambiarPagina(nuevaPagina: number) {
+    this.page = nuevaPagina;
+    this.getAdopcionesPorIdRefugio();
   }
 
   getStatusClass(estado: number): string {
-    return estado === 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800';
+    return estado === 0
+      ? 'bg-yellow-100 text-yellow-800'
+      : 'bg-green-100 text-green-800';
   }
 
   getStatusText(estado: number): string {
     return estado === 0 ? 'Pendiente' : 'Aprobada';
   }
 
-  aprobar(id:number){
-    
+  aprobar(id: number) {
     try {
       this.adopcionService.aprobarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudAceptada(id).subscribe(() => {
-          this.adopcionService.obtenerAdopcionesPorIdRefugioNew(this.authService.getIdRefugio())
-          this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
-          this.getAdopcionesPorIdRefugio()
-        })
-        this.toastr.success('Adopción Aprobada!')
-        
-      })
-    } catch (error) {
-      
-    }
+          this.adopcionService.obtenerAdopcionesPorIdRefugioNew(
+            this.authService.getIdRefugio()
+          );
+          this.usuarioService.actualizarAdopcionPendiente(
+            parseInt(this.localStorage.getItem('idUsuario')!)
+          );
+          this.getAdopcionesPorIdRefugio();
+        });
+        this.toastr.success('Adopción Aprobada!');
+      });
+    } catch (error) {}
   }
-  rechazar(id:number){
+  rechazar(id: number) {
     try {
       this.adopcionService.rechazarSolicitud(id).subscribe(() => {
-        this.adopcionService.solicitudRechazada(id).subscribe(()=>{
-          this.usuarioService.actualizarAdopcionPendiente(parseInt(this.localStorage.getItem('idUsuario')!))
-          this.getAdopcionesPorIdRefugio()
-        })
-        this.toastr.show('Adopción rechazada!')
-        
-      })
-    } catch (error) {
-    }
+        this.adopcionService.solicitudRechazada(id).subscribe(() => {
+          this.usuarioService.actualizarAdopcionPendiente(
+            parseInt(this.localStorage.getItem('idUsuario')!)
+          );
+          this.getAdopcionesPorIdRefugio();
+        });
+        this.toastr.show('Adopción rechazada!');
+      });
+    } catch (error) {}
   }
-
 }

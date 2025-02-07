@@ -2,75 +2,147 @@
   <div class="max-w-4xl mx-auto">
     <header class="mb-8 flex justify-between items-center">
       <div>
-        <h1 class="text-3xl font-bold mb-2 text-lime-600 dark:text-blue-300">Mis Adopciones</h1>
-        <p class="text-[#5C492C] dark:text-[#DDBEA9]">Revisa el estado de tus solicitudes de adopción</p>
+        <h1 class="text-3xl font-bold mb-2 text-lime-600 dark:text-blue-300">
+          Mis Adopciones
+        </h1>
+        <p class="text-[#5C492C] dark:text-[#DDBEA9]">
+          Revisa el estado de tus solicitudes de adopción
+        </p>
       </div>
-      <div class="bg-blue-500 text-white text-xl font-bold rounded-full w-12 h-12 flex items-center justify-center">
-        {{adopcionService.adopciones()!.length}}
+      <div
+        class="bg-blue-500 text-white text-xl font-bold rounded-full w-12 h-12 flex items-center justify-center"
+      >
+        {{ adopciones.length }}
       </div>
     </header>
 
-    <div class="bg-gray-100 dark:bg-[#3B4252] rounded-lg shadow-md overflow-hidden">
-      <div class="p-4 border-b border-gray-200 font-semibold text-gray-700 dark:text-white">
+    <div
+      class="bg-gray-100 dark:bg-[#3B4252] rounded-lg shadow-md overflow-hidden"
+    >
+      <div
+        class="p-4 border-b border-gray-200 font-semibold text-gray-700 dark:text-white"
+      >
         Solicitudes de Adopción
       </div>
       <ul class="divide-y divide-gray-200">
-
+        @if (!loading) {
         @for (adopcion of adopciones; track $index) {
-        <li class="p-4  transition duration-150 ease-in-out">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img [src]="adopcion.mascota.Storage.url" [alt]="adopcion.mascota.nombre"
-                class="w-12 h-12 rounded-full object-cover">
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-black dark:text-white truncate">
-                {{adopcion.mascota.nombre}}
-              </p>
-              <p class="text-sm text-gray-500 dark:text-white truncate">
-                Solicitante: {{adopcion.usuario.nombres}}
-              </p>
-              <p class="text-sm text-gray-500 dark:text-white truncate">
-                Correo: {{adopcion.usuario.email}}
-              </p>
-              <p class="text-sm text-gray-500 dark:text-white truncate">
-                Celular: {{adopcion.usuario.celular}}
-              </p>
-            </div>
-            <div class="text-black dark:text-white flex items-center capitalize">
-              <button (click)="aprobar(adopcion.id ?? 0)" class="rounded-full border border-1 m-2 hover:opacity-50">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="#24cc40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-check">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M5 12l5 5l10 -10" />
-                </svg>
-              </button>
 
-              <button (click)="rechazar(adopcion.id ?? 0)" class="rounded-full border border-1 m-2 hover:opacity-50">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="#e0101a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-x">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M18 6l-12 12" />
-                  <path d="M6 6l12 12" />
-                </svg>
-              </button>
-              <!-- <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full ' + adopcion.estado">
-                {{adopcion.estado}}
-              </span> -->
+            <li class="p-4 transition duration-150 ease-in-out">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                  <img
+                    [src]="adopcion.mascota.Storage.url"
+                    [alt]="adopcion.mascota.nombre"
+                    class="w-12 h-12 rounded-full object-cover"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p
+                    class="text-sm font-medium text-black dark:text-white truncate"
+                  >
+                    {{ adopcion.mascota.nombre }}
+                  </p>
+                  <p class="text-sm text-gray-500 dark:text-white truncate">
+                    Solicitante: {{ adopcion.usuario.nombres }}
+                  </p>
+                  <p class="text-sm text-gray-500 dark:text-white truncate">
+                    Correo: {{ adopcion.usuario.email }}
+                  </p>
+                  <p class="text-sm text-gray-500 dark:text-white truncate">
+                    Celular: {{ adopcion.usuario.celular }}
+                  </p>
+                </div>
+                <div
+                  class="text-black dark:text-white flex items-center capitalize"
+                >
+                  <button
+                    (click)="aprobar(adopcion.id ?? 0)"
+                    class="rounded-full border border-1 m-2 hover:opacity-50"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#24cc40"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l5 5l10 -10" />
+                    </svg>
+                  </button>
+    
+                  <button
+                    (click)="rechazar(adopcion.id ?? 0)"
+                    class="rounded-full border border-1 m-2 hover:opacity-50"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#e0101a"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M18 6l-12 12" />
+                      <path d="M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <!-- <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full ' + adopcion.estado">
+                    {{adopcion.estado}}
+                  </span> -->
+                </div>
+                
+              </div>
+              
+            </li>
+            
+          }@empty {
+            <div class="text-center text-gray-500 mt-8">
+              No tienes solicitudes de adopción pendientes.
             </div>
+          }
+        }@else {
+          <div class="flex justify-center items-center p-6">
+            <svg class="animate-spin h-8 w-8 text-lime-600 dark:text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
           </div>
-        </li>
         }
-
       </ul>
+      
     </div>
-    @if (adopcionService.adopciones()!.length === 0) {
-    <div class="text-center text-gray-500 mt-8 ">
-      No tienes solicitudes de adopción pendientes.
+    <div class="flex justify-center items-center mt-4">
+      <button 
+        (click)="cambiarPagina(page - 1)" 
+        [disabled]="page === 1"
+        class="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded-lg mx-2"
+      >
+        Anterior
+      </button>
+      
+      <span class="text-gray-700 dark:text-white">
+        Página {{ page }} de {{ Math.ceil(totalAdopciones / limit) }}
+      </span>
+      
+      <button 
+        (click)="cambiarPagina(page + 1)" 
+        [disabled]="page * limit >= totalAdopciones"
+        class="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded-lg mx-2"
+      >
+        Siguiente
+      </button>
     </div>
-    }
-
   </div>
 </div>

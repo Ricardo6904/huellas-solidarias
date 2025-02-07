@@ -6,33 +6,6 @@
       Mis Mascotas
     </h1>
 
-    <!-- Loading Spinner -->
-    <div
-      *ngIf="mascotasService.loading()"
-      class="flex justify-center items-center min-h-[200px]"
-    >
-      <svg
-        class="animate-spin h-8 w-8 text-blue-500"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"
-        ></path>
-      </svg>
-    </div>
-
     <!-- Tabla -->
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative">
@@ -62,8 +35,8 @@
         placeholder="Buscar Mascota"
       />
     </div>
-
-    <div *ngIf="!mascotasService.loading()" class="overflow-x-auto">
+    @if (!mascotasService.loading()) {
+    <div class="overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -196,5 +169,33 @@
         </li>
       </ul>
     </nav>
+    }@else {
+    <!-- Loading Spinner -->
+    <div
+      *ngIf="mascotasService.loading()"
+      class="flex justify-center items-center min-h-[200px]"
+    >
+      <svg
+        class="animate-spin h-8 w-8 text-blue-500"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"
+        ></path>
+      </svg>
+    </div>
+    }
   </div>
 </section>
