@@ -133,21 +133,6 @@ export class PerfilComponent {
     }
   }
 
-  /*  cargarCiudades(event: Event) {
-    const idProvincia = parseInt((event.target as HTMLSelectElement).value);
-
-    this.subscription = this.provinciaCiudadService
-      .obtenerCiudadesPorIdProvincia(idProvincia)
-      .subscribe({
-        next: (ciudades) => {
-          this.ciudades = ciudades;
-          this.perfilForm.get('idCiudad')?.enable();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-  } */
   cargarCiudades(idProvincia: number | Event): void {
     let provinciaId: number;
 
