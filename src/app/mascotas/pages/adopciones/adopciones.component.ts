@@ -70,24 +70,28 @@ export class AdopcionesComponent {
   }
 
   aprobar(id: number) {
+    this.loading = true
     try {
       this.adopcionService.aprobarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudAceptada(id).subscribe(() => {
           this.adopcionService.obtenerAdopcionesPorIdRefugioNew(
             this.authService.getIdRefugio()
           );
-          
+          this.loading  = false
           this.getAdopcionesPorIdRefugio();
         });
+        
         this.toastr.success('Adopción Aprobada!');
       });
     } catch (error) {}
   }
   rechazar(id: number) {
+    this.loading = true
     try {
       this.adopcionService.rechazarSolicitud(id).subscribe(() => {
         this.adopcionService.solicitudRechazada(id).subscribe(() => {
           
+          this.loading = false
           this.getAdopcionesPorIdRefugio();
         });
         this.toastr.show('Adopción rechazada!');
