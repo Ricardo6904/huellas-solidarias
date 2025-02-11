@@ -292,4 +292,8 @@
       </button>
     </div>
   </div>
+  <app-dialogo-validacion-correo
+    *ngIf="mostrarDialogo"
+    (cerrarDialogo)="mostrarDialogo = false; router.navigateByUrl('/auth/login')"
+  ></app-dialogo-validacion-correo>
 </div>

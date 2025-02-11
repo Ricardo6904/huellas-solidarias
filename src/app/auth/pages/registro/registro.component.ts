@@ -16,25 +16,27 @@ import { CustomValidators } from './services/custom-validators';
 import { ProvinciaCiudadService } from 'src/app/services/provincia-ciudad.service';
 import { Ciudad } from '@interfaces/Ciudad';
 import { Subscription } from 'rxjs';
+import { DialogoValidacionCorreoComponent } from "./dialogo-validacion-correo/dialogo-validacion-correo.component";
 
 @Component({
   selector: 'app-registro',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, DialogoValidacionCorreoComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss',
 })
 export class RegistroComponent {
   ciudades: Ciudad[] = [];
   subscription?: Subscription;
+  mostrarDialogo = false; // Controla la visibilidad del diálogo
 
   registroForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
+    public router: Router,
     private toastr: ToastrService,
-    public provinciaCiudadService: ProvinciaCiudadService
+    public provinciaCiudadService: ProvinciaCiudadService,
   ) {
     this.registroForm = this.formBuilder.group(
       {
@@ -91,7 +93,7 @@ export class RegistroComponent {
       this.subscription = this.authService
         .registrar(payload)
         .subscribe(() => {
-          this.router.navigateByUrl('/auth/login');
+          this.mostrarDialogo = true; // Muestra el diálogo
         });
     } else {
       this.registroForm.markAllAsTouched();

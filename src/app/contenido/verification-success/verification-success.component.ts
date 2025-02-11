@@ -19,7 +19,6 @@ export class VerificationSuccessComponent {
     }
     try {
       const decodedToken = JSON.parse(atob(token!.split('.')[1]));
-      console.log(decodedToken);
       
       if (decodedToken.verificado) {
       } else {
