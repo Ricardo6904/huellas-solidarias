@@ -1,3 +1,4 @@
+import { RedesSociales } from "./RedesSociales"
 import { storage } from "./Storage"
 
 export interface Refugio{
@@ -8,16 +9,12 @@ export interface Refugio{
   provincia: string,
   celular: string,
   email: string,
-  redesSociales: RedesSociales[]
+  redesSociales?: RedesSociales[]
   Storage?: storage,
-  descripcion: string
+  descripcion: string,
+  mapaUrl: string
 }
 
-export interface RedesSociales{
-  id?: number
-  nombre: string
-  url: string
-}
 
 export interface RefugiosResponse{
  data: Refugio[]

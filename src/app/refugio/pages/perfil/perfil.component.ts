@@ -30,21 +30,19 @@ export class PerfilComponent {
     console.log(this.refugio());
 
   }
-  getSafeMapUrl(direccion: string): SafeResourceUrl {
-    const mapUrl = `https://www.google.com/maps/embed/v1/place?key=TU_API_KEY&q=${encodeURIComponent(
-      direccion
-    )}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(mapUrl);
-  }
+
+  getSafeMapUrl(mapaUrl: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(mapaUrl);
+}
 
   getIconClass(nombre: string): string {
     switch (nombre) {
-        case 'Facebook':
-            return 'fab fa-facebook';
-        case 'Twitter':
-            return 'fab fa-twitter';
-        case 'Instagram':
-            return 'fab fa-instagram';
+        case 'facebook':
+            return '../assets/icons/facebook.svg';
+        case 'twitter':
+            return '../assets/icons/twitter.svg';
+        case 'instagram':
+            return '../assets/icons/instagram.svg';
         // Otros casos...
         default:
             return ''; // Asegúrate de devolver una cadena vacía o una clase predeterminada.

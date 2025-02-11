@@ -7,7 +7,7 @@
         <!-- Logo del Refugio -->
         <div class="absolute -bottom-16 left-6">
           <img
-            [src]="refugio()?.Storage?.url || 'https://via.placeholder.com/128'"
+            [src]="refugio()?.Storage?.url || '../assets/images/defaultImage.png'"
             alt="Logo del Refugio"
             class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 object-cover shadow-lg"
           />
@@ -56,7 +56,7 @@
               target="_blank"
               class="text-gray-600 dark:text-gray-300 hover:text-blue-500 transition duration-200"
             >
-              <i [ngClass]="[getIconClass(red.nombre), 'fa-2x']"></i>
+              <img [src]="getIconClass(red.nombre)" alt="{{ red.nombre }}" class="w-6 h-6" />
             </a>
           </div>
         </div>
@@ -71,29 +71,24 @@
         Ubicación
       </h2>
       <div class="h-96 w-full">
-        <!-- <iframe
-          width="100%"
-          height="100%"
-          frameborder="0"
-          style="border: 0"
-          [src]="getSafeMapUrl(refugio()?.direccion)"
-          allowfullscreen
-        ></iframe> -->
-        <iframe
-          width="600"
-          height="450"
-          style="border: 0"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093673!2d144.96305791531854!3d-37.81627977975148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1f9f5b1%3A0x5045675218ce6e0!2sMelbourne%2C%20Australia!5e0!3m2!1sen!2sus!4v1625904389203!5m2!1sen!2sus"
-        >
-        </iframe>
+        <div *ngIf="refugio()">
+          <div *ngIf="refugio()?.mapaUrl">
+            <iframe
+            width="600"
+            height="450"
+            style="border: 0"
+            loading="lazy"
+             referrerpolicy="no-referrer"
+             [src]="getSafeMapUrl(refugio()!.mapaUrl)"
+             allowfullscreen
+           ></iframe> 
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- CTA Voluntariado y Donaciones -->
-    <div class="mt-8 text-center">
+    <!-- <div class="mt-8 text-center">
       <button
         class="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200 font-semibold"
       >
@@ -104,6 +99,6 @@
       >
         Haz una Donación
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
