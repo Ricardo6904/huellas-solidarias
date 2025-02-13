@@ -1,0 +1,68 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
+  (click)="cerrarModal()"
+>
+  <div
+    class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Botón para cerrar el modal -->
+    <button
+      (click)="cerrarModal()"
+      class="absolute top-4 right-4 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M18 6l-12 12" />
+        <path d="M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Contenido del modal -->
+    <div class="text-center">
+      <!-- Ícono de "visto" -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="64"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#10B981"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="mx-auto mb-4"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M5 12l5 5l10 -10" />
+      </svg>
+
+      <!-- Mensaje de éxito -->
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        Código Verificado
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300">
+        Tu código ha sido verificado correctamente.
+      </p>
+
+      <!-- Botón para cerrar el modal -->
+      <button
+        (click)="cerrarModal()"
+        class="mt-6 w-full flex items-center justify-center gap-2 rounded-md whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 px-7 py-3"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

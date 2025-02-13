@@ -27,6 +27,8 @@ export class AdopcionesComponent {
   limit = 5;
   totalAdopciones = 0;
   Math = Math; 
+  mostrarModal: boolean = false;
+  informacionAdicional: any = null;
 
   subscription = new Subscription();
 
@@ -97,5 +99,14 @@ export class AdopcionesComponent {
         this.toastr.show('Adopción rechazada!');
       });
     } catch (error) {}
+  }
+
+  verInformacionAdicional(infoAdicional: any) {
+    this.informacionAdicional = infoAdicional;
+    this.mostrarModal = true;
+  }
+  cerrarModal() {
+    this.mostrarModal = false;
+    this.informacionAdicional = null;
   }
 }

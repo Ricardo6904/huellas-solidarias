@@ -46,12 +46,19 @@ export class PerfilComponent {
       id: 0,
       nombre: '',
     },
+    infoAdicional: {
+      arriendoOPropia: '',
+      tieneCerramiento: false,
+      tienePatio: false,
+      viveEnCasaODepartamento: '',
+    },
   };
   editMode = false;
   perfilForm: FormGroup;
+  infoAdicionalForm: FormGroup;
   ciudades: Ciudad[] = [];
   subscription?: Subscription;
-  isLoading=true;
+  isLoading = true;
   constructor(
     private usuarioService: UsuarioService,
     private authService: AuthService,
@@ -81,20 +88,32 @@ export class PerfilComponent {
         [Validators.required]
       ),
       direccion: new FormControl<string>('', [Validators.required]),
+      infoAdicional: new FormControl<string>(''),
+    });
+
+    this.infoAdicionalForm = this.fb.group({
+      tienePatio: new FormControl<boolean | null>(null),
+      tieneCerramiento: new FormControl<boolean | null>(null),
+      viveEnCasaODepartamento: new FormControl<string>(''),
+      arriendoOPropia: new FormControl<string>(''),
     });
   }
 
   ngOnInit(): void {
     this.cargarPerfil();
   }
-
   cargarPerfil(): void {
     const userId = this.authService.getidUsuario(); // Obtén el ID del usuario autenticado
     try {
       this.usuarioService.obtenerUsuarioPorIdNew(userId).subscribe({
         next: (res) => {
-          this.isLoading=false;
+          this.isLoading = false;
           this.usuario = res.data;
+
+          // Parsear infoAdicional si es un string JSON
+          if (typeof this.usuario.infoAdicional === 'string') {
+            this.usuario.infoAdicional = JSON.parse(this.usuario.infoAdicional);
+          }
 
           // Llenar el formulario con los datos del usuario
           this.perfilForm.patchValue({
@@ -106,13 +125,24 @@ export class PerfilComponent {
             direccion: this.usuario.direccion,
           });
 
+          // Llenar el formulario de información adicional
+          this.infoAdicionalForm.patchValue({
+            tienePatio: this.usuario.infoAdicional?.tienePatio || false,
+            tieneCerramiento:
+              this.usuario.infoAdicional?.tieneCerramiento || false,
+            viveEnCasaODepartamento:
+              this.usuario.infoAdicional?.viveEnCasaODepartamento || 'casa',
+            arriendoOPropia:
+              this.usuario.infoAdicional?.arriendoOPropia || 'arriendo',
+          });
+
           // Si hay una provincia seleccionada, cargar las ciudades
           if (this.usuario.idProvincia) {
             this.cargarCiudades(this.usuario.idProvincia);
           }
         },
         error: (error) => {
-          this.isLoading=false
+          this.isLoading = false;
           this.toastr.error('Error al cargar el perfil', 'Error');
         },
       });
@@ -160,7 +190,22 @@ export class PerfilComponent {
   guardarCambios(): void {
     if (this.perfilForm.valid) {
       const userId = this.authService.getidUsuario();
-      const datosActualizados = this.perfilForm.value;
+      //const datosActualizados = this.perfilForm.value;
+
+      const infoAdicional = {
+        tienePatio: this.infoAdicionalForm.get('tienePatio')?.value,
+        tieneCerramiento: this.infoAdicionalForm.get('tieneCerramiento')?.value,
+        viveEnCasaODepartamento: this.infoAdicionalForm.get(
+          'viveEnCasaODepartamento'
+        )?.value,
+        arriendoOPropia: this.infoAdicionalForm.get('arriendoOPropia')?.value,
+      };
+
+      // Crear el objeto con los datos actualizados
+      const datosActualizados = {
+        ...this.perfilForm.value,
+        infoAdicional: JSON.stringify(infoAdicional), // Convertir a JSON
+      };
 
       this.usuarioService
         .actualizarUsuario(datosActualizados, userId)
@@ -180,5 +225,10 @@ export class PerfilComponent {
         'Advertencia'
       );
     }
+  }
+
+  isInfoAdicionalCompleta(): boolean {
+    const infoAdicional = this.usuario.infoAdicional;
+    return infoAdicional !== null;
   }
 }

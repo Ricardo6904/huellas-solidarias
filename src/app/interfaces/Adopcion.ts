@@ -17,7 +17,8 @@ export interface Adopcion{
     apellidos:string,
     email: string,
     cedula:String,
-    celular: string
+    celular: string,
+    infoAdicional: string
   }
 }
 

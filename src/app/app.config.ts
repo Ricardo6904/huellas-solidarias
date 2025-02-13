@@ -13,7 +13,7 @@ import { tokenInterceptor } from './interceptors/token.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    provideToastr({ timeOut: 2500, preventDuplicates: true, closeButton:true}),
+    provideToastr({ timeOut: 3000, preventDuplicates: true, closeButton:true}),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptors([tokenInterceptor])),

@@ -284,12 +284,17 @@
     </form>
     <div class="mt-8 items-center flex justify-end">
       <button
-        class="w-full rounded-md whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 px-7 py-3"
-        type="submit"
-        (click)="registrar()"
-      >
-        Registrarme
-      </button>
+      class="w-full flex items-center justify-center gap-2 rounded-md whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 px-7 py-3"
+      type="submit"
+      (click)="registrar()"
+      [disabled]="loading"
+    >
+      <svg *ngIf="loading" class="w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3V4a8 8 0 018 8H4z"></path>
+      </svg>
+      Registrarme
+    </button>
     </div>
   </div>
   <app-dialogo-validacion-correo

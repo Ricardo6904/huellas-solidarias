@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { StorageServiceService } from '../../services/storage-service.service';
 import { WindowService } from '../../services/window.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -32,11 +33,12 @@ export class HeaderComponent {
   nombre: any;
   isStateVerified: boolean = false;
   isLoaded:boolean = false
+  isInfoAdicionalIncompleta: boolean = false;
 
   constructor(
     public authService: AuthService,
     private storageService: StorageServiceService,
-    private windowService: WindowService,
+    private usuarioService: UsuarioService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
@@ -134,4 +136,24 @@ export class HeaderComponent {
       navList.classList.remove('top-[9%]'); // Cierra el menú
     }
   }
+
+  verificarInfoAdicional() {
+    const userId = this.authService.getidUsuario();
+    this.usuarioService.obtenerUsuarioPorIdNew(userId).subscribe({
+      next: (res) => {
+        const infoAdicional = res.data.infoAdicional;
+        if(infoAdicional){
+
+          this.isInfoAdicionalIncompleta = true;
+        }else{
+          this.isInfoAdicionalIncompleta = false;
+        }
+      },
+      error: (error) => {
+        console.error('Error al verificar la información adicional:', error);
+      },
+    });
+  }
+
+ 
 }

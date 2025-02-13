@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
-import { VerificationSuccessComponent } from './verification-success/verification-success.component';
 
 const routes: Routes = [
   {
@@ -10,7 +9,6 @@ const routes: Routes = [
     children: [
       {path: '', component:LandingPageComponent},
       {path: 'quienes-somos', component: QuienesSomosComponent},
-      {path: 'verification-success', component: VerificationSuccessComponent}
     ]
   }
 ];

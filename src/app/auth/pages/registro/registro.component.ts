@@ -17,6 +17,7 @@ import { ProvinciaCiudadService } from 'src/app/services/provincia-ciudad.servic
 import { Ciudad } from '@interfaces/Ciudad';
 import { Subscription } from 'rxjs';
 import { DialogoValidacionCorreoComponent } from "./dialogo-validacion-correo/dialogo-validacion-correo.component";
+import { StorageServiceService } from 'src/app/services/storage-service.service';
 
 @Component({
   selector: 'app-registro',
@@ -28,6 +29,7 @@ export class RegistroComponent {
   ciudades: Ciudad[] = [];
   subscription?: Subscription;
   mostrarDialogo = false; // Controla la visibilidad del diálogo
+  loading = false
 
   registroForm: FormGroup;
 
@@ -37,6 +39,7 @@ export class RegistroComponent {
     public router: Router,
     private toastr: ToastrService,
     public provinciaCiudadService: ProvinciaCiudadService,
+    private localStorage:StorageServiceService
   ) {
     this.registroForm = this.formBuilder.group(
       {
@@ -82,6 +85,7 @@ export class RegistroComponent {
   ngOnInit(): void {}
 
   registrar(): void {
+    this.loading = true
      if (this.registroForm.valid) {
 
       const payload = {
@@ -90,14 +94,24 @@ export class RegistroComponent {
         idCiudad: parseInt(this.registroForm.get('idCiudad')!.value),
       };
 
-      this.subscription = this.authService
-        .registrar(payload)
-        .subscribe(() => {
-          this.mostrarDialogo = true; // Muestra el diálogo
-        });
+      this.subscription = this.authService.registrar(payload).subscribe({
+        next: (ress:any) => {
+          this.mostrarDialogo = true;
+          this.loading = false; // Desactiva el loading al terminar
+          console.log(ress);
+          
+          this.localStorage.setItem('token', ress.data.token)
+          this.router.navigateByUrl('/auth/verificacion')
+        },
+        error: () => {
+          this.loading = false; // Asegura que se desactive en caso de error
+          this.toastr.error('Error al registrar usuario');
+        }
+      });
     } else {
       this.registroForm.markAllAsTouched();
       this.toastr.warning('', 'Complete los campos requeridos');
+      this.loading = false
     }
   }
 

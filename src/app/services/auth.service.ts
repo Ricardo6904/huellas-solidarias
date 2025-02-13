@@ -53,9 +53,20 @@ export class AuthService {
     });
   }
 
-  recuperarContrasena(email:string){
-    return this.http.post(`${this.baseUrl}/auth/recuperarContrasena`, {email})
+  recuperarContrasena(email: string) {
+    return this.http.post(`${this.baseUrl}/auth/recuperarContrasena`, {
+      email,
+    });
   }
+
+  verificarCodigo(token: string, codigo: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/verify-code`, { token, codigo });
+  }
+
+  reenviarCodigo(token: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/resend-code`, { token });
+  }
+
   getRol() {
     return this.storageService.getItem('rol');
   }
