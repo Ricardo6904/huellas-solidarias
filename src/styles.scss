@@ -1,21 +1,19 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
-
-@import 'ngx-toastr/toastr';
+// Reemplaza @import con @use
+@use 'ngx-toastr/toastr';
 @import 'assets/layout/styles/layout/layout.scss';
-@import "../node_modules/primeicons/primeicons.css";
 
 
-/* You can add global styles to this file, and also import other style files */
+
+// Tailwind
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root{
-
+:root {
   --color-1: #c7a26b;
   --color-2: #d5c3ab;
   --color-3: #d89e4b;
@@ -25,18 +23,19 @@
   --color-7: #e6d5bc;
   --color-8: #4a381d;
   --background: #ece3d4;
-
-
-
 }
 
-body{
+body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
   background-color: #f3f4f6;
 }
 
+html, body {
+  height: 100%;
+}
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
