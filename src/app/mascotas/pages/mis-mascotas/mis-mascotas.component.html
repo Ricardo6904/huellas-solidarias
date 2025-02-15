@@ -35,7 +35,7 @@
         placeholder="Buscar Mascota"
       />
     </div>
-    @if (!mascotasService.loading()) {
+    @if (!animalesRescatadosService.loading()) {
     <div class="overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
@@ -50,8 +50,8 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="!mascotasService.loading(); else loadingRow">
-            @for(mascota of mascotasService.mascotasRefugio();track mascota.id){
+          <ng-container *ngIf="!animalesRescatadosService.loading(); else loadingRow">
+            @for(mascota of animalesRescatadosService.mascotasRefugio();track mascota.id){
             <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
@@ -143,7 +143,7 @@
         </li>
         <li
           *ngFor="
-            let page of [].constructor(mascotasService.totalPagesMR());
+            let page of [].constructor(animalesRescatadosService.totalPagesMR());
             let i = index
           "
         >
@@ -161,7 +161,7 @@
         <li>
           <button
             (click)="loadPage(currentPage() + 1)"
-            [disabled]="!mascotasService.mascotasRefugio()!.length"
+            [disabled]="!animalesRescatadosService.mascotasRefugio()!.length"
             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             Siguiente
@@ -172,7 +172,7 @@
     }@else {
     <!-- Loading Spinner -->
     <div
-      *ngIf="mascotasService.loading()"
+      *ngIf="animalesRescatadosService.loading()"
       class="flex justify-center items-center min-h-[200px]"
     >
       <svg

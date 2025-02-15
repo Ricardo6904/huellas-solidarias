@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'agregar', component: AgregarComponent, canActivate: [authGuard], data: {rol:'refugio'} },
       { path: 'editar/:idMascota', component: AgregarComponent },
       { path: '', component: MascotasComponent },
-      { path: 'detalle/:idMascota', component: MascotaComponent },
+      { path: 'detalle/:idAnimalRescatado', component: MascotaComponent },
       { path: 'mis-mascotas', component: MisMascotasComponent, canActivate: [authGuard], data: {rol:'refugio'}  },
       { path: 'mascota-perdida', component: MascotaPerdidaComponent},
       { path: 'adopciones', component: AdopcionesComponent, canActivate: [authGuard], data: {rol:'refugio'} },

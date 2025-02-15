@@ -47,7 +47,6 @@ export class LoginComponent {
       error: (error) => {
         this.loginForm.markAllAsTouched();
         this.loginMsg = 'Correo o contraseña incorrectos';
-        console.log('Algo salió mal: ', error);
       },
     });
 

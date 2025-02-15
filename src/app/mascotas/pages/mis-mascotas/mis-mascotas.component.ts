@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
+import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
 
 @Component({
   selector: 'app-mis-mascotas',
@@ -39,7 +40,7 @@ export class MisMascotasComponent {
   };
 
   constructor(
-    public mascotasService: MascotaService,
+    public animalesRescatadosService: AnimalRescatadoService,
     private router: Router,
     private storageService: StorageServiceService,
     public toastr: ToastrService
@@ -47,7 +48,7 @@ export class MisMascotasComponent {
   }
 
   ngOnInit() {
-    this.mascotasService.obtenerMascotasPorRefugio(
+    this.animalesRescatadosService.obtenerMascotasPorRefugio(
       1,
       10,
       parseInt(this.storageService.getItem('idRefugio')!),
@@ -56,7 +57,7 @@ export class MisMascotasComponent {
   }
 
   onFiltroChange() {
-    this.mascotasService.obtenerMascotasPorRefugio(
+    this.animalesRescatadosService.obtenerMascotasPorRefugio(
       1,
       10,
       parseInt(this.storageService.getItem('idRefugio')!),
@@ -67,7 +68,7 @@ export class MisMascotasComponent {
   loadPage(page: number) {
     // Actualizar la página actual
     this.currentPage.set(page);
-    this.mascotasService.obtenerMascotasPorRefugio(
+    this.animalesRescatadosService.obtenerMascotasPorRefugio(
       page,
       10,
       parseInt(this.storageService.getItem('idRefugio')!),
@@ -76,7 +77,7 @@ export class MisMascotasComponent {
   }
 
   verDetallesMascota(id: number): void {
-    this.mascotasService.obtenerMascotasPorId(id).subscribe({
+    this.animalesRescatadosService.obtenerMascotasPorId(id).subscribe({
       next: (mascota) => {
         this.router.navigate(['/mascotas/detalle', mascota.id]);
       },
@@ -95,7 +96,7 @@ export class MisMascotasComponent {
 
   eliminarMascota(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
-      this.mascotasService.eliminarMascota(id).subscribe(
+      this.animalesRescatadosService.eliminarMascota(id).subscribe(
         () => {
           this.toastr.info('Mascota Eliminada!', 'Huellas Solidarias');
         },

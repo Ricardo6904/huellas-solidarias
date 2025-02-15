@@ -30,8 +30,6 @@ export class RefugioService {
    }
 
   private actualizarEstado(parteEstado: Partial<State>){
-    console.log(parteEstado);
-
     this.#state2.set({
       ...this.#state2(),
       ...parteEstado

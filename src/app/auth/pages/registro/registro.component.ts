@@ -30,6 +30,10 @@ export class RegistroComponent {
   subscription?: Subscription;
   mostrarDialogo = false; // Controla la visibilidad del diálogo
   loading = false
+  tiposIdentificacion = [
+    { value: 'cedula', label: 'Cédula' },
+    { value: 'pasaporte', label: 'Pasaporte' },
+  ];
 
   registroForm: FormGroup;
 
@@ -50,16 +54,18 @@ export class RegistroComponent {
           Validators.minLength(10),
           Validators.maxLength(10),
         ]),
-        cedula: new FormControl<string>('', [
+        tipoIdentificacion: new FormControl<string>('cedula', [Validators.required]),
+        identificacion: new FormControl<string>('', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10),
-          CustomValidators.validarCedula,
+          CustomValidators.validarIdentificacion,
         ]),
         email: new FormControl<string>('', [
           Validators.required,
           Validators.email,
         ]),
+        fechaNacimiento: new FormControl<Date | null>(null, [Validators.required, CustomValidators.mayorDeEdad]),
         clave: new FormControl<string>('', [
           Validators.required,
           Validators.minLength(6),
@@ -84,6 +90,18 @@ export class RegistroComponent {
 
   ngOnInit(): void {}
 
+  // Propiedad computada para obtener el nombre del campo de identificación
+  get nombreCampoIdentificacion(): string {
+    const tipoIdentificacion = this.registroForm.get('tipoIdentificacion')?.value;
+    if (tipoIdentificacion === 'cedula') {
+      return 'Número de Cédula';
+    } else if (tipoIdentificacion === 'pasaporte') {
+      return 'Número de Pasaporte';
+    }
+    return 'Número de Identificación'; // Valor por defecto
+  }
+
+
   registrar(): void {
     this.loading = true
      if (this.registroForm.valid) {
@@ -98,7 +116,6 @@ export class RegistroComponent {
         next: (ress:any) => {
           this.mostrarDialogo = true;
           this.loading = false; // Desactiva el loading al terminar
-          console.log(ress);
           
           this.localStorage.setItem('token', ress.data.token)
           this.router.navigateByUrl('/auth/verificacion')

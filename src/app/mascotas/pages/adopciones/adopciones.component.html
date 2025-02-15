@@ -31,8 +31,12 @@
           <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
               <img
-                [src]="adopcion.mascota.Storage.url"
-                [alt]="adopcion.mascota.nombre"
+                [src]="
+                  adopcion?.animalRescatado?.Storage?.url
+                    ? adopcion.animalRescatado.Storage.url
+                    : 'assets/images/defaultImage.png'
+                "
+                [alt]="adopcion.animalRescatado.nombre"
                 class="w-12 h-12 rounded-full object-cover"
               />
             </div>
@@ -40,13 +44,13 @@
               <p
                 class="text-sm font-medium text-black dark:text-white truncate"
               >
-                {{ adopcion.mascota.nombre }}
+                {{ adopcion.animalRescatado.nombre }}
               </p>
               <p class="text-sm text-gray-500 dark:text-white truncate">
                 Solicitante: {{ adopcion.usuario.nombres }}
               </p>
               <p class="text-sm text-gray-500 dark:text-white truncate">
-                Correo: {{ adopcion.usuario.email }}
+                Dirección: {{ adopcion.usuario.Ciudad.nombre }}, {{ adopcion.usuario.Provincia.nombre }}
               </p>
               <p class="text-sm text-gray-500 dark:text-white truncate">
                 Celular: {{ adopcion.usuario.celular }}
@@ -102,7 +106,7 @@
                   </span> -->
               <button
                 (click)="
-                  verInformacionAdicional(adopcion.usuario.infoAdicional)
+                  verInformacionAdicional(adopcion?.usuario?.infoAdicional)
                 "
                 class="rounded-full border border-1 m-2 hover:opacity-50"
               >
@@ -182,85 +186,89 @@
     </div>
   </div>
 
-
-<!-- Diálogo modal -->
-<div
-  *ngIf="mostrarModal"
-  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10"
-  (click)="cerrarModal()" 
->
+  <!-- Diálogo modal -->
   <div
-    class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6"
-    (click)="$event.stopPropagation()"
+    *ngIf="mostrarModal"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10"
+    (click)="cerrarModal()"
   >
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold text-gray-800 dark:text-white">
-        Información Adicional
-      </h2>
-      <button
-        (click)="cerrarModal()"
-        class="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+    <div
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+          Información Adicional
+        </h2>
+        <button
+          (click)="cerrarModal()"
+          class="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M18 6l-12 12" />
-          <path d="M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Contenido del modal -->
-    <div class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >¿Tiene patio?</label
-        >
-        <p class="text-gray-900 dark:text-white">
-          {{ informacionAdicional?.tienePatio ? "Sí" : "No" }}
-        </p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >¿Tiene cerramiento?</label
-        >
-        <p class="text-gray-900 dark:text-white">
-          {{ informacionAdicional?.tieneCerramiento ? "Sí" : "No" }}
-        </p>
-      </div>
+      <!-- Contenido del modal -->
+      <div class="space-y-4">
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >¿Tiene patio?</label
+          >
+          <p class="text-gray-900 dark:text-white">
+            {{ informacionAdicional?.tienePatio !== null && informacionAdicional?.tienePatio !== undefined
+              ? informacionAdicional.tienePatio ? "Sí" : "No"
+              : "No especificado" }}
+          </p>
+        </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >¿Vive en casa o departamento?</label
-        >
-        <p class="text-gray-900 dark:text-white">
-          {{ informacionAdicional?.viveEnCasaODepartamento || "No especificado" }}
-        </p>
-      </div>
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >¿Tiene cerramiento?</label
+          >
+          <p class="text-gray-900 dark:text-white">
+            {{ informacionAdicional?.tieneCerramiento !== null && informacionAdicional?.tieneCerramiento !== undefined
+              ? informacionAdicional.tieneCerramiento ? "Sí" : "No"
+              : "No especificado" }}
+          </p>
+        </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >¿Arriendo o propia?</label
-        >
-        <p class="text-gray-900 dark:text-white">
-          {{ informacionAdicional?.arriendoOPropia || "No especificado" }}
-        </p>
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >¿Vive en casa o departamento?</label
+          >
+          <p class="text-gray-900 dark:text-white capitalize">
+            {{ informacionAdicional?.viveEnCasaODepartamento || "No especificado" }}
+          </p>
+        </div>
+
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >¿Arriendo o propia?</label
+          >
+          <p class="text-gray-900 dark:text-white capitalize">
+            {{ informacionAdicional?.arriendoOPropia || "No especificado" }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
 </div>

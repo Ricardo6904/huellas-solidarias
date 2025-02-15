@@ -1,12 +1,12 @@
 export interface Adopcion{
   id?: number,
-  idMascota: number,
+  idAnimalRescatado: number,
   idUsuario: number,
   estado?: string,
   tipo?: string
   createdAt?: Date,
   updatedAt?: Date,
-  mascota: {
+  animalRescatado: {
     nombre: string,
     Storage: {
       url:string
@@ -18,7 +18,13 @@ export interface Adopcion{
     email: string,
     cedula:String,
     celular: string,
-    infoAdicional: string
+    infoAdicional: string,
+    Provincia: {
+      nombre: string
+    },
+    Ciudad: {
+      nombre: string
+    }
   }
 }
 

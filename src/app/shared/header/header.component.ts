@@ -59,7 +59,7 @@ export class HeaderComponent {
     this.nombre = this.storageService.getItem('nombre');
     this.isLoaded = true;
     if (this.authService.isAuthenticated()) this.isStateVerified = true;
-
+    this.verificarInfoAdicional()
   }
 
 
@@ -139,20 +139,20 @@ export class HeaderComponent {
 
   verificarInfoAdicional() {
     const userId = this.authService.getidUsuario();
-    this.usuarioService.obtenerUsuarioPorIdNew(userId).subscribe({
-      next: (res) => {
-        const infoAdicional = res.data.infoAdicional;
-        if(infoAdicional){
+    if(userId){
 
-          this.isInfoAdicionalIncompleta = true;
-        }else{
-          this.isInfoAdicionalIncompleta = false;
-        }
-      },
-      error: (error) => {
-        console.error('Error al verificar la información adicional:', error);
-      },
-    });
+      this.usuarioService.obtenerUsuarioPorIdNew(userId).subscribe({
+        next: res => {
+          const infoAdicional = res.data!.infoAdicional!;
+          // Si infoAdicional es null, undefined o una cadena vacía, marca como incompleta
+          this.isInfoAdicionalIncompleta = !infoAdicional;
+        },
+        error: (error) => {
+          console.error('Error al verificar la información adicional:', error);
+          this.isInfoAdicionalIncompleta = true; // Marca como incompleta si hay un error
+        },
+      });
+    }
   }
 
  

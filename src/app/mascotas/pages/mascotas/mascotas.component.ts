@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
+import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class MascotasComponent implements OnInit {
 
  // Iniciar con la primera página
  public currentPage = signal<number>(1);
- public mascotasService = inject(MascotaService);
+ public animalesRescatadosService = inject(AnimalRescatadoService);
  public meta = inject(Meta);
  public title = inject(Title);
 
@@ -51,12 +52,12 @@ export class MascotasComponent implements OnInit {
    // Actualizar la página actual
    this.currentPage.set(page);
    // Cargar mascotas para la página correspondiente
-   this.mascotasService.obtenerMascotas(page, 8);
+   this.animalesRescatadosService.obtenerMascotas(page, 8);
  }
 
 
  onFiltroChange(){
 
-  this.mascotasService.obtenerMascotas(1, 9, this.filtro)
+  this.animalesRescatadosService.obtenerMascotas(1, 9, this.filtro)
  }
 }

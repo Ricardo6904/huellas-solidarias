@@ -5,7 +5,9 @@ export class Usuario {
   id?: number;
   nombres?: string;
   apellidos?: string;
-  cedula?: string;
+  tipoIdentidad?: string;
+  identidad?: string;
+  codigoCelular?: string;
   celular?: string;
   email?: string;
   clave?: string;

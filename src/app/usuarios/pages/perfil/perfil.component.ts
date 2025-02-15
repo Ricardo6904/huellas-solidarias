@@ -27,7 +27,7 @@ export class PerfilComponent {
     id: 0,
     nombres: '',
     apellidos: '',
-    cedula: '',
+    identidad: '',
     celular: '',
     email: '',
     clave: '',
@@ -92,10 +92,14 @@ export class PerfilComponent {
     });
 
     this.infoAdicionalForm = this.fb.group({
-      tienePatio: new FormControl<boolean | null>(null),
-      tieneCerramiento: new FormControl<boolean | null>(null),
-      viveEnCasaODepartamento: new FormControl<string>(''),
-      arriendoOPropia: new FormControl<string>(''),
+      tienePatio: new FormControl<boolean | null>(null, [Validators.required]),
+      tieneCerramiento: new FormControl<boolean | null>(null, [
+        Validators.required,
+      ]),
+      viveEnCasaODepartamento: new FormControl<string>('', [
+        Validators.required,
+      ]),
+      arriendoOPropia: new FormControl<string>('', [Validators.required]),
     });
   }
 
@@ -127,13 +131,11 @@ export class PerfilComponent {
 
           // Llenar el formulario de información adicional
           this.infoAdicionalForm.patchValue({
-            tienePatio: this.usuario.infoAdicional?.tienePatio || false,
-            tieneCerramiento:
-              this.usuario.infoAdicional?.tieneCerramiento || false,
+            tienePatio: this.usuario.infoAdicional?.tienePatio,
+            tieneCerramiento: this.usuario.infoAdicional?.tieneCerramiento,
             viveEnCasaODepartamento:
-              this.usuario.infoAdicional?.viveEnCasaODepartamento || 'casa',
-            arriendoOPropia:
-              this.usuario.infoAdicional?.arriendoOPropia || 'arriendo',
+              this.usuario.infoAdicional?.viveEnCasaODepartamento,
+            arriendoOPropia: this.usuario.infoAdicional?.arriendoOPropia,
           });
 
           // Si hay una provincia seleccionada, cargar las ciudades
@@ -188,6 +190,8 @@ export class PerfilComponent {
   }
 
   guardarCambios(): void {
+    
+    
     if (this.perfilForm.valid) {
       const userId = this.authService.getidUsuario();
       //const datosActualizados = this.perfilForm.value;
@@ -195,9 +199,7 @@ export class PerfilComponent {
       const infoAdicional = {
         tienePatio: this.infoAdicionalForm.get('tienePatio')?.value,
         tieneCerramiento: this.infoAdicionalForm.get('tieneCerramiento')?.value,
-        viveEnCasaODepartamento: this.infoAdicionalForm.get(
-          'viveEnCasaODepartamento'
-        )?.value,
+        viveEnCasaODepartamento: this.infoAdicionalForm.get('viveEnCasaODepartamento')?.value,
         arriendoOPropia: this.infoAdicionalForm.get('arriendoOPropia')?.value,
       };
 
@@ -206,7 +208,6 @@ export class PerfilComponent {
         ...this.perfilForm.value,
         infoAdicional: JSON.stringify(infoAdicional), // Convertir a JSON
       };
-
       this.usuarioService
         .actualizarUsuario(datosActualizados, userId)
         .subscribe({

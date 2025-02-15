@@ -6,7 +6,6 @@ import { Adopcion } from '@interfaces/Adopcion';
 import { ToastrService } from 'ngx-toastr';
 import { StorageServiceService } from '../../../services/storage-service.service';
 import { AuthService } from '../../../services/auth.service';
-import { MascotaService } from 'src/app/services/mascota.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -102,7 +101,11 @@ export class AdopcionesComponent {
   }
 
   verInformacionAdicional(infoAdicional: any) {
-    this.informacionAdicional = infoAdicional;
+    if (typeof infoAdicional === 'string') {
+      this.informacionAdicional = JSON.parse(infoAdicional);
+    } else {
+      this.informacionAdicional = infoAdicional;
+    }
     this.mostrarModal = true;
   }
   cerrarModal() {

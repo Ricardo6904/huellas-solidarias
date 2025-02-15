@@ -109,7 +109,7 @@
               ></div>
               } @else {
               <p class="text-gray-600 dark:text-gray-300">
-                {{ usuario.cedula }}
+                {{ usuario.identidad }}
               </p>
               }
             </div>
@@ -318,9 +318,17 @@
               formControlName="tienePatio"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              <option value="true">Sí</option>
-              <option value="false">No</option>
+              <option [ngValue]="true">Sí</option>
+              <option [ngValue]="false">No</option>
             </select>
+            <small
+              class="text-red-500"
+              *ngIf="
+                infoAdicionalForm.get('tienePatio')?.invalid &&
+                infoAdicionalForm.get('tienePatio')?.touched
+              "
+              >*requerido</small
+            >
             <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
               {{
                 usuario.infoAdicional?.tienePatio !== null &&
@@ -350,9 +358,17 @@
               formControlName="tieneCerramiento"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              <option value="true">Sí</option>
-              <option value="false">No</option>
+              <option [ngValue]="true">Sí</option>
+              <option [ngValue]="false">No</option>
             </select>
+            <small
+              class="text-red-500"
+              *ngIf="
+                infoAdicionalForm.get('tieneCerramiento')?.invalid &&
+                infoAdicionalForm.get('tieneCerramiento')?.touched
+              "
+              >*requerido</small
+            >
             <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
               {{
                 usuario.infoAdicional?.tieneCerramiento !== null &&
@@ -385,7 +401,18 @@
               <option value="casa">Casa</option>
               <option value="departamento">Departamento</option>
             </select>
-            <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
+            <small
+              class="text-red-500"
+              *ngIf="
+                infoAdicionalForm.get('viveEnCasaODepartamento')?.invalid &&
+                infoAdicionalForm.get('viveEnCasaODepartamento')?.touched
+              "
+              >*requerido</small
+            >
+            <p
+              *ngIf="!editMode"
+              class="text-gray-600 dark:text-gray-300 capitalize"
+            >
               {{
                 usuario.infoAdicional?.viveEnCasaODepartamento ||
                   "No especificado"
@@ -413,7 +440,18 @@
               <option value="arriendo">Arriendo</option>
               <option value="propia">Propia</option>
             </select>
-            <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
+            <small
+              class="text-red-500"
+              *ngIf="
+                infoAdicionalForm.get('arriendoOPropia')?.invalid &&
+                infoAdicionalForm.get('arriendoOPropia')?.touched
+              "
+              >*requerido</small
+            >
+            <p
+              *ngIf="!editMode"
+              class="text-gray-600 dark:text-gray-300 capitalize"
+            >
               {{ usuario.infoAdicional?.arriendoOPropia || "No especificado" }}
             </p>
             }

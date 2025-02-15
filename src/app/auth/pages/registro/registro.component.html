@@ -14,6 +14,7 @@
     </p>
 
     <form [formGroup]="registroForm" class="space-y-4">
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label
@@ -90,35 +91,95 @@
 
         <div>
           <label
-            for="cedula"
+            for="fechaNacimiento"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Número de Cédula</label
+            >Fecha de Nacimiento</label
           >
           <input
-            type="text"
-            id="cedula"
-            formControlName="cedula"
+            type="date"
+            id="fechaNacimiento"
+            formControlName="fechaNacimiento"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="180XXXXXXX"
-            maxlength="10"
           />
           <small
             class="text-red-500"
             *ngIf="
-              registroForm.get('cedula')?.hasError('required') &&
-              registroForm.get('cedula')?.touched
+              registroForm.get('fechaNacimiento')?.invalid &&
+              registroForm.get('fechaNacimiento')?.touched
             "
             >*requerido</small
           >
           <small
-            *ngIf="
-              registroForm.get('cedula')?.hasError('cedulaInvalida') &&
-              registroForm.get('cedula')?.touched
-            "
             class="text-red-500"
+            *ngIf="
+              registroForm.get('fechaNacimiento')?.hasError('mayorDeEdad') &&
+              registroForm.get('fechaNacimiento')?.touched
+            "
+            >*Debes ser mayor de 18 años</small
           >
-            *la cédula ingresada no es válida
+        </div>
+
+        <div>
+          <label
+            for="tipoIdentificacion"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Tipo de Identificación
+          </label>
+          <select
+            id="tipoIdentificacion"
+            formControlName="tipoIdentificacion"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option disabled value="">Selecciona un tipo</option>
+            @for (tipo of tiposIdentificacion; track tipo.value) {
+            <option [value]="tipo.value">{{ tipo.label }}</option>
+            }
+          </select>
+          <small
+            class="text-red-500"
+            *ngIf="
+              registroForm.get('tipoIdentificacion')?.invalid &&
+              registroForm.get('tipoIdentificacion')?.touched
+            "
+          >
+            *requerido
           </small>
+        </div>
+
+        <!-- Campo: Número de Identificación -->
+        <div>
+          <label
+      for="identificacion"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    >
+      {{ nombreCampoIdentificacion }}
+    </label>
+    <input
+      type="text"
+      id="identificacion"
+      formControlName="identificacion"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      [placeholder]="nombreCampoIdentificacion"
+    />
+    <small
+      class="text-red-500"
+      *ngIf="
+        registroForm.get('identificacion')?.hasError('required') &&
+        registroForm.get('identificacion')?.touched
+      "
+    >
+      *requerido
+    </small>
+    <small
+      *ngIf="
+        registroForm.get('identificacion')?.hasError('identificacionInvalida') &&
+        registroForm.get('identificacion')?.touched
+      "
+      class="text-red-500"
+    >
+      *el número de identificación no es válido
+    </small>
         </div>
       </div>
 
@@ -146,6 +207,7 @@
             >*requerido</small
           >
         </div>
+        
         <div>
           <label
             for="clave"
@@ -205,7 +267,7 @@
         </div>
         <div>
           <label
-            for="provincia"
+            for="idProvincia"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Provincia</label
           >
@@ -216,8 +278,9 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option disabled value="">Selecciona una provincia</option>
-            @for (provincia of provinciaCiudadService.provincias(); track $index) {
-            <option [value]="provincia.id" >{{ provincia.nombre }}</option>
+            @for (provincia of provinciaCiudadService.provincias(); track
+            $index) {
+            <option [value]="provincia.id">{{ provincia.nombre }}</option>
             }
           </select>
           <small
@@ -234,7 +297,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label
-            for="provincia"
+            for="idCiudad"
             class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >Ciudad</label
           >
@@ -284,21 +347,40 @@
     </form>
     <div class="mt-8 items-center flex justify-end">
       <button
-      class="w-full flex items-center justify-center gap-2 rounded-md whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 px-7 py-3"
-      type="submit"
-      (click)="registrar()"
-      [disabled]="loading"
-    >
-      <svg *ngIf="loading" class="w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3V4a8 8 0 018 8H4z"></path>
-      </svg>
-      Registrarme
-    </button>
+        class="w-full flex items-center justify-center gap-2 rounded-md whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white bg-lime-600 dark:bg-blue-600 hover:bg-lime-500 dark:hover:bg-blue-400 px-7 py-3"
+        type="submit"
+        (click)="registrar()"
+        [disabled]="loading"
+      >
+        <svg
+          *ngIf="loading"
+          class="w-5 h-5 animate-spin text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4l3-3-3-3V4a8 8 0 018 8H4z"
+          ></path>
+        </svg>
+        Registrarme
+      </button>
     </div>
   </div>
   <app-dialogo-validacion-correo
     *ngIf="mostrarDialogo"
-    (cerrarDialogo)="mostrarDialogo = false; router.navigateByUrl('/auth/login')"
+    (cerrarDialogo)="
+      mostrarDialogo = false; router.navigateByUrl('/auth/login')
+    "
   ></app-dialogo-validacion-correo>
 </div>

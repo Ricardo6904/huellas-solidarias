@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
+import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
 
 @Component({
   selector: 'app-agregar',
@@ -63,7 +64,7 @@ export class AgregarComponent {
   constructor(
     private storageService: StorageService,
     private formBuilder: FormBuilder,
-    private mascotasService: MascotaService,
+    private animalRescatadoService: AnimalRescatadoService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
@@ -87,7 +88,7 @@ export class AgregarComponent {
       caracteristica: [''],
       condicion: [''],
       esEsterilizado: [''],
-      idStorage: ['', Validators.required],
+      idStorage: [null],
       idRefugio: this.localStorage.getItem('idRefugio'),
       especie: ['', Validators.required],
     });
@@ -101,7 +102,7 @@ export class AgregarComponent {
     this.isEditMode = !!this.mascotaId;
 
     if (this.isEditMode) {
-      this.mascotasService
+      this.animalRescatadoService
         .obtenerMascotasPorId(this.mascotaId)
         .subscribe((mascota) => {
           this.mascotaForm.patchValue(mascota);
@@ -113,11 +114,12 @@ export class AgregarComponent {
   }
 
   onSubmit() {
-
+    console.log(this.mascotaForm);
+    
     if (this.mascotaForm.valid) {
       if (this.isEditMode) {
         // Modo de edición: Actualizar mascota existente
-        this.mascotasService
+        this.animalRescatadoService
           .actualizarMascota(this.mascotaId!, this.mascotaForm.value)
           .subscribe({
             next: () => {
@@ -131,7 +133,7 @@ export class AgregarComponent {
           );
       } else {
         // Modo de agregar: Crear nueva mascota
-        this.mascotasService.crearMascota(this.mascotaForm.value).subscribe({
+        this.animalRescatadoService.crearMascota(this.mascotaForm.value).subscribe({
           next: () => {
             this.router.navigateByUrl('/mascotas/mis-mascotas');
             this.toastr.success('Mascota creada exitosamente!');

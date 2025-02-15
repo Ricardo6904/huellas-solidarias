@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '@interfaces/Usuario';
 import { nextTick } from 'process';
+import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
 
 @Component({
   selector: 'app-mascota',
@@ -22,7 +23,7 @@ import { nextTick } from 'process';
 export class MascotaComponent {
   cargando = false;
   private route = inject(ActivatedRoute);
-  private mascotaServices = inject(MascotaService);
+  private AnimalesRescatadosService = inject(AnimalRescatadoService);
 
   constructor(
     private solicitarAdopcionService: SolicitarAdopcionService,
@@ -34,8 +35,8 @@ export class MascotaComponent {
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
     this.route.params.pipe(
-      switchMap(({ idMascota }) =>
-        this.mascotaServices.obtenerMascotasPorId(idMascota)
+      switchMap(({ idAnimalRescatado }) =>
+        this.AnimalesRescatadosService.obtenerMascotasPorId(idAnimalRescatado)
       )
     )
   );
@@ -44,7 +45,7 @@ export class MascotaComponent {
     this.usuarioService.obtenerUsuarioPorId;
   }
 
-  solicitarAdopcion(idMascota: number) {
+  solicitarAdopcion(id: number) {
     this.cargando = true;
     if(!this.localStorage.getItem('token')){
       this.toastr.warning('Inicie sesión para enviar solicitudes','Sesión requerida')
@@ -53,10 +54,10 @@ export class MascotaComponent {
     }
     this.solicitarAdopcionService
       .crearNotificacionDeAdopcion(
-        idMascota,
+        id,
         this.usuarioService.usuario()?.id ?? 0,
         'pendiente',
-        'Adopción'
+        'adopción'
       )
       .subscribe(
         () => {

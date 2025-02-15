@@ -33,7 +33,6 @@ export class ForgotComponent {
     if (this.recuperarForm.valid) {
       this.loading = true;
       const email = this.recuperarForm.get('email')?.value;
-    console.log(email);
     
       this.authService.recuperarContrasena(email).subscribe({
         next: (res:any) => {

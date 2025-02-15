@@ -27,8 +27,6 @@ export class PerfilComponent {
   )
 
   ngOnInit(){
-    console.log(this.refugio());
-
   }
 
   getSafeMapUrl(mapaUrl: string): SafeResourceUrl {

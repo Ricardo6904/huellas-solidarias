@@ -108,13 +108,13 @@ export class SolicitarAdopcionService {
   }
 
   crearNotificacionDeAdopcion(
-    idMascota: number,
+    idAnimalRescatado: number,
     idUsuario: number,
     estado: string,
     tipo: string
   ) {
     const params = {
-      idMascota: idMascota,
+      idAnimalRescatado: idAnimalRescatado,
       idUsuario: idUsuario,
       estado: estado,
       tipo: tipo,
