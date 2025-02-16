@@ -22,6 +22,10 @@ export const routes: Routes = [
     loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
   },
   {
+    path: 'amigos-rescatados',
+    loadChildren: () => import('./amigos-rescatados/amigos-rescatados.module').then(m => m.AmigosRescatadosModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

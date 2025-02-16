@@ -39,7 +39,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         this.loading=false
-        this.router.navigateByUrl('/mascotas').then(() => {
+        this.router.navigateByUrl('/amigos-rescatados').then(() => {
           this.toastr.success('Bienvenido', 'Adopta Huellas');
           window.location.reload();
         });

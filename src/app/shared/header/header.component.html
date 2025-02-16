@@ -16,7 +16,7 @@
     <div class="nav-links bg-[#F9FAFB] dark:bg-[#2E3440] md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10 transition-all duration-300 ease-in-out">
       <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-6">
         <li>
-          <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/mascotas">Adopta</button>
+          <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/amigos-rescatados">Adopta</button>
         </li>
         <li>
           <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/quienes-somos">Nosotros</button>
@@ -47,7 +47,7 @@
     <ul class="py-2 divide-gray-100">
       @if (rol() === 'refugio') {
       <li>
-        <a routerLink="/mascotas/adopciones" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+        <a routerLink="/refugio/notificaciones-adopcion" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bell mr-2">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
@@ -57,7 +57,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="/mascotas/mis-mascotas" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+        <a routerLink="/refugio/mis-rescatados" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-paw mr-2">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M12 10c-1.32 0 -1.983 .421 -2.931 1.924c-.317 .57 -.069 1.076 .669 1.076c.603 0 1.262 -.376 2.262 -.376c.998 0 1.659 .376 2.262 .376c.738 0 .986 -.506 .669 -1.076c-.948 -1.503 -1.611 -1.924 -2.931 -1.924z" />
@@ -70,7 +70,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="/mascotas/agregar" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+        <a routerLink="/refugio/rescatado" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus mr-2">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M12 5l0 14" />

@@ -1,27 +1,25 @@
-import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Mascota } from '@interfaces/Mascota';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
-import { MascotaService } from '../../../services/mascota.service';
-import { SolicitarAdopcionService } from '../../../services/solicitar-adopcion.service';
 import { Solicitud } from '@interfaces/Solicitud';
-import { ToastrService } from 'ngx-toastr';
-import { StorageServiceService } from '../../../services/storage-service.service';
-import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '@interfaces/Usuario';
-import { nextTick } from 'process';
+import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs';
 import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
+import { SolicitarAdopcionService } from 'src/app/services/solicitar-adopcion.service';
+import { StorageServiceService } from 'src/app/services/storage-service.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
-  selector: 'app-mascota',
+  selector: 'app-detalle',
   imports: [CommonModule],
-  templateUrl: './mascota.component.html',
-  styleUrl: './mascota.component.scss',
+  templateUrl: './detalle.component.html',
+  styleUrl: './detalle.component.scss'
 })
-export class MascotaComponent {
-  cargando = false;
+export class DetalleComponent {
+cargando = false;
   private route = inject(ActivatedRoute);
   private AnimalesRescatadosService = inject(AnimalRescatadoService);
 
@@ -35,14 +33,14 @@ export class MascotaComponent {
   //public mascota = signal<Mascota | undefined>(undefined);
   public mascota = toSignal(
     this.route.params.pipe(
-      switchMap(({ idAnimalRescatado }) =>
-        this.AnimalesRescatadosService.obtenerMascotasPorId(idAnimalRescatado)
+      switchMap(({ id }) =>
+        this.AnimalesRescatadosService.obtenerMascotasPorId(id)
       )
     )
   );
 
   ngOnInit() {
-    this.usuarioService.obtenerUsuarioPorId;
+    this.usuarioService.obtenerUsuarioPorId;    
   }
 
   solicitarAdopcion(id: number) {

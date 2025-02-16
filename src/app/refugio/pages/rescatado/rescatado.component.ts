@@ -1,30 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { StorageService } from '../../../services/storage.service';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { StorageServiceService } from '../../../services/storage-service.service';
-import { CommonModule } from '@angular/common';
 import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { StorageServiceService } from 'src/app/services/storage-service.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-agregar',
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  templateUrl: './agregar.component.html',
-  styleUrl: './agregar.component.scss',
+  selector: 'app-rescatado',
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './rescatado.component.html',
+  styleUrl: './rescatado.component.scss'
 })
-export class AgregarComponent {
+export class RescatadoComponent {
+
   sexoMascota: string[] = ['Macho', 'Hembra'];
   tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
   especieMascota: string[] = ['Gato', 'Perro', 'Otro'];
@@ -88,7 +79,7 @@ export class AgregarComponent {
   }
 
   ngOnInit() {
-    this.mascotaId = Number(this.route.snapshot.paramMap.get('idMascota'));
+    this.mascotaId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.isEditMode = !!this.mascotaId;
 

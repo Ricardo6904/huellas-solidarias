@@ -1,0 +1,275 @@
+<div class="min-h-screen p-4 md:p-8 bg-gray-100 dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto">
+      <header class="mb-8 flex justify-between items-center">
+        <div>
+          <h1 class="text-3xl font-bold mb-2 text-lime-600 dark:text-blue-300">
+            Mis Adopciones
+          </h1>
+          <p class="text-[#5C492C] dark:text-[#DDBEA9]">
+            Revisa el estado de tus solicitudes de adopción
+          </p>
+        </div>
+        <div
+          class="bg-blue-500 text-white text-xl font-bold rounded-full w-12 h-12 flex items-center justify-center"
+        >
+          {{ adopciones.length }}
+        </div>
+      </header>
+  
+      <div
+        class="bg-gray-100 dark:bg-[#3B4252] rounded-lg shadow-md overflow-hidden"
+      >
+        <div
+          class="p-4 border-b border-gray-200 font-semibold text-gray-700 dark:text-white"
+        >
+          Solicitudes de Adopción
+        </div>
+        <ul class="divide-y divide-gray-200">
+          @if (!loading) { @for (adopcion of adopciones; track $index) {
+  
+          <li class="p-4 transition duration-150 ease-in-out">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img
+                  [src]="
+                    adopcion?.animalRescatado?.Storage?.url
+                      ? adopcion.animalRescatado.Storage.url
+                      : 'assets/images/defaultImage.png'
+                  "
+                  [alt]="adopcion.animalRescatado.nombre"
+                  class="w-12 h-12 rounded-full object-cover"
+                />
+              </div>
+              <div class="flex-1 min-w-0">
+                <p
+                  class="text-sm font-medium text-black dark:text-white truncate"
+                >
+                  {{ adopcion.animalRescatado.nombre }}
+                </p>
+                <p class="text-sm text-gray-500 dark:text-white truncate">
+                  Solicitante: {{ adopcion.usuario.nombres }}
+                </p>
+                <p class="text-sm text-gray-500 dark:text-white truncate">
+                  Dirección: {{ adopcion.usuario.Ciudad.nombre }}, {{ adopcion.usuario.Provincia.nombre }}
+                </p>
+                <p class="text-sm text-gray-500 dark:text-white truncate">
+                  Celular: {{ adopcion.usuario.celular }}
+                </p>
+              </div>
+              <div
+                class="text-black dark:text-white flex items-center capitalize"
+              >
+                <button
+                  (click)="aprobar(adopcion.id ?? 0)"
+                  class="rounded-full border border-1 m-2 hover:opacity-50"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#24cc40"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                </button>
+  
+                <button
+                  (click)="rechazar(adopcion.id ?? 0)"
+                  class="rounded-full border border-1 m-2 hover:opacity-50"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#e0101a"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M18 6l-12 12" />
+                    <path d="M6 6l12 12" />
+                  </svg>
+                </button>
+                <!-- <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full ' + adopcion.estado">
+                      {{adopcion.estado}}
+                    </span> -->
+                <button
+                  (click)="
+                    verInformacionAdicional(adopcion?.usuario?.infoAdicional)
+                  "
+                  class="rounded-full border border-1 m-2 hover:opacity-50"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#3b82f6"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-eye"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                    <path
+                      d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </li>
+  
+          }@empty {
+          <div class="text-center text-gray-500 mt-8">
+            No tienes solicitudes de adopción pendientes.
+          </div>
+          } }@else {
+          <div class="flex justify-center items-center p-6">
+            <svg
+              class="animate-spin h-8 w-8 text-lime-600 dark:text-blue-300"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8H4z"
+              ></path>
+            </svg>
+          </div>
+          }
+        </ul>
+      </div>
+      <div class="flex justify-center items-center mt-4">
+        <button
+          (click)="cambiarPagina(page - 1)"
+          [disabled]="page === 1"
+          class="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded-lg mx-2"
+        >
+          Anterior
+        </button>
+  
+        <span class="text-gray-700 dark:text-white">
+          Página {{ page }} de {{ Math.ceil(totalAdopciones / limit) }}
+        </span>
+  
+        <button
+          (click)="cambiarPagina(page + 1)"
+          [disabled]="page * limit >= totalAdopciones"
+          class="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded-lg mx-2"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+  
+    <!-- Diálogo modal -->
+    <div
+      *ngIf="mostrarModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10"
+      (click)="cerrarModal()"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+            Información Adicional
+          </h2>
+          <button
+            (click)="cerrarModal()"
+            class="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M18 6l-12 12" />
+              <path d="M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+  
+        <!-- Contenido del modal -->
+        <div class="space-y-4">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >¿Tiene patio?</label
+            >
+            <p class="text-gray-900 dark:text-white">
+              {{ informacionAdicional?.tienePatio !== null && informacionAdicional?.tienePatio !== undefined
+                ? informacionAdicional.tienePatio ? "Sí" : "No"
+                : "No especificado" }}
+            </p>
+          </div>
+  
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >¿Tiene cerramiento?</label
+            >
+            <p class="text-gray-900 dark:text-white">
+              {{ informacionAdicional?.tieneCerramiento !== null && informacionAdicional?.tieneCerramiento !== undefined
+                ? informacionAdicional.tieneCerramiento ? "Sí" : "No"
+                : "No especificado" }}
+            </p>
+          </div>
+  
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >¿Vive en casa o departamento?</label
+            >
+            <p class="text-gray-900 dark:text-white capitalize">
+              {{ informacionAdicional?.viveEnCasaODepartamento || "No especificado" }}
+            </p>
+          </div>
+  
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >¿Arriendo o propia?</label
+            >
+            <p class="text-gray-900 dark:text-white capitalize">
+              {{ informacionAdicional?.arriendoOPropia || "No especificado" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
