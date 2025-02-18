@@ -1,1 +1,148 @@
-<p>mi-mascota works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 w-full">
+    <div class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 shadow-sm mx-auto max-w-4xl w-full sm:w-11/12 md:w-3/4 lg:w-2/3 p-10 sm:p-8 my-2">
+      <div class="flex flex-col items-center gap-6">
+        <div class="relative" data-id="3">
+          <span class="relative flex shrink-0 overflow-hidden rounded-full h-24 w-24 border">
+            <img
+              class="aspect-square h-full w-full"
+              alt="Mascota Imagen"
+              [src]="avatarUrl || 'https://generated.vusercontent.net/placeholder-user.jpg'"
+            />
+          </span>
+          <button
+            (click)="subirImagen()"
+            class="absolute bottom-0 right-0 bg-gray-400 text-primary-foreground rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-4 w-4"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" x2="12" y1="3" y2="15"></line>
+            </svg>
+            <span class="sr-only">Subir imagen</span>
+          </button>
+          <input
+            type="file"
+            #fileInput
+            class="hidden"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+        <div class="flex flex-col space-y-1.5 p-6">
+          <h3 class="text-gray-900 dark:text-stone-50 whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
+            {{ isEditMode ? "Edita tu Mascota" : "Registra tu Mascota" }}
+          </h3>
+          <p class="text-gray-900 dark:text-stone-50 text-sm">
+            {{
+              isEditMode
+                ? "Actualiza la información de tu mascota."
+                : "Completa el formulario para agregar una nueva mascota"
+            }}
+          </p>
+        </div>
+      </div>
+  
+      <div class="p-6 grid gap-4">
+        <form [formGroup]="mascotaForm">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="nombre">Nombre</label>
+              <input
+                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="nombre"
+                formControlName="nombre"
+                placeholder="Ingresa el nombre de la mascota"
+              />
+            </div>
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="especie">Especie</label>
+              <select
+                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="especie"
+                formControlName="especie"
+              >
+                <option value="perro">Perro</option>
+                <option value="gato">Gato</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="raza">Raza</label>
+              <input
+                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="raza"
+                formControlName="raza"
+                placeholder="Ingresa la raza de la mascota"
+              />
+            </div>
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="edad">Edad</label>
+              <input
+                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="edad"
+                formControlName="edad"
+                placeholder="Ingresa la edad de la mascota"
+              />
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="sexo">Sexo</label>
+              <select
+                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="sexo"
+                formControlName="sexo"
+              >
+                <option value="macho">Macho</option>
+                <option value="hembra">Hembra</option>
+              </select>
+            </div>
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="tamano">Tamaño</label>
+              <select
+                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="tamano"
+                formControlName="tamano"
+              >
+                <option value="pequeño">Pequeño</option>
+                <option value="mediano">Mediano</option>
+                <option value="grande">Grande</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid gap-4">
+            <div class="grid gap-2">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="descripcion">Descripción</label>
+              <textarea
+                class="flex h-20 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                id="descripcion"
+                formControlName="descripcion"
+                placeholder="Ingresa una descripción de la mascota"
+              ></textarea>
+            </div>
+          </div>
+          <div class="flex justify-end mt-6">
+            <button
+              type="button"
+              (click)="guardarMascota()"
+              class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            >
+              {{ isEditMode ? "Actualizar Mascota" : "Registrar Mascota" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

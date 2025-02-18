@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { Mascota } from '@interfaces/Mascota';
+import { AnimalRescatado } from '@interfaces/AnimalRescatado';
 import { Solicitud } from '@interfaces/Solicitud';
 import { Usuario } from '@interfaces/Usuario';
 import { ToastrService } from 'ngx-toastr';
@@ -63,7 +63,7 @@ cargando = false;
           if (this.mascota()) {
             const solicitud: Solicitud = {
               email: this.localStorage.getItem('email')!.toString(),
-              mascota: this.mascota() as Mascota,
+              mascota: this.mascota() as AnimalRescatado,
               usuario: this.usuarioService.usuario() as Usuario,
             };
 

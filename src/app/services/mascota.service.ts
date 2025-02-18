@@ -60,7 +60,7 @@ export class MascotaService {
   }
 
   ngOnInit(){
-    this.obtenerMascotasPorRefugio(1, 10, parseInt(this.storageService.getItem('idRefugio')!));
+    this.obtenerMascotasPorUsuario(1, 10, parseInt(this.storageService.getItem('idUsuario')!));
   }
 
   private actualizarEstado(parteEstado: Partial<State>) {
@@ -91,7 +91,7 @@ export class MascotaService {
     };
 
     this.http
-      .get<MascotasResponse>(`${this.baseUrl}/mascota`, { params })
+      .get<MascotasResponse>(`${this.baseUrl}/mascotas`, { params })
       .pipe(
         //delay(900), // Simulación de retardo
         tap(() => this.actualizarEstado({ loading: false })),
@@ -104,20 +104,20 @@ export class MascotaService {
 
   crearMascota(mascota: Mascota) {
     return this.http
-      .post<Mascota>(`${this.baseUrl}/mascota`, mascota)
+      .post<Mascota>(`${this.baseUrl}/mascotas`, mascota)
       .pipe(tap(() => this.obtenerMascotas(10, 1)));
   }
 
   obtenerMascotasPorId(idMascota: number) {
     return this.http
-      .get<MascotaResponse>(`${this.baseUrl}/mascota/${idMascota}`)
+      .get<MascotaResponse>(`${this.baseUrl}/mascotas/${idMascota}`)
       .pipe(map((res) => res.data));
   }
 
-  obtenerMascotasPorRefugio(
+  obtenerMascotasPorUsuario(
     page: number,
     limit: number,
-    idRefugio: number,
+    idUsuario: number,
     filtros?: { nombre: string }
   ) {
     this.actualizarEstadoMR({ loading: true });
@@ -128,7 +128,7 @@ export class MascotaService {
     };
 
     this.http
-      .get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`, {
+      .get<MascotasResponse>(`${this.baseUrl}/mascotas/usuario/${idUsuario}`, {
         params,
       })
       .pipe(tap(() => this.actualizarEstadoMR({ loading: false })))
@@ -141,61 +141,34 @@ export class MascotaService {
         });
       });
   }
- /*  obtenerMascotasPorRefugio(
-    page: number,
-    limit: number,
-    idRefugio: number,
-    filtros?: { nombre: string }
-  ) {
-    this.actualizarEstadoMR({ loading: true });
-    const params = {
-      page: page.toString(),
-      limit: limit.toString(),
-      ...filtros,
-    };
 
-    this.http
-      .get<MascotasResponse>(`${this.baseUrl}/mascota/refugio/${idRefugio}`, {
-        params,
-      })
-      .pipe(tap(() => this.actualizarEstadoMR({ loading: false })))
-      .subscribe((res) => {
-        this.actualizarEstadoMR({
-          mascotasR: res.data,
-          loading: false,
-          total: res.total,
-          totalPages: res.totalPages,
-        });
-      });
-  }
- */
   actualizarMascota(idMascota: number, mascota: Partial<Mascota>) {
     return this.http
-      .put<Mascota>(`${this.baseUrl}/mascota/${idMascota}`, mascota)
+      .put<Mascota>(`${this.baseUrl}/mascotas/${idMascota}`, mascota)
       .pipe(tap(() => this.obtenerMascotas(2, 10)));
   }
 
   eliminarMascota(idMascota: number) {
-    return this.http.delete(`${this.baseUrl}/mascota/${idMascota}`);
+    return this.http.delete(`${this.baseUrl}/mascotas/${idMascota}`);
   }
 
   incrementarSolicitudes(idMascota: number) {
     return this.http.post(
-      `${this.baseUrl}/mascota/${idMascota}/incrementar-solicitudes`,
+      `${this.baseUrl}/mascotas/${idMascota}/incrementar-solicitudes`,
       {}
     );
   }
 
   decrementarSolicitudes(idMascota: number) {
     return this.http.post(
-      `${this.baseUrl}/mascota/${idMascota}/decrementar-solicitudes`,
+      `${this.baseUrl}/mascotas/${idMascota}/decrementar-solicitudes`,
       {}
     );
   }
 
   mascotaAdoptada(idMascota: number) {
     return this.http.put(
-      `${this.baseUrl}/mascota/${idMascota}/mascotaAdoptada`,
+      `${this.baseUrl}/mascotas/${idMascota}/mascotaAdoptada`,
       {}
     );
   }

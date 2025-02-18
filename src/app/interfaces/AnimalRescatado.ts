@@ -18,6 +18,7 @@ export interface AnimalRescatado {
   idRefugio: number
   refugio: Refugio,
   estado: string,
+  especie: string,
   solicitudesPendientes: number | 0
 }
 
