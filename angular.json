@@ -42,7 +42,6 @@
           "configurations": {
             "production": {
               "baseHref": "/",
-              "outputPath": "dist/huellas-solidarias/browser",
               "budgets": [
                 {
                   "type": "initial",
