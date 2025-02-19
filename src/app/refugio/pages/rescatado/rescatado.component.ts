@@ -105,7 +105,7 @@ export class RescatadoComponent {
           .actualizarMascota(this.mascotaId!, this.mascotaForm.value)
           .subscribe({
             next: () => {
-              this.router.navigateByUrl('/mascotas/mis-mascotas');
+              this.router.navigateByUrl('/refugio/mis-rescatados');
               this.toastr.success('Mascota modificada!');
             },
             error: () => {
@@ -117,7 +117,7 @@ export class RescatadoComponent {
         // Modo de agregar: Crear nueva mascota
         this.animalRescatadoService.crearMascota(this.mascotaForm.value).subscribe({
           next: () => {
-            this.router.navigateByUrl('/mascotas/mis-mascotas');
+            this.router.navigateByUrl('/refugio/mis-rescatados');
             this.toastr.success('Mascota creada exitosamente!');
           },
           error: (error) => {
