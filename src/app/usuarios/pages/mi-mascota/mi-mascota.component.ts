@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MascotaService } from 'src/app/services/mascota.service';
+import { StorageServiceService } from 'src/app/services/storage-service.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class MiMascotaComponent {
     private mascotaService: MascotaService, // Cambiar el servicio
     private toastr: ToastrService,
     private route:ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage:StorageServiceService
   ) {
     this.mascotaForm = this.fb.group({
       nombre: new FormControl<string>('', [Validators.required]),
@@ -39,7 +41,7 @@ export class MiMascotaComponent {
       descripcion: new FormControl<string>(''),
       estado: new FormControl<string>(''),
       idStorage: new FormControl<number | null>(null),
-      idUsuario: new FormControl<number | null>(null), // Este campo se asignará dinámicamente
+      idUsuario: new FormControl<number | null>(Number(this.localStorage.getItem('idUsuario'))), // Este campo se asignará dinámicamente
     });
   }
 

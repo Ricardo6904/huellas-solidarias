@@ -1,1 +1,87 @@
-<p>mascota works!</p>
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8 bg-[url('/assets/huellitas.svg')] bg-repeat bg-opacity-10">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+      <!-- Imagen de la mascota -->
+      <div class="relative h-64 sm:h-80 md:h-96 cursor-pointer" (click)="expandImage(mascota.Storage.url)">
+        <img
+          [src]="mascota.Storage.url || '../assets/images/defaultImage.png'"
+          [alt]="mascota.nombre"
+          class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-300"></div>
+      </div>
+  
+      <!-- Detalles de la mascota -->
+      <div class="p-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          {{ mascota.nombre }}
+        </h1>
+  
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
+          <!-- Especie y raza -->
+          <div>
+            <span class="font-semibold">Especie:</span> {{ mascota.especie }}
+          </div>
+          <div>
+            <span class="font-semibold">Raza:</span> {{ mascota.raza }}
+          </div>
+  
+          <!-- Edad y sexo -->
+          <div>
+            <span class="font-semibold">Edad:</span> {{ mascota.edad }}
+          </div>
+          <div>
+            <span class="font-semibold">Sexo:</span> {{ mascota.sexo }}
+          </div>
+  
+          <!-- Tamaño y estado -->
+          <div>
+            <span class="font-semibold">Tamaño:</span> {{ mascota.tamano }}
+          </div>
+          <div>
+            <span class="font-semibold">Estado:</span>
+            <span
+              class="px-2 py-1 text-xs font-medium rounded-lg capitalize"
+              [ngClass]="{
+                'bg-green-100 text-green-800': mascota.estado === 'adoptado',
+                'bg-yellow-100 text-yellow-800': mascota.estado === 'disponible',
+                'bg-red-100 text-red-800': mascota.estado === 'pendiente'
+              }"
+            >
+              {{ mascota.estado }}
+            </span>
+          </div>
+        </div>
+  
+        <!-- Descripción -->
+        <div class="mt-6">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Descripción</h2>
+          <p class="text-gray-700 dark:text-gray-300">{{ mascota.descripcion }}</p>
+        </div>
+      </div>
+  
+      <!-- Datos de contacto del usuario -->
+      <div class="bg-gray-50 dark:bg-gray-700 p-6">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contacto</h2>
+        <div class="space-y-2 text-gray-700 dark:text-gray-300">
+          <div>
+            <span class="font-semibold">Nombre:</span> {{ mascota.Usuario.nombres }} {{ mascota.Usuario.apellidos }}
+          </div>
+          <div>
+            <span class="font-semibold">Celular:</span> {{ mascota.Usuario.celular }}
+          </div>
+          <div>
+            <span class="font-semibold">Email:</span> {{ mascota.Usuario.email }}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal para la imagen expandida -->
+    <div *ngIf="isImageExpanded" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75" (click)="closeExpandedImage()">
+      <img
+        [src]="expandedImageUrl"
+        alt="Imagen expandida"
+        class="max-w-full max-h-full object-contain"
+      />
+    </div>
+  </div>
