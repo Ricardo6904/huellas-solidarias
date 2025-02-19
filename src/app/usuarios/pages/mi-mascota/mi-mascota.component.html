@@ -56,77 +56,127 @@
         <form [formGroup]="mascotaForm">
           <div class="grid grid-cols-2 gap-4">
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="nombre">Nombre</label>
+              <label
+                for="nombre"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Nombre</label
+              >
               <input
-                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                type="text"
                 id="nombre"
                 formControlName="nombre"
-                placeholder="Ingresa el nombre de la mascota"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Ej Firulais"
+                maxlength="20"
               />
+              <small
+                *ngIf="
+                  this.mascotaForm.get('nombre')?.invalid &&
+                  this.mascotaForm.get('nombre')?.touched
+                "
+                class="text-red-700 dark:text-red-400"
+                >Campo admite solo letras</small
+              >
+              <small
+                *ngIf="this.mascotaForm.get('nombre')?.errors?.['required'] && this.mascotaForm.get('nombre')?.touched"
+                class="text-red-700 dark:text-red-400"
+                >Requerido</small
+              >
             </div>
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="especie">Especie</label>
+              <label
+                for="especie"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+                >Especie</label
+              >
               <select
-                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 id="especie"
                 formControlName="especie"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="perro">Perro</option>
-                <option value="gato">Gato</option>
-                <option value="otro">Otro</option>
+                @for (especie of especieMascota; track $index) {
+                <option [value]="especie">{{ especie }}</option>
+  
+                }
               </select>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="raza">Raza</label>
-              <input
-                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              <label
+                for="raza"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+                >Raza</label
+              >
+              <select
                 id="raza"
                 formControlName="raza"
-                placeholder="Ingresa la raza de la mascota"
-              />
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                @for (raza of razas; track $index) {
+                <option [value]="raza">{{ raza }}</option>
+                }
+              </select>
             </div>
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="edad">Edad</label>
-              <input
-                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              <label
+                for="edad"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+                >Edad</label
+              >
+              <select
                 id="edad"
                 formControlName="edad"
-                placeholder="Ingresa la edad de la mascota"
-              />
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                @for (edad of edades; track $index) {
+                <option [value]="edad.age">{{ edad.description }}</option>
+  
+                }
+              </select>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="sexo">Sexo</label>
+              <label
+                for="sexo"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+                >Sexo</label
+              >
               <select
-                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 id="sexo"
                 formControlName="sexo"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="macho">Macho</option>
-                <option value="hembra">Hembra</option>
+                @for (sexo of sexoMascota; track $index) {
+                <option [value]="sexo">{{ sexo }}</option>
+  
+                }
               </select>
             </div>
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="tamano">Tamaño</label>
+              <label
+                for="tamano"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+                >Tamaño</label
+              >
               <select
-                class="flex h-10 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 id="tamano"
                 formControlName="tamano"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="pequeño">Pequeño</option>
-                <option value="mediano">Mediano</option>
-                <option value="grande">Grande</option>
+                @for (tamano of tamanoMascota; track $index) {
+                <option [value]="tamano">{{ tamano }}</option>
+  
+                }
               </select>
             </div>
           </div>
           <div class="grid gap-4">
             <div class="grid gap-2">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="descripcion">Descripción</label>
+              <label class="block text-sm font-medium text-gray-900 dark:text-white" for="descripcion">Descripción</label>
               <textarea
-                class="flex h-20 w-full border border-[var(--color-3)] bg-gray-100 px-3 py-2 text-sm placeholder:text-[var(--color-8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 id="descripcion"
                 formControlName="descripcion"
                 placeholder="Ingresa una descripción de la mascota"

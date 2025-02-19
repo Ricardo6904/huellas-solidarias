@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,11 +9,28 @@ import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-mi-mascota',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './mi-mascota.component.html',
   styleUrl: './mi-mascota.component.scss'
 })
 export class MiMascotaComponent {
+  sexoMascota: string[] = ['Macho', 'Hembra'];
+  tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
+  especieMascota: string[] = ['Gato', 'Perro', 'Otro'];
+  razas: string[] = [
+    'Labrador',
+    'Pastor Alemán',
+    'Bulldog',
+    'Chihuahua',
+    'Mestizo',
+  ];
+  edades = [
+    { age: 'Cachorro', description: 'Cachorro (0-1 año)' },
+    { age: 'Joven', description: 'Joven (1-3 años)' },
+    { age: 'Adulto', description: 'Adulto (3-7 años)' },
+    { age: 'Mayor', description: 'Mayor (7+ años)' },
+  ];
+
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement> | undefined;
   avatarUrl: string | ArrayBuffer | null = null;
   mascotaForm: FormGroup; // Cambiar el nombre del formulario
@@ -39,7 +57,7 @@ export class MiMascotaComponent {
       sexo: new FormControl<string>('', [Validators.required]),
       tamano: new FormControl<string>('', [Validators.required]),
       descripcion: new FormControl<string>(''),
-      estado: new FormControl<string>(''),
+      estado: new FormControl<string>('seguro'),
       idStorage: new FormControl<number | null>(null),
       idUsuario: new FormControl<number | null>(Number(this.localStorage.getItem('idUsuario'))), // Este campo se asignará dinámicamente
     });
