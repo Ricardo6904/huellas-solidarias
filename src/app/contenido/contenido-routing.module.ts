@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
+import { MascotaComponent } from '../usuarios/pages/mascota/mascota.component';
 
 const routes: Routes = [
   {
