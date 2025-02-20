@@ -5,8 +5,8 @@ export interface Refugio{
   id: number,
   nombre: string,
   direccion: string,
-  ciudad: string,
-  provincia: string,
+  idProvincia: number,
+  idCiudad: number,
   celular: string,
   email: string,
   redesSociales?: RedesSociales[]
@@ -14,7 +14,15 @@ export interface Refugio{
   descripcion: string,
   mapaUrl: string,
   latitud: string,
-  longitud: string
+  longitud: string,
+  Ciudad: {
+    id: number,
+    nombre: string
+  },
+  Provincia: {
+    id: number,
+    nombre: string
+  },
 }
 
 
@@ -31,4 +39,34 @@ export interface RefugioResponse{
 export interface Support {
   url: string;
   text: string;
+}
+
+export function getDefaultRefugio(): Refugio {
+  return {
+    id: 0,
+    nombre: '',
+    descripcion: '',
+    Storage: {
+      url: '',
+      id: 0,
+      filename: ""
+    },
+    celular: '',
+    idCiudad: 0,
+    direccion: '',
+    email: '',
+    idProvincia: 0,
+    latitud: '',
+    longitud: '',
+    mapaUrl: '',
+    redesSociales: [],
+    Ciudad: {
+      id: 0,
+      nombre: ''
+    },
+    Provincia: {
+      id: 0,
+      nombre: ''
+    }
+  };
 }
