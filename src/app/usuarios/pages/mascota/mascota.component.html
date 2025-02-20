@@ -19,7 +19,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
           <!-- Especie y raza -->
           <div>
-            <span class="font-semibold">Especie:</span> {{ mascota.especie }}
+            <span class="font-semibold">Especie:</span> <span class="capitalize">{{ mascota.especie }} </span>
           </div>
           <div>
             <span class="font-semibold">Raza:</span> {{ mascota.raza }}
@@ -30,26 +30,39 @@
             <span class="font-semibold">Edad:</span> {{ mascota.edad }}
           </div>
           <div>
-            <span class="font-semibold">Sexo:</span> {{ mascota.sexo }}
+            <span class="font-semibold">Sexo:</span> <span class="capitalize">{{ mascota.sexo }}</span>
           </div>
   
           <!-- Tamaño y estado -->
           <div>
-            <span class="font-semibold">Tamaño:</span> {{ mascota.tamano }}
+            <span class="font-semibold">Tamaño:</span> <span class="capitalize">{{ mascota.tamano }}</span>
           </div>
           <div>
             <span class="font-semibold capitalize">Estado:</span>
             <span
-              class="px-2 py-1 text-xs font-medium rounded-lg capitalize"
+              class="px-2 py-1 text-xs font-medium rounded-lg capitalize flex items-center gap-2"
               [ngClass]="{
-                'bg-green-100 text-green-800': mascota.estado === 'adoptado',
-                'bg-yellow-100 text-yellow-800': mascota.estado === 'disponible',
-                'bg-red-100 text-red-800': mascota.estado === 'pendiente'
+                'bg-green-100 text-green-800': mascota.estado === 'seguro',
+                'bg-red-100 text-red-800': mascota.estado === 'perdido',
+                'bg-blue-100 text-blue-800': mascota.estado === 'encontrado',
+                'bg-purple-100 text-purple-800': mascota.estado === 'en tratamiento',
+                'bg-yellow-100 text-yellow-800': mascota.estado === 'en paseo',
+                'bg-gray-100 text-gray-800': mascota.estado === 'en refugio',
+                'bg-black text-white': mascota.estado === 'fallecido'
               }"
             >
+              <span *ngIf="mascota.estado === 'seguro'">✅</span>
+              <span *ngIf="mascota.estado === 'perdido'">🚨</span>
+              <span *ngIf="mascota.estado === 'encontrado'">🔍</span>
+              <span *ngIf="mascota.estado === 'en tratamiento'">🏥</span>
+              <span *ngIf="mascota.estado === 'en paseo'">🐕</span>
+              <span *ngIf="mascota.estado === 'en refugio'">🏡</span>
+              <span *ngIf="mascota.estado === 'fallecido'">🌈</span>
+              
               {{ mascota.estado }}
             </span>
           </div>
+          
         </div>
   
         <!-- Descripción -->

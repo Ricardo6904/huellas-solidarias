@@ -10,10 +10,6 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'mascotas',
-    loadChildren: () => import('./mascotas/mascotas.module').then(m => m.MascotasModule)
-  },
-  {
     path: 'refugio',
     loadChildren: () => import('./refugio/refugio.module').then(m => m.RefugioModule)
   },

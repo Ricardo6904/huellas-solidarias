@@ -63,28 +63,11 @@
       </div>
     </div>
 
-    <!-- Mapa de Google Maps -->
-    <div
-      class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
-    >
+    <div class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-white p-6">
         Ubicación
       </h2>
-      <div class="h-96 w-full">
-        <div *ngIf="refugio()">
-          <div *ngIf="refugio()?.mapaUrl">
-            <iframe
-            width="600"
-            height="450"
-            style="border: 0"
-            loading="lazy"
-             referrerpolicy="no-referrer"
-             [src]="getSafeMapUrl(refugio()!.mapaUrl)"
-             allowfullscreen
-           ></iframe> 
-          </div>
-        </div>
-      </div>
+      <div id="map" class="h-96 w-full"></div>
     </div>
 
     <!-- CTA Voluntariado y Donaciones -->

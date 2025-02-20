@@ -101,8 +101,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/@tabler/icons/dist/tabler-icons.min.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

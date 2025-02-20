@@ -1,29 +1,14 @@
-<section
-  class="min-h-screen py-5 px-3 md:px-5 lg:px-6 xl:px-3 bg-gray-100 dark:bg-gray-800"
->
+<section class="min-h-screen py-5 px-3 md:px-5 lg:px-6 xl:px-3 bg-gray-100 dark:bg-gray-800">
   <div class="max-w-7xl mx-auto space-y-8">
     <h1 class="text-4xl font-bold text-center text-[var(--color-3)] mb-8">
       Mis Mascotas
     </h1>
 
-    <!-- Tabla -->
-    <label for="table-search" class="sr-only">Search</label>
+    <!-- Barra de búsqueda -->
     <div class="relative">
-      <div
-        class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none"
-      >
-        <svg
-          class="w-5 h-5 text-gray-500 dark:text-gray-400"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clip-rule="evenodd"
-          ></path>
+      <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
         </svg>
       </div>
       <input
@@ -35,124 +20,97 @@
         placeholder="Buscar Mascota"
       />
     </div>
+
+    <!-- Contenedor de tarjetas -->
     @if (!mascotasService.loading()) {
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-        >
-          <tr>
-            <th scope="col" class="px-6 py-3">Nombre</th>
-            <th scope="col" class="px-6 py-3">Especie</th>
-            <th scope="col" class="px-6 py-3">Raza</th>
-            <th scope="col" class="px-6 py-3">Edad</th>
-            <th scope="col" class="px-6 py-3">Estado</th>
-            <th scope="col" class="px-6 py-3">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="!mascotasService.loading(); else loadingRow">
-            @for(mascota of mascotasService.mascotasRefugio();track mascota.id){
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-            >
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-              >
-                {{ mascota.nombre }}
-              </th>
-              <td class="px-6 py-4">{{ mascota.especie }}</td>
-              <td class="px-6 py-4">{{ mascota.raza }}</td>
-              <td class="px-6 py-4">{{ mascota.edad }}</td>
-              <td class="px-6 py-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @for (mascota of mascotasService.mascotasRefugio(); track mascota.id) {
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <!-- Imagen de la mascota -->
+            <div class="w-full h-48 overflow-hidden">
+              <img
+                [src]="mascota.Storage.url"
+                alt="{{ mascota.nombre }}"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- Contenido de la tarjeta -->
+            <div class="p-6">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ mascota.nombre }}</h2>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                {{ mascota.descripcion }}
+              </p>
+    
+              <!-- Estado de la mascota -->
+              <div>
+                <span class=" text-lg text-gray-900 dark:text-white mb-2">Estado:</span>
                 <span
-                  class="px-2 py-1 text-xs font-medium rounded-lg capitalize"
+                  class="px-2 py-1 text-xs font-medium rounded-lg capitalize flex items-center gap-2"
                   [ngClass]="{
-                    'bg-green-100 text-green-800':
-                      mascota.estado === 'adoptado',
-                    'bg-yellow-100 text-yellow-800':
-                      mascota.estado === 'disponible',
-                    'bg-red-100 text-red-800': mascota.estado === 'pendiente'
+                    'bg-green-100 text-green-800': mascota.estado === 'seguro',
+                    'bg-red-100 text-red-800': mascota.estado === 'perdido',
+                    'bg-blue-100 text-blue-800': mascota.estado === 'encontrado',
+                    'bg-purple-100 text-purple-800': mascota.estado === 'en tratamiento',
+                    'bg-yellow-100 text-yellow-800': mascota.estado === 'en paseo',
+                    'bg-gray-100 text-gray-800': mascota.estado === 'en refugio',
+                    'bg-black text-white': mascota.estado === 'fallecido'
                   }"
                 >
+                  <span *ngIf="mascota.estado === 'seguro'">✅</span>
+                  <span *ngIf="mascota.estado === 'perdido'">🚨</span>
+                  <span *ngIf="mascota.estado === 'encontrado'">🔍</span>
+                  <span *ngIf="mascota.estado === 'en tratamiento'">🏥</span>
+                  <span *ngIf="mascota.estado === 'en paseo'">🐕</span>
+                  <span *ngIf="mascota.estado === 'en refugio'">🏡</span>
+                  <span *ngIf="mascota.estado === 'fallecido'">🌈</span>
+                  
                   {{ mascota.estado }}
                 </span>
-              </td>
-              <td class="px-6 py-4 flex space-x-2">
-                <button (click)="verDetallesMascota(mascota.id)">
-                  <svg class="w-6 h-6 text-blue-500 hover:text-blue-700 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path>
-                  </svg>
-                </button>
+              </div>
+            </div>
 
-                <button (click)="mostrarQR(mascota)">
-               
-                  <svg class="w-6 h-6 text-green-500 hover:text-green-700 cursor-pointer"  viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23 4C23 2.34315 21.6569 1 20 1H16C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 21.4477 9 22 9C22.5523 9 23 8.55228 23 8V4Z" fill="#0F0F0F"/>
-                    <path d="M23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H16C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23H20C21.6569 23 23 21.6569 23 20V16Z" fill="#0F0F0F"/>
-                    <path d="M4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16V20C1 21.6569 2.34315 23 4 23H8C8.55228 23 9 22.5523 9 22C9 21.4477 8.55228 21 8 21H4Z" fill="#0F0F0F"/>
-                    <path d="M1 8C1 8.55228 1.44772 9 2 9C2.55228 9 3 8.55228 3 8V4C3 3.44772 3.44772 3 4 3H8C8.55228 3 9 2.55228 9 2C9 1.44772 8.55228 1 8 1H4C2.34315 1 1 2.34315 1 4V8Z" fill="#0F0F0F"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C11 5.44772 10.5523 5 10 5H6C5.44772 5 5 5.44772 5 6V10C5 10.5523 5.44772 11 6 11H10C10.5523 11 11 10.5523 11 10V6ZM9 7.5C9 7.22386 8.77614 7 8.5 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H8.5C8.77614 9 9 8.77614 9 8.5V7.5Z" fill="#0F0F0F"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 13C18.5523 13 19 13.4477 19 14V18C19 18.5523 18.5523 19 18 19H14C13.4477 19 13 18.5523 13 18V14C13 13.4477 13.4477 13 14 13H18ZM15 15.5C15 15.2239 15.2239 15 15.5 15H16.5C16.7761 15 17 15.2239 17 15.5V16.5C17 16.7761 16.7761 17 16.5 17H15.5C15.2239 17 15 16.7761 15 16.5V15.5Z" fill="#0F0F0F"/>
-                    <path d="M14 5C13.4477 5 13 5.44772 13 6C13 6.55229 13.4477 7 14 7H16.5C16.7761 7 17 7.22386 17 7.5V10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10V6C19 5.44772 18.5523 5 18 5H14Z" fill="#0F0F0F"/>
-                    <path d="M14 8C13.4477 8 13 8.44771 13 9V10C13 10.5523 13.4477 11 14 11C14.5523 11 15 10.5523 15 10V9C15 8.44772 14.5523 8 14 8Z" fill="#0F0F0F"/>
-                    <path d="M6 13C5.44772 13 5 13.4477 5 14V16C5 16.5523 5.44772 17 6 17C6.55229 17 7 16.5523 7 16V15.5C7 15.2239 7.22386 15 7.5 15H10C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13H6Z" fill="#0F0F0F"/>
-                    <path d="M10 17C9.44771 17 9 17.4477 9 18C9 18.5523 9.44771 19 10 19C10.5523 19 11 18.5523 11 18C11 17.4477 10.5523 17 10 17Z" fill="#0F0F0F"/>
-                    </svg>
-                </button>
+            <!-- Botones de acciones -->
+            <div class="p-4 bg-gray-50 dark:bg-gray-700 flex justify-end space-x-2">
+              <button (click)="verDetallesMascota(mascota.id)" class="text-blue-500 hover:text-blue-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path>
+                </svg>
+              </button>
+              <button (click)="mostrarQR(mascota)" class="text-green-500 hover:text-green-700">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23 4C23 2.34315 21.6569 1 20 1H16C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 21.4477 9 22 9C22.5523 9 23 8.55228 23 8V4Z" fill="#0F0F0F"/>
+                  <path d="M23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H16C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23H20C21.6569 23 23 21.6569 23 20V16Z" fill="#0F0F0F"/>
+                  <path d="M4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16V20C1 21.6569 2.34315 23 4 23H8C8.55228 23 9 22.5523 9 22C9 21.4477 8.55228 21 8 21H4Z" fill="#0F0F0F"/>
+                  <path d="M1 8C1 8.55228 1.44772 9 2 9C2.55228 9 3 8.55228 3 8V4C3 3.44772 3.44772 3 4 3H8C8.55228 3 9 2.55228 9 2C9 1.44772 8.55228 1 8 1H4C2.34315 1 1 2.34315 1 4V8Z" fill="#0F0F0F"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C11 5.44772 10.5523 5 10 5H6C5.44772 5 5 5.44772 5 6V10C5 10.5523 5.44772 11 6 11H10C10.5523 11 11 10.5523 11 10V6ZM9 7.5C9 7.22386 8.77614 7 8.5 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H8.5C8.77614 9 9 8.77614 9 8.5V7.5Z" fill="#0F0F0F"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M18 13C18.5523 13 19 13.4477 19 14V18C19 18.5523 18.5523 19 18 19H14C13.4477 19 13 18.5523 13 18V14C13 13.4477 13.4477 13 14 13H18ZM15 15.5C15 15.2239 15.2239 15 15.5 15H16.5C16.7761 15 17 15.2239 17 15.5V16.5C17 16.7761 16.7761 17 16.5 17H15.5C15.2239 17 15 16.7761 15 16.5V15.5Z" fill="#0F0F0F"/>
+                  <path d="M14 5C13.4477 5 13 5.44772 13 6C13 6.55229 13.4477 7 14 7H16.5C16.7761 7 17 7.22386 17 7.5V10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10V6C19 5.44772 18.5523 5 18 5H14Z" fill="#0F0F0F"/>
+                  <path d="M14 8C13.4477 8 13 8.44771 13 9V10C13 10.5523 13.4477 11 14 11C14.5523 11 15 10.5523 15 10V9C15 8.44772 14.5523 8 14 8Z" fill="#0F0F0F"/>
+                  <path d="M6 13C5.44772 13 5 13.4477 5 14V16C5 16.5523 5.44772 17 6 17C6.55229 17 7 16.5523 7 16V15.5C7 15.2239 7.22386 15 7.5 15H10C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13H6Z" fill="#0F0F0F"/>
+                  <path d="M10 17C9.44771 17 9 17.4477 9 18C9 18.5523 9.44771 19 10 19C10.5523 19 11 18.5523 11 18C11 17.4477 10.5523 17 10 17Z" fill="#0F0F0F"/>
+                </svg>
+              </button>
+              <button (click)="editarMascota(mascota.id)" class="text-yellow-500 hover:text-yellow-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                </svg>
+              </button>
+              <button (click)="eliminarMascota(mascota.id)" class="text-red-500 hover:text-red-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
 
-                <!-- <button
-                  class="text-blue-600 hover:underline dark:text-blue-500 me-4"
-                  (click)="editarMascota(mascota.id)"
-                >
-                <i class="ti ti-edit"></i> Editar <i class="ti ti-a-b-2"></i>
-                </button> -->
-                <button (click)="editarMascota(mascota.id)">
-                  <svg class="w-6 h-6 text-yellow-500 hover:text-yellow-700 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                  </svg>
-                </button>
-                <!-- <button
-                  class="text-red-600 hover:underline dark:text-red-500"
-                  (click)="eliminarMascota(mascota.id)"
-                >
-                  Eliminar
-                </button> -->
-                <button (click)="eliminarMascota(mascota.id)">
-                  <svg class="w-6 h-6 text-red-500 hover:text-red-700 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            }
-          </ng-container>
-          <!-- Spinner Row -->
-          <ng-template #loadingRow>
-            <tr>
-              <td colspan="6" class="text-center py-4">
-                <div class="flex justify-center items-center space-x-2">
-                  <div
-                    class="animate-spin w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full"
-                  ></div>
-                  <span>Cargando datos...</span>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </tbody>
-      </table>
-    </div>
     <!-- Paginación -->
-    <nav
-      class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-      aria-label="Table navigation"
-    >
-      <span
-        class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
-      >
+    <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+      <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
         Mostrando
         <span class="font-semibold text-gray-900 dark:text-white">
           {{ (currentPage() - 1) * 10 + 1 }}
@@ -176,17 +134,11 @@
             Anterior
           </button>
         </li>
-        <li
-          *ngFor="
-            let page of [].constructor(mascotasService.totalPagesMR());
-            let i = index
-          "
-        >
+        <li *ngFor="let page of [].constructor(mascotasService.totalPagesMR()); let i = index">
           <a
             class="flex cursor-pointer items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             [ngClass]="{
-              'text-blue-600 border-blue-300 bg-blue-50 dark:bg-gray-700 dark:text-white':
-                currentPage() === i + 1
+              'text-blue-600 border-blue-300 bg-blue-50 dark:bg-gray-700 dark:text-white': currentPage() === i + 1
             }"
             (click)="loadPage(i + 1)"
           >
@@ -204,63 +156,20 @@
         </li>
       </ul>
     </nav>
-    }@else {
-    <!-- Loading Spinner -->
-    <div
-      *ngIf="mascotasService.loading()"
-      class="flex justify-center items-center min-h-[200px]"
-    >
-      <svg
-        class="animate-spin h-8 w-8 text-blue-500"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"
-        ></path>
-      </svg>
-    </div>
-    }
   </div>
 
-
-
+  <!-- Popup de QR -->
   <div *ngIf="showQRPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3">
       <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Código QR de {{ selectedMascota?.nombre }}</h2>
       <div class="flex justify-center">
-        <!-- Componente QRCode -->
-        <qrcode
-          [qrdata]="qrData"
-          [width]="256"
-          [errorCorrectionLevel]="'M'"
-          elementType="canvas"
-        ></qrcode>
+        <qrcode [qrdata]="qrData" [width]="256" [errorCorrectionLevel]="'M'" elementType="canvas"></qrcode>
       </div>
       <div class="mt-4 flex justify-end space-x-2">
-        <!-- Botón para descargar el código QR -->
-        <button
-          (click)="downloadQR()"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
+        <button (click)="downloadQR()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
           Descargar
         </button>
-        <!-- Botón para cerrar el popup -->
-        <button
-          (click)="closeQRPopup()"
-          class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-        >
+        <button (click)="closeQRPopup()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
           Cerrar
         </button>
       </div>

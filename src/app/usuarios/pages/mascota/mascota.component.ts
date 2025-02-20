@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getDefaultMascota, Mascota } from '@interfaces/Mascota';
 import { MascotaService } from 'src/app/services/mascota.service';
 
+
 @Component({
   selector: 'app-mascota',
   imports: [CommonModule],

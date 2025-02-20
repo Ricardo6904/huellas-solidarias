@@ -12,7 +12,9 @@ export interface Refugio{
   redesSociales?: RedesSociales[]
   Storage?: storage,
   descripcion: string,
-  mapaUrl: string
+  mapaUrl: string,
+  latitud: string,
+  longitud: string
 }
 
 

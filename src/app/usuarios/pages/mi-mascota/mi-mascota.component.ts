@@ -14,9 +14,20 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrl: './mi-mascota.component.scss'
 })
 export class MiMascotaComponent {
-  sexoMascota: string[] = ['Macho', 'Hembra'];
-  tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
-  especieMascota: string[] = ['Gato', 'Perro', 'Otro'];
+  sexoMascota = [
+    {value: 'macho', text: 'Macho'}, 
+    {value: 'hembra', text: 'Hembra'}
+  ];
+  tamanoMascota = [
+    {value: 'pequeño', text: 'Pequeño'},
+    {value: 'mediano', text: 'Mediano'},
+    {value: 'grande', text: 'Grande'}
+  ];
+  especieMascota = [
+    {value: 'perro', text: 'Perro'}, 
+    {value: 'gato', text: 'Gato'}, 
+    {value: 'otro', text: 'Otro'}, 
+  ];
   razas: string[] = [
     'Labrador',
     'Pastor Alemán',
@@ -64,8 +75,7 @@ export class MiMascotaComponent {
   }
 
   ngOnInit(){
-    console.log('base url', `${this.baseUrl}/${this.extensionUrl}`);
-    
+   
     this.mascotaId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.isEditMode = !!this.mascotaId;
@@ -74,6 +84,8 @@ export class MiMascotaComponent {
       this.mascotaService
         .obtenerMascotasPorId(this.mascotaId)
         .subscribe((mascota) => {
+          console.log(mascota);
+          
           this.mascotaForm.patchValue(mascota);
           if (mascota.Storage && mascota.Storage.url) {
             this.avatarUrl = mascota.Storage.url;
@@ -120,6 +132,8 @@ export class MiMascotaComponent {
 
     const mascotaData = this.mascotaForm.value;
     mascotaData.urlQR = `${this.baseUrl}/${this.extensionUrl}`
+   console.log(mascotaData);
+
 
     if (this.isEditMode) {
       // Lógica para editar mascota

@@ -95,7 +95,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 @for (especie of especieMascota; track $index) {
-                <option [value]="especie">{{ especie }}</option>
+                <option [value]="especie.value">{{ especie.text }}</option>
   
                 }
               </select>
@@ -149,7 +149,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 @for (sexo of sexoMascota; track $index) {
-                <option [value]="sexo">{{ sexo }}</option>
+                <option [value]="sexo.value">{{ sexo.text }}</option>
   
                 }
               </select>
@@ -166,7 +166,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 @for (tamano of tamanoMascota; track $index) {
-                <option [value]="tamano">{{ tamano }}</option>
+                <option [value]="tamano.value">{{ tamano.text }}</option>
   
                 }
               </select>
