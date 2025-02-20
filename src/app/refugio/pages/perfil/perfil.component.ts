@@ -2,7 +2,7 @@ import { Component, Inject, inject, PLATFORM_ID, effect } from '@angular/core';
 import { RefugioService } from '../../../services/refugio.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { switchMap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+//import * as L from 'leaflet';
 import { ActivatedRoute, Route } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { WindowService } from 'src/app/services/window.service';
@@ -38,9 +38,12 @@ export class PerfilComponent {
     .subscribe({
       next: (res) => {
         this.refugio = res;
-        setTimeout(async () => {
-          this.initMap(Number(this.refugio?.latitud), Number(this.refugio?.longitud));
-        }, 0);
+        if (isPlatformBrowser(this.platformId)) {
+
+          setTimeout(async () => {
+            this.initMap(Number(this.refugio?.latitud), Number(this.refugio?.longitud));
+          }, 0);
+        }
       },
       error: (err) => {
         console.error('Error al obtener el refugio:', err);
@@ -49,7 +52,6 @@ export class PerfilComponent {
   }
 
   ngAfterViewInit() {
-    
     if (this.refugio && this.refugio?.latitud && this.refugio?.longitud) {
       /* setTimeout(async () => {
         this.initMap(Number(this.refugio?.latitud), Number(this.refugio?.longitud));
@@ -57,7 +59,8 @@ export class PerfilComponent {
     }
   }
   private async initMap(latitud: number, longitud: number) {
-    const L = await import('leaflet');
+    const L = await import('leaflet').then(module => module.default);
+    
     
     latitud = parseFloat(this.refugio!.latitud);
     longitud = parseFloat(this.refugio!.longitud);
@@ -82,7 +85,8 @@ export class PerfilComponent {
     }).addTo(this.map);
 
     marker.on('click', () => {
-      window.open(
+      const win = this.window.nativeWindow
+      win!.open(
         `https://www.google.com/maps/dir/?api=1&destination=${latitud},${longitud}`,
         '_blank'
       );
