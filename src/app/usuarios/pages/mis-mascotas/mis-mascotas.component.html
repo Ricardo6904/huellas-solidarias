@@ -25,11 +25,11 @@
     @if (!mascotasService.loading()) {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @for (mascota of mascotasService.mascotasRefugio(); track mascota.id) {
-          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-visible  hover:shadow-xl transition-shadow duration-300">
             <!-- Imagen de la mascota -->
             <div class="w-full h-48 overflow-hidden">
               <img
-                [src]="mascota.Storage.url"
+                [src]="mascota?.Storage?.url || 'https://generated.vusercontent.net/placeholder-user.jpg'"
                 alt="{{ mascota.nombre }}"
                 class="w-full h-full object-cover"
               />
@@ -72,6 +72,43 @@
 
             <!-- Botones de acciones -->
             <div class="p-4 bg-gray-50 dark:bg-gray-700 flex justify-end space-x-2">
+
+              <div class="relative">
+            <button
+              (click)="toggleMenu(mascota.id)"
+              class="text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              <!-- Icono de tres puntos verticales -->
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+              </svg>
+            </button>
+
+            <!-- Menú desplegable -->
+            @if (openedMenuId === mascota.id) {
+              <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 top-full overflow-visible">
+                <button *ngIf="mascota.estado !== 'perdido'"
+                  (click)="reportarMascotaPerdida(mascota)"
+                  class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Reportar perdida
+                </button>
+                <button *ngIf="mascota.estado === 'perdido'"
+                  (click)="mascotaEnCasa(mascota.id)"
+                  class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Mascota en casa ✅
+                </button>
+                <button
+                  (click)="verHistorial(mascota)"
+                  class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Ver historial
+                </button>
+              </div>
+            }
+          </div>
+
               <button (click)="verDetallesMascota(mascota.id)" class="text-blue-500 hover:text-blue-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -105,7 +142,8 @@
             </div>
           </div>
         }
-      </div>
+          
+        </div>
     }
 
     <!-- Paginación -->
@@ -175,4 +213,39 @@
       </div>
     </div>
   </div>
+
+  @if (showReportDialog) {
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Reportar mascota perdida</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-4">
+          ¿Estás seguro de que deseas reportar a {{ selectedMascota?.nombre }} como perdida?
+        </p>
+        <div class="flex justify-end space-x-4">
+          <button
+            (click)="closeReportDialog()"
+            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+          >
+            Cancelar
+          </button>
+          <button
+            (click)="confirmReport()"
+            class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600"
+          >
+            Reportar
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
 </section>
+
+<!-- Diálogo de reportar mascota perdida -->
+@if (showReportDialog) {
+  <app-reportar-mascota-perdida
+    [selectedMascota]="selectedMascota"
+    (closeDialog)="closeReportDialog()"
+    (confirmReport)="onConfirmReport($event)"
+  ></app-reportar-mascota-perdida>
+}

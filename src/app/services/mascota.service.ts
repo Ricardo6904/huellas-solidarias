@@ -114,6 +114,10 @@ export class MascotaService {
       .pipe(map((res) => res.data));
   }
 
+  cambiarEstado(id:number, estado:string){
+    return this.http.put(`${this.baseUrl}/mascotas/estado/${id}`, { estado })
+  }
+
   obtenerMascotasPorUsuario(
     page: number,
     limit: number,
