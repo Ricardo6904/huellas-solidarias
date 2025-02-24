@@ -1,60 +1,60 @@
 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 max-w-md">
-      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Reportar mascota encontrada</h2>
-      <p class="text-gray-600 dark:text-gray-300 mb-4">
-        ¿Deseas usar tu ubicación actual para ayudar a encontrar a {{ mascotaNombre }}?
-      </p>
-  
-      <!-- Formulario Reactivo -->
-      <form [formGroup]="confirmForm" (ngSubmit)="onConfirm()">
-        <!-- Campo Descripción -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Reportar mascota encontrada</h2>
+    <p class="text-gray-600 dark:text-gray-300 mb-4">
+      ¿Deseas usar tu ubicación actual para ayudar a encontrar a {{ mascotaNombre }}?
+    </p>
+
+    <!-- Formulario Reactivo -->
+    <form [formGroup]="confirmForm" (ngSubmit)="onConfirm()">
+      <!-- Campo Descripción -->
+      <div class="mb-4">
+        <label for="descripcion" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción</label>
+        <textarea
+          id="descripcion"
+          formControlName="descripcion"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+          placeholder="Describe cómo encontraste a la mascota"
+          rows="4"
+        ></textarea>
+        @if (confirmForm.get('descripcion')?.invalid && confirmForm.get('descripcion')?.touched) {
+          <p class="text-red-500 text-sm mt-1">La descripción es requerida y no debe exceder los 500 caracteres.</p>
+        }
+      </div>
+
+      <!-- Mostrar la ubicación obtenida -->
+      @if (ubicacion.latitud && ubicacion.longitud) {
         <div class="mb-4">
-          <label for="descripcion" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción</label>
-          <textarea
-            id="descripcion"
-            formControlName="descripcion"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            placeholder="Describe cómo encontraste a la mascota"
-            rows="4"
-          ></textarea>
-          @if (confirmForm.get('descripcion')?.invalid && confirmForm.get('descripcion')?.touched) {
-            <p class="text-red-500 text-sm mt-1">La descripción es requerida y no debe exceder los 500 caracteres.</p>
-          }
+          <p class="text-gray-700 dark:text-gray-300">
+            Ubicación obtenida: {{ ubicacion.latitud }}, {{ ubicacion.longitud }}
+          </p>
         </div>
-  
-        <!-- Mostrar la ubicación obtenida -->
-        @if (ubicacion.latitud && ubicacion.longitud) {
-          <div class="mb-4">
-            <p class="text-gray-700 dark:text-gray-300">
-              Ubicación obtenida: {{ ubicacion.latitud }}, {{ ubicacion.longitud }}
-            </p>
-          </div>
-        }
-  
-        <!-- Mostrar errores -->
-        @if (error) {
-          <div class="mb-4 text-red-500">
-            {{ error }}
-          </div>
-        }
-  
-        <!-- Botones -->
-        <div class="flex justify-end space-x-4">
-          <button
-            type="button"
-            (click)="onCancel()"
-            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            [disabled]="confirmForm.invalid"
-            class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
-          >
-            Confirmar
-          </button>
+      }
+
+      <!-- Mostrar errores -->
+      @if (error) {
+        <div class="mb-4 text-red-500">
+          {{ error }}
         </div>
-      </form>
-    </div>
+      }
+
+      <!-- Botones -->
+      <div class="flex justify-end space-x-4">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          [disabled]="confirmForm.invalid"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
+        >
+          Confirmar
+        </button>
+      </div>
+    </form>
   </div>
+</div>

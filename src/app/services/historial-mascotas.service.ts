@@ -17,4 +17,9 @@ export class HistorialMascotasService {
   obtener(idHistorialMascota:number){
     return this.http.get(`${this.baseUrl}/historialMascotas/${idHistorialMascota}`)
   }
+
+  obtenerHistorialReciente(id: number){
+    return this.http.get(`${this.baseUrl}/historialMascotas/reciente/${id}`)
+  }
+  
 }

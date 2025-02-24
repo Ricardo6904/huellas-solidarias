@@ -21,6 +21,7 @@ import { ReportarMascotaPerdidaComponent } from './reportar-mascota-perdida/repo
 export class MisMascotasComponent {
   openedMenuId: number | null = null; // ID de la mascota cuyo menú está abierto
   showReportDialog = false; // Controla la visibilidad del diálogo
+  showMapDialog = false
 
   loading: boolean = false;
   public currentPage = signal<number>(1);
@@ -44,6 +45,30 @@ export class MisMascotasComponent {
 
   ngOnInit() {
     this.cargarData()
+
+  }
+
+  private async initMap(latitud:number, longitud:number) {
+    const L = await import('leaflet').then(module => module.default);
+
+    if (this.showMapDialog && this.selectedMascota?.ubicacion) {
+    
+  
+      if (latitud === 0 || longitud === 0) {
+        this.toastr.warning('Las coordenadas proporcionadas no son válidas.', 'Ubicación no disponible');
+        return;
+      }
+  
+      const map = L.map('map').setView([latitud, longitud], 13);
+  
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+  
+      L.marker([latitud, longitud]).addTo(map)
+        .bindPopup('Ubicación de la mascota')
+        .openPopup();
+    }
   }
 
   cargarData(){
@@ -189,4 +214,55 @@ export class MisMascotasComponent {
       }
     })
   }
+  
+
+/*   mostrarMapa(mascota: any) {
+    this.selectedMascota = mascota;
+    this.showMapDialog = true;
+  } */
+    mostrarMapa(mascota: any) {
+      
+      
+      this.historialMascotaService.obtenerHistorialReciente(mascota.id).subscribe({
+        next: (historial: any) => {
+          console.log(historial);
+          
+          if (historial && historial.latitud !== 0 && historial.longitud !== 0) {
+            // Asignar las coordenadas al objeto selectedMascota
+            this.selectedMascota = {
+              ...mascota,
+              ubicacion: {
+                latitud: historial.data.latitud,
+                longitud: historial.data.longitud,
+              },
+            };
+            console.log(this.selectedMascota);
+            this.initMap(historial.data.latitud,historial.data.longitud)
+            this.showMapDialog = true; // Mostrar el diálogo del mapa
+          } else {
+            this.toastr.warning('El usuario no ha proporcionado información sobre la ubicación. Lo sentimos.', 'Ubicación no disponible');
+          }
+        },
+        error: (error) => {
+          this.toastr.error('Error al obtener la ubicación de la mascota.', 'Error');
+          console.error('Error:', error);
+        },
+      });
+    }
+
+  // Método para cerrar el diálogo del mapa
+  closeMapDialog() {
+    this.showMapDialog = false;
+    this.selectedMascota = null;
+  }
+
+  // Método para redirigir a Google Maps
+  redirigirAGoogleMaps() {
+    if (this.selectedMascota && this.selectedMascota.ubicacion) {
+      const { latitud, longitud } = this.selectedMascota.ubicacion;
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${latitud},${longitud}`;
+      window.open(url, '_blank');
+    }
+  }
+
 }

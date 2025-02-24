@@ -29,6 +29,10 @@ export class MascotaComponent {
   ) {}
 
   ngOnInit(): void {
+    this.cargarMascota()
+  }
+
+  cargarMascota(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log(id);
     
@@ -64,10 +68,11 @@ export class MascotaComponent {
     const reportData:HistorialMascota = {
       idMascota: Number(this.mascota.id),
       descripcion: data.descripcion,
-      latitud: String(data.latitud),
-      longitud: String(data.longitud),
+      latitud: Number(data.latitud),
+      longitud: Number(data.longitud),
       activo: true,
       fecha: new Date().toISOString(),
+      estado: 'encontrada'
     };
 
     // Enviar datos al backend
@@ -76,7 +81,9 @@ export class MascotaComponent {
         this.toastr.success('Mascota reportada como encontrada.', 'Éxito');
         this.showConfirmLocationDialog = false;
         // Actualizar el estado de la mascota a "encontrado"
-        this.mascota.estado = 'encontrado';
+        this.mascotaService.cambiarEstado(this.mascota.id, 'encontrada').subscribe({
+          next: () => { this.cargarMascota() }
+        })
       },
       error: (error) => {
         this.toastr.error('Error al reportar la mascota.', 'Error');
