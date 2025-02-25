@@ -96,6 +96,7 @@ baseUrl = environment.baseUrl;
         map((res) => res.data)
       )
       .subscribe((mascotas) => {
+        
         this.actualizarEstado({ mascotas, loading: false });
       });
   }

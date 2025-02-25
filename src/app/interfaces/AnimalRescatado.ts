@@ -3,7 +3,8 @@ import { Refugio } from "./Refugio";
 export interface AnimalRescatado {
   id: number,
   nombre: string,
-  raza: string,
+  idEspecie: number,
+  idRaza: number,
   sexo: string,
   edad: string,
   tamano: string,
@@ -11,15 +12,18 @@ export interface AnimalRescatado {
   caracteristica: string,
   condicion: string,
   esEsterilizado: number,
-  idStorage: number
+  idStorage: number,
   Storage: {
     url: string
   },
   idRefugio: number
   refugio: Refugio,
   estado: string,
-  especie: string,
-  solicitudesPendientes: number | 0
+  solicitudesPendientes: number | 0,
+  raza: {
+    id: number,
+    nombre: string
+  }
 }
 
 export interface AnimalesRescatadosResponse {

@@ -137,10 +137,6 @@ export class MascotaService {
       })
       .pipe(tap(() => this.actualizarEstadoMR({ loading: false })))
       .subscribe((res) => {
-        console.log(res
-          
-        );
-        
         this.actualizarEstadoMR({
           mascotasR: res.data,
           loading: false,

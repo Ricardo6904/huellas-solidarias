@@ -25,20 +25,15 @@ export class GaleriaComponent {
    public meta = inject(Meta);
    public title = inject(Title);
   
-   constructor(){
-      this.loadPage(1)
-   }
+   constructor(){}
   
   
-   ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Mayor'];
+    ages: string[] = ['Cachorro', 'Joven', 'Adulto', 'Mayor'];
     sizes: string[] = ['Pequeño', 'Mediano', 'Grande'];
-    breeds: string[] = ['Mestizo', 'Labrador', 'Pastor Alemán', 'Bulldog', 'Chihuahua'];
+    breeds: string[] = ['Mestizo'];
     locations: string[] = ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Bilbao'];
   
    ngOnInit(): void {
-     // Cargar la primera página de mascotas
-     //this.loadPage(this.currentPage());
-     this.loadPage(1);
      this.title.setTitle('Adopta Huellas - Galería');
       this.meta.updateTag({ name: 'description', content: 'Encuentra a tu mejor amigo en nuestra plataforma de adopción de perros.' });
       this.meta.updateTag({ property: 'og:title', content: 'Adopta un amigo' });
@@ -46,9 +41,7 @@ export class GaleriaComponent {
    }
   
    loadPage(page: number) {
-     // Actualizar la página actual
      this.currentPage.set(page);
-     // Cargar mascotas para la página correspondiente
      this.animalesRescatadosService.obtenerMascotas(page, 8);
    }
   

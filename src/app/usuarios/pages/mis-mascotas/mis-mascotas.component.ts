@@ -106,7 +106,6 @@ export class MisMascotasComponent {
   }
 
   onFiltroChange() {
-    console.log(this.filtro);
     
     this.mascotasService.obtenerMascotasPorUsuario(
       1,
@@ -195,14 +194,12 @@ export class MisMascotasComponent {
   // Confirmar reporte
   confirmReport() {
     // Lógica para reportar la mascota como perdida
-    console.log('Reportar mascota:', this.selectedMascota);
     this.closeReportDialog();
   }
 
   // Ver historial
   verHistorial(mascota: any) {
     // Lógica para ver el historial de la mascota
-    console.log('Ver historial de:', mascota);
     this.openedMenuId = null; // Cerrar el menú
   }
 
@@ -225,7 +222,6 @@ export class MisMascotasComponent {
       
       this.historialMascotaService.obtenerHistorialReciente(mascota.id).subscribe({
         next: (historial: any) => {
-          console.log(historial);
           
           if (historial && historial.latitud !== 0 && historial.longitud !== 0) {
             // Asignar las coordenadas al objeto selectedMascota
@@ -236,7 +232,6 @@ export class MisMascotasComponent {
                 longitud: historial.data.longitud,
               },
             };
-            console.log(this.selectedMascota);
             this.initMap(historial.data.latitud,historial.data.longitud)
             this.showMapDialog = true; // Mostrar el diálogo del mapa
           } else {

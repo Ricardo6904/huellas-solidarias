@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Especie, Raza } from '@interfaces/EspecieRaza';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { AnimalRescatadoService } from 'src/app/services/animal-rescatado.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { EspeciesRazasService } from 'src/app/services/especies-razas.service';
 import { StorageServiceService } from 'src/app/services/storage-service.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -15,17 +18,11 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrl: './rescatado.component.scss'
 })
 export class RescatadoComponent {
-
+  subscription?: Subscription;
   sexoMascota: string[] = ['Macho', 'Hembra'];
   tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
-  especieMascota: string[] = ['Gato', 'Perro', 'Otro'];
-  razas: string[] = [
-    'Labrador',
-    'Pastor Alemán',
-    'Bulldog',
-    'Chihuahua',
-    'Mestizo',
-  ];
+  especieMascota: Especie[] = [];
+  razas: Raza[] = [];
   edades = [
     { age: 'Cachorro', description: 'Cachorro (0-1 año)' },
     { age: 'Joven', description: 'Joven (1-3 años)' },
@@ -51,7 +48,8 @@ export class RescatadoComponent {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    private localStorage: StorageServiceService
+    private localStorage: StorageServiceService,
+    private especiesRazasService: EspeciesRazasService
   ) {
     this.mascotaForm = this.formBuilder.group({
       nombre: [
@@ -62,7 +60,7 @@ export class RescatadoComponent {
           Validators.maxLength(20),
         ],
       ],
-      raza: ['', Validators.required],
+      idRaza: new FormControl<number | null>({value: null, disabled:true}, Validators.required),
       sexo: ['', Validators.required],
       edad: ['', Validators.required],
       tamano: ['', Validators.required],
@@ -72,7 +70,7 @@ export class RescatadoComponent {
       esEsterilizado: [''],
       idStorage: [null],
       idRefugio: this.localStorage.getItem('idRefugio'),
-      especie: ['', Validators.required],
+      idEspecie: new FormControl<number | null>({value: null, disabled: false},[Validators.required]),
     });
 
     this.mascotaForm.untouched;
@@ -93,10 +91,30 @@ export class RescatadoComponent {
           }
         });
     }
+
+    this.especiesRazasService.obtenerEspecies().subscribe({
+      next: res => {
+        this.especieMascota = res
+      }
+    })
   }
 
+  cargarRazas(event:Event){
+    const idEspecie = parseInt((event.target as HTMLSelectElement).value);
+
+    this.subscription = this.especiesRazasService
+      .obtenerRazasPorIdEspecie(idEspecie)
+      .subscribe({
+        next: (razas) => {
+          this.razas = razas;
+          this.mascotaForm.get('idRaza')?.enable();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
   onSubmit() {
-    console.log(this.mascotaForm);
     
     if (this.mascotaForm.valid) {
       if (this.isEditMode) {
