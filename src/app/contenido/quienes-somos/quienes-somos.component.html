@@ -80,11 +80,13 @@
           <div
             class="w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-4 border-indigo-200 shadow-md transition-transform duration-300 hover:scale-110"
           >
-            <img
-              [src]="sponsor.logo"
-              [alt]="sponsor.name"
-              class="w-full h-full object-cover"
-            />
+            <a [href]="sponsor.link" target="_blank" rel="noopener noreferrer">
+              <img
+                [src]="sponsor.logo"
+                [alt]="sponsor.name"
+                class="w-full h-full object-cover"
+              />
+            </a>
           </div>
           <span class="mt-2 text-sm font-medium text-gray-700 text-center">{{
             sponsor.name
