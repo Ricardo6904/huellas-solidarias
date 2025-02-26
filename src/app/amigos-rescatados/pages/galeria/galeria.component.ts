@@ -34,6 +34,7 @@ export class GaleriaComponent {
     locations: string[] = ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Bilbao'];
   
    ngOnInit(): void {
+    this.loadPage(this.currentPage())
      this.title.setTitle('Adopta Huellas - Galería');
       this.meta.updateTag({ name: 'description', content: 'Encuentra a tu mejor amigo en nuestra plataforma de adopción de perros.' });
       this.meta.updateTag({ property: 'og:title', content: 'Adopta un amigo' });

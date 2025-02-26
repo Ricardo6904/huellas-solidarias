@@ -53,7 +53,7 @@ baseUrl = environment.baseUrl;
     private http: HttpClient,
     private storageService: StorageServiceService
   ) {
-    this.obtenerMascotas(1, 10);
+    //this.obtenerMascotas(1, 10);
     
   }
 
