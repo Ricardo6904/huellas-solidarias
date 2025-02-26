@@ -85,10 +85,20 @@ export class RescatadoComponent {
       this.animalRescatadoService
         .obtenerMascotasPorId(this.mascotaId)
         .subscribe((mascota) => {
-          this.mascotaForm.patchValue(mascota);
-          if (mascota.Storage && mascota.Storage.url) {
-            this.avatarUrl = mascota.Storage.url;
-          }
+          this.mascotaForm.get('idEspecie')?.setValue(mascota.idEspecie);
+
+          this.especiesRazasService
+            .obtenerRazasPorIdEspecie(Number(mascota.idEspecie))
+            .subscribe({
+              next: (razas) => {
+                this.razas = razas;
+                this.mascotaForm.get('idRaza')?.enable();
+                this.mascotaForm.patchValue(mascota);
+              },
+              error: (err) => {
+                console.log('Error al cargar razas:', err);
+              },
+            });
         });
     }
 

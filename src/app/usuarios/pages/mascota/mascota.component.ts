@@ -40,6 +40,8 @@ export class MascotaComponent {
       this.mascotaService.obtenerMascotasPorId(id).subscribe({
         next: (mascota) => {
           this.mascota = mascota;
+          console.log(mascota);
+          
           if (mascota.estado === 'perdido') {
             this.showConfirmLocationDialog = true;
           }

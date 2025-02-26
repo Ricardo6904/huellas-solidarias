@@ -7,19 +7,23 @@
     </div>
     <div class="p-6">
       <p class="text-lg mb-4 text-gray-700">
-        Somos un grupo de personas sin fines de lucro dedicadas a ayudar a las fundaciones que recogen animales de la
-        calle. Nuestro objetivo es brindar apoyo y recursos para mejorar las condiciones de vida de estos animales
-        vulnerables y ayudarles a encontrar hogares amorosos.
+        Somos un grupo de personas sin fines de lucro dedicadas a ayudar a las
+        fundaciones que recogen animales de la calle. Nuestro objetivo es
+        brindar apoyo y recursos para mejorar las condiciones de vida de estos
+        animales vulnerables y ayudarles a encontrar hogares amorosos.
       </p>
       <p class="text-lg text-gray-700">
-        Creemos en el poder del amor y la compasión para transformar vidas. Trabajamos incansablemente para promover la
-        adopción responsable, la esterilización y la conciencia sobre el bienestar animal.
+        Creemos en el poder del amor y la compasión para transformar vidas.
+        Trabajamos incansablemente para promover la adopción responsable, la
+        esterilización y la conciencia sobre el bienestar animal.
       </p>
     </div>
   </section>
 
   <section class="mb-20">
-    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-800">Nuestra Misión, Visión y Valores</h2>
+    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-800">
+      Nuestra Misión, Visión y Valores
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="bg-white rounded-lg shadow-lg overflow-hidden">
         <div class="bg-purple-600 py-2 px-4">
@@ -27,8 +31,10 @@
         </div>
         <div class="p-4">
           <p class="text-gray-700">
-            Mejorar la calidad de vida de los animales callejeros y promover la adopción responsable mediante la
-            colaboración con fundaciones locales, la educación pública y el apoyo a programas de esterilización.
+            Mejorar la calidad de vida de los animales callejeros y promover la
+            adopción responsable mediante la colaboración con fundaciones
+            locales, la educación pública y el apoyo a programas de
+            esterilización.
           </p>
         </div>
       </div>
@@ -38,7 +44,8 @@
         </div>
         <div class="p-4">
           <p class="text-gray-700">
-            Un mundo donde todos los animales abandonados tengan un hogar amoroso y sean tratados con respeto y dignidad.
+            Un mundo donde todos los animales abandonados tengan un hogar
+            amoroso y sean tratados con respeto y dignidad.
           </p>
         </div>
       </div>
@@ -58,34 +65,43 @@
     </div>
   </section>
 
-
-<!--  <section class="mb-20">
-    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-800">Nuestros Patrocinadores</h2>
+  <section class="mb-20">
+    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-800">
+      Nuestros Patrocinadores
+    </h2>
     <div class="bg-white rounded-lg shadow-lg p-8">
       <p class="text-lg text-center mb-8 text-gray-700">
-        Agradecemos el apoyo de nuestros patrocinadores, que hacen posible nuestra labor de rescate y cuidado de perros
-        callejeros.
+        Agradecemos el apoyo de nuestros patrocinadores, que hacen posible
+        nuestra labor de rescate y cuidado de perros callejeros.
       </p>
       <div class="flex flex-wrap justify-center items-center gap-8">
         @for (sponsor of sponsors; track $index) {
         <div class="flex flex-col items-center">
           <div
-            class="w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-4 border-indigo-200 shadow-md transition-transform duration-300 hover:scale-110">
-            <img [src]="sponsor.logo" [alt]="sponsor.name" class="w-full h-full object-cover">
+            class="w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-4 border-indigo-200 shadow-md transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              [src]="sponsor.logo"
+              [alt]="sponsor.name"
+              class="w-full h-full object-cover"
+            />
           </div>
-          <span class="mt-2 text-sm font-medium text-gray-700 text-center">{{sponsor.name}}</span>
+          <span class="mt-2 text-sm font-medium text-gray-700 text-center">{{
+            sponsor.name
+          }}</span>
         </div>
         }
       </div>
     </div>
-  </section>  -->
+  </section>
 
- 
   <section class="bg-white rounded-lg shadow-lg p-8 text-center">
-    <h2 class="text-3xl font-bold mb-6 text-indigo-800">¿Eres un Refugio? ¡Únete a Nosotros!</h2>
+    <h2 class="text-3xl font-bold mb-6 text-indigo-800">
+      ¿Eres un Refugio? ¡Únete a Nosotros!
+    </h2>
     <p class="text-lg mb-8 text-gray-700">
-      Si eres un refugio y quieres formar parte de nuestra red, puedes registrarte para agregar mascotas en adopción y
-      recibir apoyo.
+      Si eres un refugio y quieres formar parte de nuestra red, puedes
+      registrarte para agregar mascotas en adopción y recibir apoyo.
     </p>
     <!-- <button (click)="registerShelter()"
       class="bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300">

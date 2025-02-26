@@ -156,24 +156,11 @@ export class MascotaService {
     return this.http.delete(`${this.baseUrl}/mascotas/${idMascota}`);
   }
 
-  incrementarSolicitudes(idMascota: number) {
-    return this.http.post(
-      `${this.baseUrl}/mascotas/${idMascota}/incrementar-solicitudes`,
-      {}
-    );
-  }
-
-  decrementarSolicitudes(idMascota: number) {
-    return this.http.post(
-      `${this.baseUrl}/mascotas/${idMascota}/decrementar-solicitudes`,
-      {}
-    );
-  }
-
   mascotaAdoptada(idMascota: number) {
     return this.http.put(
       `${this.baseUrl}/mascotas/${idMascota}/mascotaAdoptada`,
       {}
     );
   }
+  
 }

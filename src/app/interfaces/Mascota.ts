@@ -3,8 +3,8 @@ import { Refugio } from "./Refugio";
 export interface Mascota {
   id: number,
   nombre: string,
-  especie: string,
-  raza: string,
+  idEspecie: string,
+  idRaza: string,
   edad: string,
   sexo: string,
   tamano: string,
@@ -21,6 +21,14 @@ export interface Mascota {
     apellidos: string,
     celular: string,
     email:string
+  },
+  raza: {
+    id: 0,
+    nombre: ''
+  },
+  especie: {
+    id: 0,
+    nombre: ''
   }
 }
 
@@ -45,8 +53,8 @@ export function getDefaultMascota(): Mascota {
   return {
     id: 0,
     nombre: '',
-    especie: '',
-    raza: '',
+    idEspecie: '',
+    idRaza: '',
     edad: '',
     sexo: '',
     tamano: '',
@@ -64,5 +72,13 @@ export function getDefaultMascota(): Mascota {
       celular: '',
       email: '',
     },
+    raza: {
+      id: 0,
+      nombre: ''
+    },
+    especie: {
+      id: 0,
+      nombre: ''
+    }
   };
 }
