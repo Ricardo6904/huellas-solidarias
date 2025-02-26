@@ -91,7 +91,7 @@ export class MiMascotaComponent {
         .obtenerMascotasPorId(this.mascotaId)
         .subscribe((mascota) => {
           this.mascotaForm.get('idEspecie')?.setValue(mascota.idEspecie);
-
+          this.avatarUrl = mascota.Storage.url
           this.especiesRazasService
             .obtenerRazasPorIdEspecie(Number(mascota.idEspecie))
             .subscribe({
