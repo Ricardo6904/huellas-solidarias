@@ -19,6 +19,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class RescatadoComponent {
   subscription?: Subscription;
+  isLoading = false;
   sexoMascota: string[] = ['Macho', 'Hembra'];
   tamanoMascota: string[] = ['Pequeño', 'Mediano', 'Grande'];
   especieMascota: Especie[] = [];
@@ -85,8 +86,11 @@ export class RescatadoComponent {
       this.animalRescatadoService
         .obtenerMascotasPorId(this.mascotaId)
         .subscribe((mascota) => {
+          this.idStorage = mascota?.Storage?.id
+          console.log(this.idStorage);
+          
           this.mascotaForm.get('idEspecie')?.setValue(mascota.idEspecie);
-          this.avatarUrl = mascota.Storage.url
+          this.avatarUrl = mascota?.Storage?.url
           this.especiesRazasService
             .obtenerRazasPorIdEspecie(Number(mascota.idEspecie))
             .subscribe({
@@ -170,7 +174,7 @@ export class RescatadoComponent {
       const formData = new FormData();
       formData.append('file', file);
 
-      this.storageService.subirImagen(formData).subscribe({
+      /* this.storageService.subirImagen(formData).subscribe({
         next: file => {
           this.idStorage = file.data.id
           this.mascotaForm.patchValue({
@@ -184,7 +188,44 @@ export class RescatadoComponent {
       reader.onload = () => {
         this.avatarUrl = reader.result;
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); */
+      if (this.idStorage) {
+        console.log('ID STORAGE', this.idStorage);
+        
+        this.storageService.actualizarStorage(this.idStorage, formData).subscribe({
+          next: () => {
+            // Una vez eliminada la imagen anterior, subir la nueva
+            this.subirNuevaImagen(formData, reader, file);
+          },
+          error: (err) => {
+            this.toastr.error('Error al eliminar la imagen anterior', 'Error');
+            this.isLoading = false; // Rehabilitar el botón en caso de error
+          },
+        });
+      } else {
+        // Si no hay imagen anterior, subir la nueva directamente
+        this.subirNuevaImagen(formData, reader, file);
+      }
     }
+  }
+
+  subirNuevaImagen(formData: FormData, reader: FileReader, file: File) {
+    this.storageService.subirImagen(formData).subscribe({
+      next: (response) => {
+        this.idStorage = response.data.id;
+        this.mascotaForm.patchValue({
+          idStorage: this.idStorage,
+        });
+        reader.onload = () => {
+          this.avatarUrl = reader.result;
+          this.isLoading = false; // Rehabilitar el botón una vez que la imagen se ha subido
+        };
+        reader.readAsDataURL(file);
+      },
+      error: () => {
+        this.toastr.error('Error al subir imagen', 'Formato no adecuado');
+        this.isLoading = false; // Rehabilitar el botón en caso de error
+      },
+    });
   }
 }

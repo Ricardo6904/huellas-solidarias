@@ -20,7 +20,8 @@ export class StorageService {
     return this.http.get<any>(`${this.baseUrl}/storage`)
   }
 
-  eliminarStorage(id:number){
-    return this.http.delete(`${this.baseUrl}/storage/${id}`)
+  actualizarStorage(idStorage:number, file: FormData){
+    return this.http.put(`${this.baseUrl}/storage/${idStorage}`, file)
   }
+
 }

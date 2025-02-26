@@ -90,8 +90,10 @@ export class MiMascotaComponent {
       this.mascotaService
         .obtenerMascotasPorId(this.mascotaId)
         .subscribe((mascota) => {
+          console.log(mascota);
+          
           this.mascotaForm.get('idEspecie')?.setValue(mascota.idEspecie);
-          this.avatarUrl = mascota.Storage.url
+          this.avatarUrl = mascota?.Storage?.url
           this.especiesRazasService
             .obtenerRazasPorIdEspecie(Number(mascota.idEspecie))
             .subscribe({
@@ -144,7 +146,7 @@ export class MiMascotaComponent {
       formData.append('file', file);
 
       if (this.idStorage) {
-        this.storageService.eliminarStorage(this.idStorage).subscribe({
+        this.storageService.actualizarStorage(this.idStorage, formData).subscribe({
           next: () => {
             // Una vez eliminada la imagen anterior, subir la nueva
             this.subirNuevaImagen(formData, reader, file);
@@ -179,8 +181,8 @@ export class MiMascotaComponent {
 
   subirNuevaImagen(formData: FormData, reader: FileReader, file: File) {
     this.storageService.subirImagen(formData).subscribe({
-      next: (file) => {
-        this.idStorage = file.data.id;
+      next: (storage) => {
+        this.idStorage = storage.data.id;
         this.mascotaForm.patchValue({
           idStorage: this.idStorage,
         });

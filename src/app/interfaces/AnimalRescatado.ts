@@ -14,6 +14,7 @@ export interface AnimalRescatado {
   esEsterilizado: number,
   idStorage: number,
   Storage: {
+    id: number,
     url: string
   },
   idRefugio: number
