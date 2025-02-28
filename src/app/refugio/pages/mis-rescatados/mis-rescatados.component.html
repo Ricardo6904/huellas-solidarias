@@ -35,7 +35,6 @@
         placeholder="Buscar Mascota"
       />
     </div>
-    @if (!animalesRescatadosService.loading()) {
     <div class="overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
@@ -50,7 +49,7 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="!animalesRescatadosService.loading(); else loadingRow">
+          <ng-container *ngIf="!animalesRescatadosService.loadingMR(); else loadingRow">
             @for(mascota of animalesRescatadosService.mascotasRefugio();track mascota.id){
             <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -92,6 +91,8 @@
                 </button>
               </td>
             </tr>
+            }@empty{
+              <div><b>No hay registros</b></div>
             }
           </ng-container>
           <!-- Spinner Row -->
@@ -169,33 +170,6 @@
         </li>
       </ul>
     </nav>
-    }@else {
-    <!-- Loading Spinner -->
-    <div
-      *ngIf="animalesRescatadosService.loading()"
-      class="flex justify-center items-center min-h-[200px]"
-    >
-      <svg
-        class="animate-spin h-8 w-8 text-blue-500"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"
-        ></path>
-      </svg>
-    </div>
-    }
+    
   </div>
 </section>

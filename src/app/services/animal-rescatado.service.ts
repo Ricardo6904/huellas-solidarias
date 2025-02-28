@@ -78,7 +78,7 @@ baseUrl = environment.baseUrl;
   obtenerMascotas(
     page: number,
     limit: number,
-    filtros?: { nombre: string; edad: string; raza: string }
+    filtros?: { nombre: string; edad: string; idRaza: string }
   ) {
     this.actualizarEstado({ loading: true });
 

@@ -7,7 +7,7 @@
         <!-- Logo del Refugio -->
         <div class="absolute -bottom-16 left-6">
           <img
-            [src]="refugio?.Storage?.url || '../assets/images/defaultImage.png'"
+            [src]="refugio.Storage?.url || '../assets/images/defaultImage.png'"
             alt="Logo del Refugio"
             class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 object-cover shadow-lg"
           />
@@ -20,7 +20,7 @@
           {{ refugio.nombre }}
         </h1>
         <p class="text-gray-600 dark:text-gray-300 mt-2">
-          {{ refugio.Ciudad.nombre }}, {{ refugio?.Provincia?.nombre }}
+          {{ refugio.Ciudad.nombre }}, {{ refugio.Provincia.nombre }}
         </p>
       </div>
     </div>

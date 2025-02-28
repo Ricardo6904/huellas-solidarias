@@ -25,4 +25,8 @@ export class EspeciesRazasService {
         )
         .pipe(map((res) => res.data));
     }
+
+    obtenerRazas(){
+      return this.http.get<RazasResponse>(`${this.baseUrl}/razas`).pipe(map(res => res.data))
+    }
 }

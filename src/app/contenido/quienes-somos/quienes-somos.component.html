@@ -1,18 +1,18 @@
-<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-  <h1 class="text-5xl font-bold text-center mb-16 text-indigo-800">Nosotros</h1>
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+  <h1 class="text-5xl font-bold text-center mb-16 text-indigo-700 dark:text-indigo-400">Nosotros</h1>
 
-  <section class="mb-20 bg-white rounded-lg shadow-lg overflow-hidden">
-    <div class="bg-indigo-600 py-4 px-6">
+  <section class="mb-20 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-colors duration-300">
+    <div class="bg-indigo-600 dark:bg-indigo-800 py-4 px-6 transition-colors duration-300">
       <h2 class="text-3xl font-semibold text-white">¿Quiénes Somos?</h2>
     </div>
     <div class="p-6">
-      <p class="text-lg mb-4 text-gray-700">
+      <p class="text-lg mb-4 text-gray-700 dark:text-gray-300 transition-colors duration-300">
         Somos un grupo de personas sin fines de lucro dedicadas a ayudar a las
         fundaciones que recogen animales de la calle. Nuestro objetivo es
         brindar apoyo y recursos para mejorar las condiciones de vida de estos
         animales vulnerables y ayudarles a encontrar hogares amorosos.
       </p>
-      <p class="text-lg text-gray-700">
+      <p class="text-lg text-gray-700 dark:text-gray-300 transition-colors duration-300">
         Creemos en el poder del amor y la compasión para transformar vidas.
         Trabajamos incansablemente para promover la adopción responsable, la
         esterilización y la conciencia sobre el bienestar animal.
@@ -21,16 +21,16 @@
   </section>
 
   <section class="mb-20">
-    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-800">
+    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-700 dark:text-indigo-400 transition-colors duration-300">
       Nuestra Misión, Visión y Valores
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="bg-purple-600 py-2 px-4">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-colors duration-300 hover:shadow-xl">
+        <div class="bg-purple-600 dark:bg-purple-800 py-2 px-4 transition-colors duration-300">
           <h3 class="text-xl font-semibold text-white">Nuestra Misión</h3>
         </div>
         <div class="p-4">
-          <p class="text-gray-700">
+          <p class="text-gray-700 dark:text-gray-300 transition-colors duration-300">
             Mejorar la calidad de vida de los animales callejeros y promover la
             adopción responsable mediante la colaboración con fundaciones
             locales, la educación pública y el apoyo a programas de
@@ -38,26 +38,25 @@
           </p>
         </div>
       </div>
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="bg-blue-600 py-2 px-4">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-colors duration-300 hover:shadow-xl">
+        <div class="bg-blue-600 dark:bg-blue-800 py-2 px-4 transition-colors duration-300">
           <h3 class="text-xl font-semibold text-white">Nuestra Visión</h3>
         </div>
         <div class="p-4">
-          <p class="text-gray-700">
+          <p class="text-gray-700 dark:text-gray-300 transition-colors duration-300">
             Un mundo donde todos los animales abandonados tengan un hogar
             amoroso y sean tratados con respeto y dignidad.
           </p>
         </div>
       </div>
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="bg-green-600 py-2 px-4">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-colors duration-300 hover:shadow-xl">
+        <div class="bg-green-600 dark:bg-green-800 py-2 px-4 transition-colors duration-300">
           <h3 class="text-xl font-semibold text-white">Nuestros Valores</h3>
         </div>
         <div class="p-4">
-          <ul class="list-disc list-inside text-gray-700">
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 transition-colors duration-300">
             @for (value of values; track $index) {
             <li>{{ value }}</li>
-
             }
           </ul>
         </div>
@@ -66,21 +65,21 @@
   </section>
 
   <section class="mb-20">
-    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-800">
+    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-700 dark:text-indigo-400 transition-colors duration-300">
       Nuestros Patrocinadores
     </h2>
-    <div class="bg-white rounded-lg shadow-lg p-8">
-      <p class="text-lg text-center mb-8 text-gray-700">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors duration-300">
+      <p class="text-lg text-center mb-8 text-gray-700 dark:text-gray-300 transition-colors duration-300">
         Agradecemos el apoyo de nuestros patrocinadores, que hacen posible
         nuestra labor de rescate y cuidado de perros callejeros.
       </p>
       <div class="flex flex-wrap justify-center items-center gap-8">
         @for (sponsor of sponsors; track $index) {
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center group">
           <div
-            class="w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-4 border-indigo-200 shadow-md transition-transform duration-300 hover:scale-110"
+            class="w-24 h-24 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700 border-4 border-indigo-200 dark:border-indigo-700 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:border-indigo-400 dark:group-hover:border-indigo-500"
           >
-            <a [href]="sponsor.link" target="_blank" rel="noopener noreferrer">
+            <a [href]="sponsor.link" target="_blank" rel="noopener noreferrer" class="block w-full h-full">
               <img
                 [src]="sponsor.logo"
                 [alt]="sponsor.name"
@@ -88,7 +87,7 @@
               />
             </a>
           </div>
-          <span class="mt-2 text-sm font-medium text-gray-700 text-center">{{
+          <span class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 text-center transition-colors duration-300">{{
             sponsor.name
           }}</span>
         </div>
@@ -97,17 +96,17 @@
     </div>
   </section>
 
-  <section class="bg-white rounded-lg shadow-lg p-8 text-center">
-    <h2 class="text-3xl font-bold mb-6 text-indigo-800">
+  <section class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center transition-colors duration-300">
+    <h2 class="text-3xl font-bold mb-6 text-indigo-700 dark:text-indigo-400 transition-colors duration-300">
       ¿Eres un Refugio? ¡Únete a Nosotros!
     </h2>
-    <p class="text-lg mb-8 text-gray-700">
+    <p class="text-lg mb-8 text-gray-700 dark:text-gray-300 transition-colors duration-300">
       Si eres un refugio y quieres formar parte de nuestra red, puedes
       registrarte para agregar mascotas en adopción y recibir apoyo.
     </p>
-    <!-- <button (click)="registerShelter()"
-      class="bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300">
+    <button 
+      class="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
       Registra tu Refugio
-    </button> -->
+    </button>
   </section>
 </div>

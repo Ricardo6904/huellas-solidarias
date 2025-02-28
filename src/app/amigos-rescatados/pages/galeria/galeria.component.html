@@ -1,107 +1,188 @@
 <div
-  class="bg-gray-100 dark:bg-gray-800 min-h-screen py-8 px-4 sm:px-4 lg:px-8"
+  class="bg-gray-100 dark:bg-gray-800 min-h-screen py-8 px-4 sm:px-4 lg:px-8 relative"
 >
-  <div class="max-w-7xl mx-auto">
-    <h1
-      class="text-xl font-bold text-center text-gray-900 dark:text-stone-50 mb-7"
-    >
-      Amigos Rescatados en Adopción
-    </h1>
+<div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
+  <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <!-- Definición de la huella de perro (usando el SVG proporcionado) -->
+    <defs>
+      <g id="paw">
+        <path d="M12 10c-1.32 0 -1.983 .421 -2.931 1.924l-.244 .398l-.395 .688a50.89 50.89 0 0 0 -.141 .254c-.24 .434 -.571 .753 -1.139 1.142l-.55 .365c-.94 .627 -1.432 1.118 -1.707 1.955c-.124 .338 -.196 .853 -.193 1.28c0 1.687 1.198 2.994 2.8 2.994l.242 -.006c.119 -.006 .234 -.017 .354 -.034l.248 -.043l.132 -.028l.291 -.073l.162 -.045l.57 -.17l.763 -.243l.455 -.136c.53 -.15 .94 -.222 1.283 -.222c.344 0 .753 .073 1.283 .222l.455 .136l.764 .242l.569 .171l.312 .084c.097 .024 .187 .045 .273 .062l.248 .043c.12 .017 .235 .028 .354 .034l.242 .006c1.602 0 2.8 -1.307 2.8 -3c0 -.427 -.073 -.939 -.207 -1.306c-.236 -.724 -.677 -1.223 -1.48 -1.83l-.257 -.19l-.528 -.38c-.642 -.47 -1.003 -.826 -1.253 -1.278l-.27 -.485l-.252 -.432c-1.011 -1.696 -1.618 -2.099 -3.053 -2.099z" fill="#8B5E3C" />
+        <path d="M19.78 7h-.03c-1.219 .02 -2.35 1.066 -2.908 2.504c-.69 1.775 -.348 3.72 1.075 4.333c.256 .109 .527 .163 .801 .163c1.231 0 2.38 -1.053 2.943 -2.504c.686 -1.774 .34 -3.72 -1.076 -4.332a2.05 2.05 0 0 0 -.804 -.164z" fill="#8B5E3C" />
+        <path d="M9.025 3c-.112 0 -.185 .002 -.27 .015l-.093 .016c-1.532 .206 -2.397 1.989 -2.108 3.855c.272 1.725 1.462 3.114 2.92 3.114l.187 -.005a1.26 1.26 0 0 0 .084 -.01l.092 -.016c1.533 -.206 2.397 -1.989 2.108 -3.855c-.27 -1.727 -1.46 -3.114 -2.92 -3.114z" fill="#8B5E3C" />
+        <path d="M14.972 3c-1.459 0 -2.647 1.388 -2.916 3.113c-.29 1.867 .574 3.65 2.174 3.867c.103 .013 .2 .20 .296 .20c1.39 0 2.543 -1.265 2.877 -2.883l.041 -.23c.29 -1.867 -.574 -3.65 -2.174 -3.867a2.154 2.154 0 0 0 -.298 -.02z" fill="#8B5E3C" />
+        <path d="M4.217 7c-.274 0 -.544 .054 -.797 .161c-1.426 .615 -1.767 2.562 -1.078 4.335c.563 1.451 1.71 2.504 2.941 2.504c.274 0 .544 -.054 .797 -.161c1.426 -.615 1.767 -2.562 1.078 -4.335c-.563 -1.451 -1.71 -2.504 -2.941 -2.504z" fill="#8B5E3C" />
+      </g>
+    </defs>
+
+    <!-- Fondo con huellas regadas de manera aleatoria -->
+    <use href="#paw" x="10%" y="15%" transform="scale(1.8) rotate(15)" />
+    <use href="#paw" x="50%" y="5%" transform="scale(1.8) rotate(15)" />
+    <use href="#paw" x="30%" y="5%" transform="scale(1.9) rotate(-10)" />
+    <use href="#paw" x="70%" y="20%" transform="scale(1.7) rotate(20)" />
+    <use href="#paw" x="85%" y="10%" transform="scale(1.8) rotate(-15)" />
+    <use href="#paw" x="20%" y="40%" transform="scale(1.9) rotate(10)" />
+    <use href="#paw" x="50%" y="50%" transform="scale(1.8) rotate(-5)" />
+    <use href="#paw" x="90%" y="60%" transform="scale(1.7) rotate(25)" />
+    <use href="#paw" x="10%" y="80%" transform="scale(1.9) rotate(-20)" />
+    <use href="#paw" x="40%" y="90%" transform="scale(1.8) rotate(15)" />
+    <use href="#paw" x="75%" y="85%" transform="scale(1.7) rotate(-10)" />
+  </svg>
+</div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-stone-50 mb-3"
+      >
+        Amigos Rescatados en Adopción
+      </h1>
+      <p class="text-md text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Encuentra a tu compañero perfecto. Cada animal tiene una historia única
+        y busca un hogar lleno de amor.
+      </p>
+    </div>
 
     <!-- Filtros en la parte superior (solo en móviles/tablets) -->
     <div
-      class="w-full bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-4 rounded-lg shadow-lg sm:hidden"
+      class="w-full bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-5 rounded-lg shadow-lg sm:hidden mb-6"
     >
-      <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-stone-50">
+      <h2
+        class="text-xl font-semibold mb-4 text-gray-900 dark:text-stone-50 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+          />
+        </svg>
         Búsqueda
       </h2>
       <div class="grid gap-4">
-        <input
-          type="text"
-          [(ngModel)]="filtro.nombre"
-          id="nombre"
-          name="nombre"
-          (input)="onFiltroChange()"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Buscar Nombre"
-          maxlength="20"
-        />
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <svg
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            [(ngModel)]="filtro.nombre"
+            id="nombre"
+            name="nombre"
+            (input)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Buscar por nombre"
+            maxlength="20"
+          />
+        </div>
 
-        <select
-          [(ngModel)]="filtro.edad"
-          id="edad"
-          name="edad"
-          (change)="onFiltroChange()"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option value="">Todas las Edades</option>
-          @for (age of ages; track $index) {
-          <option [value]="age">{{ age }}</option>
-          }
-        </select>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <select
+            [(ngModel)]="filtro.edad"
+            id="edad"
+            name="edad"
+            (change)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">Todas las Edades</option>
+            @for (age of ages; track $index) {
+            <option [value]="age">{{ age }}</option>
+            }
+          </select>
 
-        <select
-          [(ngModel)]="filtro.tamano"
-          id="tamano"
-          name="tamano"
-          (change)="onFiltroChange()"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option value="">Todos los Tamaños</option>
-          @for (size of sizes; track $index) {
-          <option [value]="size">{{ size }}</option>
-          }
-        </select>
+          <select
+            [(ngModel)]="filtro.tamano"
+            id="tamano"
+            name="tamano"
+            (change)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">Todos los Tamaños</option>
+            @for (size of sizes; track $index) {
+            <option [value]="size">{{ size }}</option>
+            }
+          </select>
 
-        <select
-          [(ngModel)]="filtro.raza"
-          id="raza"
-          name="raza"
-          (change)="onFiltroChange()"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option value="">Todas las Razas</option>
-          <option *ngFor="let breed of breeds" [value]="breed">
-            {{ breed }}
-          </option>
-        </select>
+          <!-- <select
+            [(ngModel)]="filtro.idRaza"
+            id="raza"
+            name="raza"
+            (change)="onFiltroChange()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="" selected>Todas las Razas</option>
+            <option *ngFor="let raza of razas" [value]="raza.id">
+              {{ raza.nombre }}
+            </option>
+          </select> -->
+        </div>
       </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-6 mt-6">
+    <div class="flex flex-col sm:flex-row gap-6 mt-6 ">
       <!-- Mascotas -->
       <div
-        class="w-full sm:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        class="w-full sm:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 "
       >
-        @if(!animalesRescatadosService.loading() && animalesRescatadosService.mascotas().length >
-        0){ @for (mascota of animalesRescatadosService.mascotas() ; track mascota.id) {
+        @if(!animalesRescatadosService.loading() &&
+        animalesRescatadosService.mascotas().length > 0){ @for (mascota of
+        animalesRescatadosService.mascotas() ; track mascota.id) {
         <div
-          class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
+          class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl group"
         >
-        <div class="relative">
-          <img
-          [src]="mascota?.Storage?.url ? mascota.Storage.url : 'assets/images/defaultImage.png'"
-            [alt]="mascota.nombre"
-            class="w-full h-48 object-cover rounded-t-lg"
-          />
-          <img
-            [src]="
-              mascota.refugio.Storage?.url ||
-              '../../../../assets/default-image.webp'
-            "
-            alt="Refugio logo"
-            [routerLink]="['/refugio/perfil', mascota.idRefugio]"
-            class="absolute bottom-2 right-2 w-12 h-12 rounded-full border border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer transition-transform transform hover:scale-110"
-          />
-        </div>
-          <div class="p-4">
+          <div class="relative overflow-hidden">
+            <img
+              [src]="
+                mascota?.Storage?.url
+                  ? mascota.Storage.url
+                  : 'assets/images/defaultImage.png'
+              "
+              [alt]="mascota.nombre"
+              class="w-full h-52 object-cover rounded-t-lg group-hover:scale-110 transition-transform duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <img
+              [src]="
+                mascota.refugio.Storage?.url ||
+                '../../../../assets/default-image.webp'
+              "
+              alt="Refugio logo"
+              [routerLink]="['/refugio/perfil', mascota.idRefugio]"
+              class="absolute bottom-3 right-3 w-12 h-12 rounded-full border-2 border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer transition-transform transform hover:scale-110 shadow-lg z-10"
+            />
+          </div>
+          <div class="p-5">
             <h2
               class="text-xl font-bold text-gray-900 dark:text-stone-50 truncate"
             >
               {{ mascota.nombre }}
             </h2>
             <p
-              class="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3"
+              class="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3 min-h-[4.5rem]"
             >
               {{ mascota.historia }}
             </p>
@@ -124,115 +205,245 @@
             </div>
             <button
               [routerLink]="['/amigos-rescatados', mascota.id]"
-              class="w-full bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 rounded-md mt-4 hover:bg-lime-600 dark:hover:bg-blue-400 transition-colors"
+              class="w-full bg-lime-700 dark:bg-blue-600 text-white py-2.5 px-4 rounded-md mt-5 hover:bg-lime-600 dark:hover:bg-blue-400 transition-colors flex items-center justify-center group-hover:animate-pulse"
             >
-              Más detalles
+              <span>Más detalles</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
             </button>
           </div>
         </div>
-        } } @else if (animalesRescatadosService.loading() &&
-        animalesRescatadosService.mascotas().length === 0) {
+        } } @else if (animalesRescatadosService.loading() ) {
         <div
-          class="col-span-6 sm:col-span-2 lg:col-span-4 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-700 rounded-lg"
+          class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-700 rounded-lg shadow-md"
         >
           <div
-            class="animate-spin w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full"
+            class="animate-spin w-10 h-10 border-4 border-lime-700 dark:border-blue-600 border-t-transparent rounded-full mb-4"
           ></div>
-          <span>Cargando datos...</span>
+          <span class="text-gray-700 dark:text-gray-200 text-lg"
+            >Cargando amigos rescatados...</span
+          >
         </div>
         } @else {
         <div
-          class="col-span-1 sm:col-span-2 lg:col-span-4 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-700 rounded-lg"
+          class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-700 rounded-lg shadow-md"
         >
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-stone-50">
-            No se encontraron resultados...
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-16 w-16 text-gray-400 mb-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <h3
+            class="text-xl font-semibold text-gray-800 dark:text-stone-50 mb-2"
+          >
+            No se encontraron resultados
           </h3>
+          <p class="text-gray-600 dark:text-gray-300 text-center">
+            Intenta con otros criterios de búsqueda
+          </p>
         </div>
         }
       </div>
 
       <!-- Filtros en la parte lateral (solo en pantallas grandes) -->
       <div
-        class="hidden w-full max-h-96 sm:block sm:w-1/4 bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-6 rounded-lg shadow-lg"
+        class="hidden w-full max-h-screen sm:block sm:w-1/4 bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 p-6 rounded-lg shadow-lg sticky top-4"
       >
-        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-stone-50">
+        <h2
+          class="text-xl font-semibold mb-5 text-gray-900 dark:text-stone-50 flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+            />
+          </svg>
           Búsqueda
         </h2>
-        <div class="grid gap-4">
-          <input
-            type="text"
-            [(ngModel)]="filtro.nombre"
-            id="nombreB"
-            name="nombreB"
-            (input)="onFiltroChange()"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Buscar Nombre"
-            maxlength="20"
-          />
-          <!-- select example -->
-          <select
-            [(ngModel)]="filtro.edad"
-            (change)="onFiltroChange()"
-            id="edadB"
-            name="edadB"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="">Todas las Edades</option>
-            @for (age of ages; track $index) {
-            <option [value]="age">{{ age }}</option>
+        <div class="grid gap-5">
+          <div>
+            <label
+              for="nombreB"
+              class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Nombre</label
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <svg
+                  class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                [(ngModel)]="filtro.nombre"
+                id="nombreB"
+                name="nombreB"
+                (input)="onFiltroChange()"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Buscar por nombre"
+                maxlength="20"
+              />
+            </div>
+          </div>
 
-            }
-          </select>
-          <!--  -->
-          <select
-            [(ngModel)]="filtro.tamano"
-            id="tamanoB"
-            name="tamanoB"
-            (change)="onFiltroChange()"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="">Todos los Tamaños</option>
-            @for (size of sizes; track $index) {
-            <option [value]="size">{{ size }}</option>
+          <div>
+            <label
+              for="edadB"
+              class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Edad</label
+            >
+            <select
+              [(ngModel)]="filtro.edad"
+              (change)="onFiltroChange()"
+              id="edadB"
+              name="edadB"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Todas las Edades</option>
+              @for (age of ages; track $index) {
+              <option [value]="age">{{ age }}</option>
+              }
+            </select>
+          </div>
 
-            }
-          </select>
-          <select
-            [(ngModel)]="filtro.raza"
-            id="razaB"
-            name="razaB"
-            (change)="onFiltroChange()"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="">Todas las Razas</option>
-            <option *ngFor="let breed of breeds" [value]="breed">
-              {{ breed }}
-            </option>
-          </select>
+          <div>
+            <label
+              for="tamanoB"
+              class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Tamaño</label
+            >
+            <select
+              [(ngModel)]="filtro.tamano"
+              id="tamanoB"
+              name="tamanoB"
+              (change)="onFiltroChange()"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Todos los Tamaños</option>
+              @for (size of sizes; track $index) {
+              <option [value]="size">{{ size }}</option>
+              }
+            </select>
+          </div>
+
+         <!--  <div>
+            <label
+              for="razaB"
+              class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Raza</label
+            >
+            <select
+              [(ngModel)]="filtro.idRaza"
+              id="razaB"
+              name="razaB"
+              (change)="onFiltroChange()"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Todas las Razas</option>
+              <option *ngFor="let raza of razas" [value]="raza.id">
+                {{ raza.nombre }}
+              </option>
+            </select>
+          </div> -->
+
         </div>
       </div>
     </div>
+
     <!-- Paginación -->
-    <div class="flex justify-center mt-6">
-      <button
-        (click)="loadPage(currentPage() - 1)"
-        [disabled]="currentPage() === 1"
-        class="bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 hover:bg-lime-600 dark:hover:bg-blue-400 rounded-l-md"
+    <div class="flex justify-center mt-10">
+      <nav
+        class="inline-flex rounded-md shadow-sm -space-x-px"
+        aria-label="Pagination"
       >
-        Anterior
-      </button>
-      <span
-        class="px-4 py-2 bg-[#F9FAFB] dark:bg-[#4C566A] text-gray-600 dark:text-gray-200"
-      >
-        Página {{ currentPage() }}
-      </span>
-      <button
-        (click)="loadPage(currentPage() + 1)"
-        [disabled]="!animalesRescatadosService.mascotas()!.length"
-        class="bg-lime-700 dark:bg-blue-600 text-white py-2 px-4 hover:bg-lime-600 dark:hover:bg-blue-400 rounded-r-md"
-      >
-        Siguiente
-      </button>
+        <button
+          (click)="loadPage(currentPage() - 1)"
+          [disabled]="currentPage() === 1"
+          class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 dark:border-gray-600 bg-lime-700 dark:bg-blue-600 text-sm font-medium text-white hover:bg-lime-600 dark:hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <svg
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="ml-1">Anterior</span>
+        </button>
+        <div
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200"
+        >
+          Página {{ currentPage() }}
+        </div>
+        <button
+          (click)="loadPage(currentPage() + 1)"
+          [disabled]="!animalesRescatadosService.mascotas()!.length"
+          class="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 dark:border-gray-600 bg-lime-700 dark:bg-blue-600 text-sm font-medium text-white hover:bg-lime-600 dark:hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span class="mr-1">Siguiente</span>
+          <svg
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </nav>
     </div>
   </div>
 </div>

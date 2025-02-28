@@ -167,6 +167,7 @@ export class RescatadoComponent {
   }
 
   onFileSelected(event: Event) {
+    this.isLoading = true
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
@@ -212,6 +213,7 @@ export class RescatadoComponent {
   subirNuevaImagen(formData: FormData, reader: FileReader, file: File) {
     this.storageService.subirImagen(formData).subscribe({
       next: (response) => {
+        
         this.idStorage = response.data.id;
         this.mascotaForm.patchValue({
           idStorage: this.idStorage,
