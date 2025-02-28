@@ -12,17 +12,25 @@
       </a>
     </div>
 
-    <!-- Menú de navegación -->
-    <div class="nav-links bg-[#F9FAFB] dark:bg-[#2E3440] md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10 transition-all duration-300 ease-in-out">
-      <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-6">
-        <li>
-          <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/amigos-rescatados">Adopta</button>
-        </li>
-        <li>
-          <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" routerLink="/quienes-somos">Nosotros</button>
-        </li>
-      </ul>
-    </div>
+   <!-- Menú de navegación -->
+<div class="nav-links bg-[#F9FAFB] dark:bg-[#2E3440] md:static absolute md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 z-10 transition-all duration-300 ease-in-out z-50">
+  <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-6">
+    <li>
+      <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" 
+              routerLink="/amigos-rescatados" 
+              (click)="closeMenu()"> <!-- Cierra el menú al hacer clic -->
+        Adopta
+      </button>
+    </li>
+    <li>
+      <button class="block px-4 py-2 text-[#4C566A] dark:text-[#ECEFF4] hover:text-[#A7C957] dark:hover:text-[#88C0D0]" 
+              routerLink="/quienes-somos" 
+              (click)="closeMenu()"> <!-- Cierra el menú al hacer clic -->
+        Nosotros
+      </button>
+    </li>
+  </ul>
+</div>
 
     <!-- Contenido dinámico basado en autenticación -->
     <div class="flex items-center gap-5">

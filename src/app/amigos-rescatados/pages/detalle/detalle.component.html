@@ -1,124 +1,277 @@
 <div class="min-h-screen mx-auto px-4 py-8 bg-[#F9FAFB] dark:bg-[#2E3440]">
+  <div class="border dark:bg-[#3B4252] shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto relative">
+    <!-- Decoración - Patitas en esquinas -->
+    <div class="absolute -top-3 -left-3 w-12 h-12 text-lime-600 dark:text-blue-300 transform rotate-45">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12,3C10.3,3 9,4.3 9,6C9,7.7 10.3,9 12,9C13.7,9 15,7.7 15,6C15,4.3 13.7,3 12,3M19,3C17.3,3 16,4.3 16,6C16,7.7 17.3,9 19,9C20.7,9 22,7.7 22,6C22,4.3 20.7,3 19,3M5,3C3.3,3 2,4.3 2,6C2,7.7 3.3,9 5,9C6.7,9 8,7.7 8,6C8,4.3 6.7,3 5,3M12,15C10.3,15 9,16.3 9,18C9,19.7 10.3,21 12,21C13.7,21 15,19.7 15,18C15,16.3 13.7,15 12,15M19,15C17.3,15 16,16.3 16,18C16,19.7 17.3,21 19,21C20.7,21 22,19.7 22,18C22,16.3 20.7,15 19,15M5,15C3.3,15 2,16.3 2,18C2,19.7 3.3,21 5,21C6.7,21 8,19.7 8,18C8,16.3 6.7,15 5,15Z">
+        </path>
+      </svg>
+    </div>
+    <div class="absolute -bottom-3 -right-3 w-12 h-12 text-lime-600 dark:text-blue-300 transform -rotate-135">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12,3C10.3,3 9,4.3 9,6C9,7.7 10.3,9 12,9C13.7,9 15,7.7 15,6C15,4.3 13.7,3 12,3M19,3C17.3,3 16,4.3 16,6C16,7.7 17.3,9 19,9C20.7,9 22,7.7 22,6C22,4.3 20.7,3 19,3M5,3C3.3,3 2,4.3 2,6C2,7.7 3.3,9 5,9C6.7,9 8,7.7 8,6C8,4.3 6.7,3 5,3M12,15C10.3,15 9,16.3 9,18C9,19.7 10.3,21 12,21C13.7,21 15,19.7 15,18C15,16.3 13.7,15 12,15M19,15C17.3,15 16,16.3 16,18C16,19.7 17.3,21 19,21C20.7,21 22,19.7 22,18C22,16.3 20.7,15 19,15M5,15C3.3,15 2,16.3 2,18C2,19.7 3.3,21 5,21C6.7,21 8,19.7 8,18C8,16.3 6.7,15 5,15Z">
+        </path>
+      </svg>
+    </div>
+
+    <!-- Banner superior -->
+    <div class="bg-lime-600 dark:bg-blue-300 h-2 w-full"></div>
+
+    <!-- Skeleton Loader -->
     <div
-      class="border dark:bg-[#3B4252] shadow-xl rounded-lg overflow-hidden max-w-4xl mx-auto"
+      *ngIf="!mascota(); else contentLoaded"
+      class="relative animate-pulse space-y-4 p-8"
     >
-      <!-- Skeleton Loader -->
-      <div
-        *ngIf="!mascota(); else contentLoaded"
-        class="relative animate-pulse space-y-4 p-8"
-      >
-        <!-- Spinner centrado -->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div
-            class="w-12 h-12 border-4 border-gray-300 dark:border-gray-600 border-t-transparent rounded-full animate-spin"
-          ></div>
-        </div>
-  
-        <!-- Bloques de carga -->
-        <div class="h-48 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
-        <div class="h-6 w-3/4 bg-gray-300 dark:bg-gray-700 rounded-md"></div>
-        <div class="h-4 w-1/2 bg-gray-300 dark:bg-gray-700 rounded-md"></div>
-        <div class="grid grid-cols-2 gap-4 mt-4">
-          <div class="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
-          <div class="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
-        </div>
+      <!-- Spinner centrado -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div
+          class="w-12 h-12 border-4 border-gray-300 dark:border-gray-600 border-t-lime-600 dark:border-t-blue-300 rounded-full animate-spin"
+        ></div>
       </div>
-  
-      <ng-template #contentLoaded>
-        <div class="md:flex">
-          <div class="md:flex-shrink-0">
-            <img
-              class="h-48 w-full aspect-square object-contain rounded-t-md block m-auto md:w-48"
-              [src]="mascota()?.Storage?.url"
-              [alt]="mascota()?.nombre"
-              loading="lazy"
-            />
-          </div>
-          <div class="p-8">
-            <div
-              class="uppercase tracking-wide text-sm text-lime-600 dark:text-blue-300 font-semibold"
-            >
-              {{ mascota()?.raza }}
+
+      <!-- Bloques de carga -->
+      <div class="h-48 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      <div class="h-6 w-3/4 bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      <div class="h-4 w-1/2 bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div class="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+        <div class="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded-md"></div>
+      </div>
+    </div>
+
+    <ng-template #contentLoaded>
+      <div class="">
+        <!-- Etiqueta de estado en esquina superior -->
+       <!--  <div class="absolute top-4 right-4 z-10">
+          <span class="px-3 py-1 bg-lime-600 dark:bg-blue-300 text-white rounded-full text-xs font-bold shadow-md">
+            Busca hogar
+          </span>
+        </div>
+         -->
+        <!-- Header con información principal -->
+        <div class="md:flex bg-white dark:bg-[#3B4252] rounded-t-lg overflow-hidden">
+          <!-- Contenedor de imagen con borde suave -->
+          <div class="md:flex-shrink-0 p-4 md:p-6 flex items-center justify-center">
+            <div class="relative rounded-lg overflow-hidden border-4 border-gray-100 dark:border-[#2E3440] shadow-lg">
+              <img
+                class="h-52 w-52 object-cover m-auto"
+                [src]="mascota()?.Storage?.url"
+                [alt]="mascota()?.nombre"
+                loading="lazy"
+              />
+              <!-- Overlay con degradado en la parte inferior -->
+              <div class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/50 to-transparent">
+                <div class="absolute bottom-2 left-2 flex space-x-1">
+                  <span class="bg-lime-600 dark:bg-blue-300 text-white text-xs px-2 py-1 rounded-full">
+                    {{ mascota()?.tamano }}
+                  </span>
+                  <span class="bg-white/80 text-gray-800 text-xs px-2 py-1 rounded-full">
+                    {{ mascota()?.edad }}
+                  </span>
+                </div>
+              </div>
             </div>
-            <h1 class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">
-              {{ mascota()?.nombre }}
-            </h1>
-            <p class="mt-2 text-gray-400">{{ mascota()?.historia }}</p>
+          </div>
+          
+          <!-- Información principal -->
+          <div class="p-6 md:p-8 flex-1">
+            <div class="flex justify-between items-start">
+              <div>
+                <div
+                  class="inline-block px-3 py-1 mb-2 bg-lime-100 dark:bg-blue-900/30 text-lime-600 dark:text-blue-300 rounded-full text-sm font-semibold"
+                >
+                  {{ mascota()?.raza }}
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+                  {{ mascota()?.nombre }}
+                </h1>
+              </div>
+              <!-- Corazón de favorito -->
+              <button class="text-gray-400 hover:text-red-500 transition-colors duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Historia con borde suave -->
+            <div class="mt-4 p-4 bg-gray-50 dark:bg-[#2E3440] rounded-lg border border-gray-100 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 italic">
+                "{{ mascota()?.historia }}"
+              </p>
+            </div>
           </div>
         </div>
-        <div class="px-8 py-4 bg-gray-100 dark:bg-[#2E3440]">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <p class="text-sm font-medium text-gray-400">Sexo</p>
-              <p class="mt-1 text-sm text-gray-900 dark:text-white">
+        
+        <!-- Sección de características -->
+        <div class="px-6 py-5 bg-gray-100 dark:bg-[#2E3440]">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white dark:bg-[#3B4252] p-3 rounded-lg shadow-sm flex flex-col items-center">
+              <span class="text-lime-600 dark:text-blue-300 mb-1">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"/>
+                </svg>
+              </span>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Sexo</p>
+              <p class="font-medium text-gray-900 dark:text-white">
                 {{ mascota()?.sexo }}
               </p>
             </div>
-            <div>
-              <p class="text-sm font-medium text-gray-400">Edad</p>
-              <p class="mt-1 text-sm text-gray-900 dark:text-white">
+            <div class="bg-white dark:bg-[#3B4252] p-3 rounded-lg shadow-sm flex flex-col items-center">
+              <span class="text-lime-600 dark:text-blue-300 mb-1">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,12.5A1.5,1.5 0 0,1 10.5,11A1.5,1.5 0 0,1 12,9.5A1.5,1.5 0 0,1 13.5,11A1.5,1.5 0 0,1 12,12.5M12,7.2C9.9,7.2 8.2,8.9 8.2,11C8.2,14 12,17.5 12,17.5C12,17.5 15.8,14 15.8,11C15.8,8.9 14.1,7.2 12,7.2Z"/>
+                </svg>
+              </span>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Edad</p>
+              <p class="font-medium text-gray-900 dark:text-white">
                 {{ mascota()?.edad }}
               </p>
             </div>
-            <div>
-              <p class="text-sm font-medium text-gray-400">Tamaño</p>
-              <p class="mt-1 text-sm text-gray-900 dark:text-white">
+            <div class="bg-white dark:bg-[#3B4252] p-3 rounded-lg shadow-sm flex flex-col items-center">
+              <span class="text-lime-600 dark:text-blue-300 mb-1">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z"/>
+                </svg>
+              </span>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Tamaño</p>
+              <p class="font-medium text-gray-900 dark:text-white">
                 {{ mascota()?.tamano }}
               </p>
             </div>
-            <div>
-              <p class="text-sm font-medium text-gray-400">Esterilizado</p>
-              <p class="mt-1 text-sm text-gray-900 dark:text-white">
+            <div class="bg-white dark:bg-[#3B4252] p-3 rounded-lg shadow-sm flex flex-col items-center">
+              <span class="text-lime-600 dark:text-blue-300 mb-1">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
+                </svg>
+              </span>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Esterilizado</p>
+              <p class="font-medium text-gray-900 dark:text-white">
                 {{ mascota()?.esEsterilizado ? "Sí" : "No" }}
               </p>
             </div>
           </div>
         </div>
-        <div class="px-8 py-4">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-            Características
-          </h2>
-          <p class="mt-2 text-gray-400">{{ mascota()?.caracteristica }}</p>
+        
+        <!-- Sección de detalles adicionales -->
+        <div class="grid md:grid-cols-2 gap-6 p-6">
+          <!-- Características -->
+          <div class="bg-white dark:bg-[#3B4252] p-5 rounded-lg shadow-sm">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="text-lime-600 dark:text-blue-300">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M18,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V4A2,2 0 0,0 18,2Z"/>
+                </svg>
+              </span>
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                Características
+              </h2>
+            </div>
+            <div class="space-y-2">
+              <p class="text-gray-600 dark:text-gray-300">{{ mascota()?.caracteristica }}</p>
+              
+              <!-- Tags con características comunes -->
+             <!--  <div class="flex flex-wrap gap-2 mt-3">
+                <span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs">
+                  Cariñoso
+                </span>
+                <span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs">
+                  Juguetón
+                </span>
+                <span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs">
+                  Sociable
+                </span>
+              </div> -->
+            </div>
+          </div>
+          
+          <!-- Condición médica -->
+          <div class="bg-white dark:bg-[#3B4252] p-5 rounded-lg shadow-sm">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="text-lime-600 dark:text-blue-300">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 14H14V18H10V14H6V10H10V6H14V10H18M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2Z"/>
+                </svg>
+              </span>
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                Condición médica
+              </h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">
+              {{ mascota()?.condicion || "Sin condiciones médicas conocidas. La mascota está en buen estado de salud." }}
+            </p>
+          </div>
         </div>
-        <div class="px-8 py-4">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-            Condición
-          </h2>
-          <p class="mt-2 text-gray-400">
-            {{ mascota()?.condicion || "Sin condición médica" }}
+        
+        <!-- Sección de proceso de adopción -->
+        <div class="px-6 pb-6">
+          <div class="bg-lime-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6 border border-lime-200 dark:border-blue-800">
+            <h3 class="font-medium text-gray-900 dark:text-white flex items-center">
+              <svg class="w-5 h-5 mr-2 text-lime-600 dark:text-blue-300" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+              </svg>
+              Proceso de adopción
+            </h3>
+            <ul class="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-300">
+              <li class="flex items-center">
+                <span class="w-5 h-5 mr-2 inline-flex items-center justify-center bg-lime-600 dark:bg-blue-300 text-white rounded-full text-xs">1</span>
+                Envía tu solicitud
+              </li>
+              <li class="flex items-center">
+                <span class="w-5 h-5 mr-2 inline-flex items-center justify-center bg-lime-600 dark:bg-blue-300 text-white rounded-full text-xs">2</span>
+                Evaluación inicial
+              </li>
+              <li class="flex items-center">
+                <span class="w-5 h-5 mr-2 inline-flex items-center justify-center bg-lime-600 dark:bg-blue-300 text-white rounded-full text-xs">3</span>
+                Entrevista con la familia
+              </li>
+              <li class="flex items-center">
+                <span class="w-5 h-5 mr-2 inline-flex items-center justify-center bg-lime-600 dark:bg-blue-300 text-white rounded-full text-xs">4</span>
+                Firma de acuerdo y seguimiento
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Botón de solicitud -->
+          <button
+            (click)="solicitarAdopcion(mascota()!.id)"
+            [disabled]="cargando === true"
+            class="w-full inline-flex items-center justify-center whitespace-nowrap text-base font-medium py-3 px-6 rounded-lg bg-lime-600 dark:bg-blue-300 hover:bg-lime-700 dark:hover:bg-blue-400 text-white transition duration-300 shadow-md"
+          >
+            @if (cargando === true) {
+            <div class="mr-3" role="status">
+              <svg
+                aria-hidden="true"
+                class="inline w-5 h-5 text-white/70 animate-spin"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentColor"
+                  class="opacity-40"
+                />
+              </svg>
+              <span class="sr-only">Cargando...</span>
+            </div>
+            }
+            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+            <span class="font-medium"> Solicitar adopción </span>
+          </button>
+          
+          <!-- Texto de ayuda -->
+          <p class="text-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+            Al enviar tu solicitud, un miembro de nuestro equipo se pondrá en contacto contigo pronto.
           </p>
         </div>
-      </ng-template>
-      <div class="px-8 py-4">
-        <button
-          (click)="solicitarAdopcion(mascota()!.id)"
-          [disabled]="cargando === true"
-          class="w-full inline-flex items-center justify-center whitespace-nowrap text-sm font-medium py-2 px-4 rounded-md bg-lime-600 dark:bg-blue-300 hover:bg-blue-300 dark:hover:bg-lime-600 text-white transition duration-300"
-        >
-          @if (cargando === true) {
-          <div class="mr-4" role="status">
-            <svg
-              aria-hidden="true"
-              class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-              viewBox="0 0 100 101"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="currentColor"
-              />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
-            </svg>
-            <span class="sr-only">Loading...</span>
-          </div>
-          }
-          <span> Enviar Solicitud </span>
-        </button>
       </div>
-    </div>
+    </ng-template>
   </div>
-  
+</div>

@@ -103,6 +103,12 @@ export class HeaderComponent {
       navList?.classList.remove('top-[9%]'); // Cierra el menú
     }
   }
+
+  closeMenu() {
+    this.menuOpen = false;
+    const navList = document.querySelector('.nav-links');
+    navList?.classList.remove('top-[9%]'); // Cierra el menú
+  }
   toggleUserMenu() {
     this.userMenuOpen = !this.userMenuOpen;
   }
