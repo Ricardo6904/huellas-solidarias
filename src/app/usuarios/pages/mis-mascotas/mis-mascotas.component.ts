@@ -22,6 +22,7 @@ export class MisMascotasComponent {
   openedMenuId: number | null = null; // ID de la mascota cuyo menú está abierto
   showReportDialog = false; // Controla la visibilidad del diálogo
   showMapDialog = false
+  Math!:Math
 
   loading: boolean = false;
   public currentPage = signal<number>(1);
@@ -260,4 +261,11 @@ export class MisMascotasComponent {
     }
   }
 
+  registrarMascota(){
+
+  }
+
+  getPaginationRange(){
+    return []
+  }
 }

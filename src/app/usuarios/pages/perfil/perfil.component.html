@@ -1,161 +1,156 @@
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 font-sans">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Encabezado del Perfil -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
       <!-- Banner Superior -->
-      <div class="h-48 bg-gradient-to-r from-purple-600 to-indigo-600 relative">
-        <!-- Avatar del Usuario -->
-        <div class="absolute -bottom-16 left-6">
-          <img
-            src="https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png"
-            alt="Avatar del Usuario"
-            class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 object-cover shadow-lg"
-          />
+      <div class="h-56 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-600 relative ">
+
+        <!-- Elementos decorativos flotantes -->
+        <div class="absolute top-5 right-10">
+          <div class="w-16 h-16 rounded-full bg-white bg-opacity-10 backdrop-blur-sm"></div>
+        </div>
+        <div class="absolute bottom-10 left-40">
+          <div class="w-10 h-10 rounded-full bg-purple-300 bg-opacity-20 backdrop-blur-sm"></div>
+        </div>
+        
+         <!-- Avatar del Usuario con Animación -->
+         <div class="absolute -bottom-16 left-8 transition-transform duration-300 hover:scale-105">
+          <div class="relative group">
+            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-75 blur-md group-hover:opacity-100 transition-all duration-300"></div>
+            <img
+              src="https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png"
+              alt="Avatar del Usuario"
+              class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 object-cover shadow-lg relative z-10"
+            />
+          </div>
         </div>
       </div>
+
+
       <!-- Información del Usuario -->
-      <div class="px-6 py-4 mt-16">
-        <!-- Nombre y Rol -->
-        <h1 class="text-4xl font-bold text-gray-800 dark:text-white">
+      <div class="px-8 py-6 mt-16">
+        <!-- Nombre y Rol con Tipografía Mejorada -->
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white tracking-tight">
           @if (isLoading) {
-          <div
-            class="h-8 bg-gray-200 dark:bg-gray-600 rounded w-1/2 animate-pulse"
-          ></div>
+            <div class="h-8 bg-gray-200 dark:bg-gray-600 rounded-md w-1/2 animate-pulse"></div>
           } @else {
-          {{ usuario.nombres }} {{ usuario.apellidos }}
+            {{ usuario.nombres }} {{ usuario.apellidos }}
           }
         </h1>
+        <p class="text-indigo-500 dark:text-indigo-400 mt-1 font-medium">Perfil de Usuario</p>
       </div>
+
+
     </div>
 
     <!-- Sección de Información -->
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Información Personal -->
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
           Información Personal
         </h2>
         <form [formGroup]="perfilForm">
-          <div class="space-y-4">
+          <div class="space-y-6">
             <!-- Nombres -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Nombres</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Nombres
+              </label>
               @if (isLoading) {
-              <div
-                class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
               } @else {
-              <input
-                *ngIf="editMode"
-                formControlName="nombres"
-                maxlength="50"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <small
-                class="text-red-500"
-                *ngIf="
-                  perfilForm.get('nombres')?.invalid &&
-                  perfilForm.get('nombres')?.touched
-                "
-                >*requerido</small
-              >
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-                {{ usuario.nombres }}
-              </p>
+                <input
+                  *ngIf="editMode"
+                  formControlName="nombres"
+                  maxlength="50"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+                />
+                <small class="text-red-500 font-medium" *ngIf="perfilForm.get('nombres')?.invalid && perfilForm.get('nombres')?.touched">
+                  *Este campo es requerido
+                </small>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  {{ usuario.nombres }}
+                </p>
               }
             </div>
+            
             <!-- Apellidos -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Apellidos</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Apellidos
+              </label>
               @if (isLoading) {
-              <div
-                class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
               } @else {
-              <input
-                *ngIf="editMode"
-                formControlName="apellidos"
-                maxlength="50"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <small
-                class="text-red-500"
-                *ngIf="
-                  perfilForm.get('apellidos')?.invalid &&
-                  perfilForm.get('apellidos')?.touched
-                "
-                >*requerido</small
-              >
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-                {{ usuario.apellidos }}
-              </p>
+                <input
+                  *ngIf="editMode"
+                  formControlName="apellidos"
+                  maxlength="50"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+                />
+                <small class="text-red-500 font-medium" *ngIf="perfilForm.get('apellidos')?.invalid && perfilForm.get('apellidos')?.touched">
+                  *Este campo es requerido
+                </small>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  {{ usuario.apellidos }}
+                </p>
               }
             </div>
+            
             <!-- Cédula -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Cédula</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Cédula
+              </label>
               @if (isLoading) {
-              <div
-                class="h-6 bg-gray-200 dark:bg-gray-600 rounded w-1/2 animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg w-1/2 animate-pulse"></div>
               } @else {
-              <p class="text-gray-600 dark:text-gray-300">
-                {{ usuario.identidad }}
-              </p>
+                <p class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  {{ usuario.identificacion }}
+                </p>
               }
             </div>
+            
             <!-- Celular -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Celular</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Celular
+              </label>
               @if (isLoading) {
-              <div
-                class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
               } @else {
-              <input
-                *ngIf="editMode"
-                formControlName="celular"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <small
-                class="text-red-500"
-                *ngIf="
-                  perfilForm.get('celular')?.invalid &&
-                  perfilForm.get('celular')?.touched
-                "
-                >*requerido</small
-              >
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-                {{ usuario.celular }}
-              </p>
+                <input
+                  *ngIf="editMode"
+                  formControlName="celular"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+                />
+                <small class="text-red-500 font-medium" *ngIf="perfilForm.get('celular')?.invalid && perfilForm.get('celular')?.touched">
+                  *Este campo es requerido
+                </small>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  {{ usuario.celular }}
+                </p>
               }
             </div>
+            
             <!-- Email -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Email</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Email
+              </label>
               @if (isLoading) {
-              <div
-                class="h-6 bg-gray-200 dark:bg-gray-600 rounded w-3/4 animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg w-3/4 animate-pulse"></div>
               } @else {
-              <p class="text-gray-600 dark:text-gray-300">
-                {{ usuario.email }}
-              </p>
+                <p class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  {{ usuario.email }}
+                </p>
               }
             </div>
           </div>
@@ -163,95 +158,95 @@
       </div>
 
       <!-- Información de Ubicación -->
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
           Ubicación
         </h2>
         <form [formGroup]="perfilForm">
-          <div class="space-y-4">
+          <div class="space-y-6">
             <!-- Provincia -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Provincia</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Provincia
+              </label>
               @if (isLoading) {
-              <div
-                class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
               } @else {
-              <select
-                *ngIf="editMode"
-                id="idProvincia"
-                formControlName="idProvincia"
-                (change)="cargarCiudades($event)"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option disabled value="">Selecciona una provincia</option>
-                @for (provincia of provinciaCiudadService.provincias(); track
-                $index) {
-                <option [value]="provincia.id">{{ provincia.nombre }}</option>
-                }
-              </select>
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-                {{ usuario.provincia?.nombre }}
-              </p>
+                <select
+                  *ngIf="editMode"
+                  id="idProvincia"
+                  formControlName="idProvincia"
+                  (change)="cargarCiudades($event)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+                >
+                  <option disabled value="">Selecciona una provincia</option>
+                  @for (provincia of provinciaCiudadService.provincias(); track $index) {
+                    <option [value]="provincia.id">{{ provincia.nombre }}</option>
+                  }
+                </select>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  {{ usuario.provincia?.nombre || 'No especificado' }}
+                </p>
               }
             </div>
+            
             <!-- Ciudad -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Ciudad</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Ciudad
+              </label>
               @if (isLoading) {
-              <div
-                class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
               } @else {
-              <select
-                *ngIf="editMode"
-                id="idCiudad"
-                formControlName="idCiudad"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option disabled value="">Selecciona una ciudad</option>
-                @for (ciudad of ciudades; track $index) {
-                <option [value]="ciudad.id">{{ ciudad.nombre }}</option>
-                }
-              </select>
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-                {{ usuario.ciudad?.nombre }}
-              </p>
+                <select
+                  *ngIf="editMode"
+                  id="idCiudad"
+                  formControlName="idCiudad"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+                >
+                  <option disabled value="">Selecciona una ciudad</option>
+                  @for (ciudad of ciudades; track $index) {
+                    <option [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                  }
+                </select>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  {{ usuario.ciudad?.nombre || 'No especificado' }}
+                </p>
               }
             </div>
+            
             <!-- Dirección -->
-            <div>
-              <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Dirección</label
-              >
+            <div class="group transition-all duration-200">
+              <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                Dirección
+              </label>
               @if (isLoading) {
-              <div
-                class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-              ></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
               } @else {
-              <input
-                *ngIf="editMode"
-                formControlName="direccion"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <small
-                class="text-red-500"
-                *ngIf="
-                  perfilForm.get('direccion')?.invalid &&
-                  perfilForm.get('direccion')?.touched
-                "
-                >*requerido</small
-              >
-              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-                {{ usuario.direccion }}
-              </p>
+                <input
+                  *ngIf="editMode"
+                  formControlName="direccion"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+                />
+                <small class="text-red-500 font-medium" *ngIf="perfilForm.get('direccion')?.invalid && perfilForm.get('direccion')?.touched">
+                  *Este campo es requerido
+                </small>
+                <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  {{ usuario.direccion || 'No especificado' }}
+                </p>
               }
             </div>
           </div>
@@ -260,171 +255,148 @@
     </div>
 
     <!-- Sección de Información Adicional -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mt-8">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mt-8 transition-all duration-300 hover:shadow-xl">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           Información Adicional
         </h2>
-        <!-- Ícono de advertencia si la información está incompleta -->
+        
+        <!-- Ícono de advertencia con efectos mejorados -->
         @if (!isInfoAdicionalCompleta()) {
-        <div class="relative inline-block group">
-          <!-- Ícono de información incompleta -->
-          <span class="text-yellow-500 ml-2 cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              />
-            </svg>
-          </span>
+          <div class="relative inline-block group">
+            <span class="text-yellow-500 ml-2 cursor-pointer transition-transform duration-300 hover:scale-110">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+            </span>
 
-          <!-- Tooltip sin flecha -->
-          <div
-            class="absolute z-10 invisible opacity-0 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg shadow-lg transition-opacity duration-300 -translate-x-1/2 left-1/2 -top-10 group-hover:visible group-hover:opacity-100"
-          >
-            Completa la información de tu perfil
+            <!-- Tooltip mejorado -->
+            <div
+              class="absolute z-10 invisible opacity-0 bg-gray-900 text-white text-sm px-4 py-3 rounded-lg shadow-xl transition-all duration-300 transform -translate-x-1/2 left-1/2 -top-14 group-hover:visible group-hover:opacity-100"
+            >
+              Completa la información de tu perfil
+              <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-3 h-3 bg-gray-900"></div>
+            </div>
           </div>
-        </div>
         }
       </div>
-      <p class="text-gray-600 dark:text-gray-300 mb-6">
-        La información adicional que proporciones nos permite agilizar el
-        proceso de adopción y brindarte una respuesta más rápida por parte de
-        los refugios.
-      </p>
+      
+      <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg mb-6 border-l-4 border-indigo-500">
+        <p class="text-gray-700 dark:text-gray-300">
+          La información adicional que proporciones nos permite agilizar el proceso de adopción 
+          y brindarte una respuesta más rápida por parte de los refugios.
+        </p>
+      </div>
+      
       <form [formGroup]="infoAdicionalForm">
-        <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Tiene Patio -->
-          <div>
-            <label
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >¿Tiene patio?</label
-            >
+          <div class="group transition-all duration-200">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+              ¿Tiene patio?
+            </label>
             @if (isLoading) {
-            <div
-              class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-            ></div>
+              <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
             } @else {
-            <select
-              *ngIf="editMode"
-              formControlName="tienePatio"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option [ngValue]="true">Sí</option>
-              <option [ngValue]="false">No</option>
-            </select>
-            <small
-              class="text-red-500"
-              *ngIf="
-                infoAdicionalForm.get('tienePatio')?.invalid &&
-                infoAdicionalForm.get('tienePatio')?.touched
-              "
-              >*requerido</small
-            >
-            <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-              {{
-                usuario.infoAdicional?.tienePatio !== null &&
-                usuario.infoAdicional?.tienePatio !== undefined
-                  ? usuario.infoAdicional!.tienePatio
-                    ? "Sí"
-                    : "No"
-                  : "No especificado"
-              }}
-            </p>
+              <select
+                *ngIf="editMode"
+                formControlName="tienePatio"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+              >
+                <option [ngValue]="true">Sí</option>
+                <option [ngValue]="false">No</option>
+              </select>
+              <small class="text-red-500 font-medium" *ngIf="infoAdicionalForm.get('tienePatio')?.invalid && infoAdicionalForm.get('tienePatio')?.touched">
+                *Este campo es requerido
+              </small>
+              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                {{
+                  usuario.infoAdicional?.tienePatio !== null &&
+                  usuario.infoAdicional?.tienePatio !== undefined
+                    ? usuario.infoAdicional!.tienePatio
+                      ? "Sí"
+                      : "No"
+                    : "No especificado"
+                }}
+              </p>
             }
           </div>
 
           <!-- Tiene Cerramiento -->
-          <div>
-            <label
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >¿Tiene cerramiento?</label
-            >
+          <div class="group transition-all duration-200">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+              ¿Tiene cerramiento?
+            </label>
             @if (isLoading) {
-            <div
-              class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-            ></div>
+              <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
             } @else {
-            <select
-              *ngIf="editMode"
-              formControlName="tieneCerramiento"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option [ngValue]="true">Sí</option>
-              <option [ngValue]="false">No</option>
-            </select>
-            <small
-              class="text-red-500"
-              *ngIf="
-                infoAdicionalForm.get('tieneCerramiento')?.invalid &&
-                infoAdicionalForm.get('tieneCerramiento')?.touched
-              "
-              >*requerido</small
-            >
-            <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300">
-              {{
-                usuario.infoAdicional?.tieneCerramiento !== null &&
-                usuario.infoAdicional?.tieneCerramiento !== undefined
-                  ? usuario.infoAdicional!.tieneCerramiento
-                    ? "Sí"
-                    : "No"
-                  : "No especificado"
-              }}
-            </p>
+              <select
+                *ngIf="editMode"
+                formControlName="tieneCerramiento"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+              >
+                <option [ngValue]="true">Sí</option>
+                <option [ngValue]="false">No</option>
+              </select>
+              <small class="text-red-500 font-medium" *ngIf="infoAdicionalForm.get('tieneCerramiento')?.invalid && infoAdicionalForm.get('tieneCerramiento')?.touched">
+                *Este campo es requerido
+              </small>
+              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                {{
+                  usuario.infoAdicional?.tieneCerramiento !== null &&
+                  usuario.infoAdicional?.tieneCerramiento !== undefined
+                    ? usuario.infoAdicional!.tieneCerramiento
+                      ? "Sí"
+                      : "No"
+                    : "No especificado"
+                }}
+              </p>
             }
           </div>
 
           <!-- Vive en Casa o Departamento -->
-          <div>
-            <label
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >¿Vive en casa o departamento?</label
-            >
+          <div class="group transition-all duration-200">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+              ¿Vive en casa o departamento?
+            </label>
             @if (isLoading) {
-            <div
-              class="h-10 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"
-            ></div>
+              <div class="h-10 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
             } @else {
-            <select
-              *ngIf="editMode"
-              formControlName="viveEnCasaODepartamento"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option value="casa">Casa</option>
-              <option value="departamento">Departamento</option>
-            </select>
-            <small
-              class="text-red-500"
-              *ngIf="
-                infoAdicionalForm.get('viveEnCasaODepartamento')?.invalid &&
-                infoAdicionalForm.get('viveEnCasaODepartamento')?.touched
-              "
-              >*requerido</small
-            >
-            <p
-              *ngIf="!editMode"
-              class="text-gray-600 dark:text-gray-300 capitalize"
-            >
-              {{
-                usuario.infoAdicional?.viveEnCasaODepartamento ||
-                  "No especificado"
-              }}
-            </p>
+              <select
+                *ngIf="editMode"
+                formControlName="viveEnCasaODepartamento"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
+              >
+                <option value="casa">Casa</option>
+                <option value="departamento">Departamento</option>
+              </select>
+              <small class="text-red-500 font-medium" *ngIf="infoAdicionalForm.get('viveEnCasaODepartamento')?.invalid && infoAdicionalForm.get('viveEnCasaODepartamento')?.touched">
+                *Este campo es requerido
+              </small>
+              <p *ngIf="!editMode" class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg capitalize">
+                {{ usuario.infoAdicional?.viveEnCasaODepartamento || "No especificado" }}
+              </p>
             }
           </div>
 
           <!-- Arriendo o Propia -->
-          <div>
+          <div class="group transition-all duration-200">
             <label
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200"
               >¿Arriendo o propia?</label
             >
             @if (isLoading) {
@@ -435,7 +407,7 @@
             <select
               *ngIf="editMode"
               formControlName="arriendoOPropia"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200"
             >
               <option value="arriendo">Arriendo</option>
               <option value="propia">Propia</option>
@@ -450,7 +422,7 @@
             >
             <p
               *ngIf="!editMode"
-              class="text-gray-600 dark:text-gray-300 capitalize"
+              class="text-gray-600 dark:text-gray-300 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg capitalize"
             >
               {{ usuario.infoAdicional?.arriendoOPropia || "No especificado" }}
             </p>
@@ -460,30 +432,59 @@
       </form>
     </div>
     <!-- Botones de Acción -->
-    <div class="mt-8 text-center">
-      @if (!isLoading) {
-      <button
-        *ngIf="!editMode"
-        (click)="toggleEditMode()"
-        class="bg-indigo-600 text-white px-8 py-3 rounded-full hover:bg-indigo-700 transition duration-200 font-semibold"
-      >
+    <!-- Botones de Acción -->
+<div class="mt-10 flex justify-center gap-4">
+  @if (!isLoading) {
+    <button
+      *ngIf="!editMode"
+      (click)="toggleEditMode()"
+      class="group relative overflow-hidden bg-indigo-600 text-white px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75"
+    >
+      <span class="relative z-10 flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+        </svg>
         Editar Perfil
-      </button>
+      </span>
+      <div class="absolute inset-0 bg-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    </button>
+    
+    <div *ngIf="editMode" class="flex gap-3">
       <button
-        *ngIf="editMode"
         (click)="guardarCambios()"
-        class="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200 font-semibold"
+        class="group relative overflow-hidden bg-emerald-600 text-white px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-75"
       >
-        Guardar Cambios
+        <span class="relative z-10 flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          Guardar Cambios
+        </span>
+        <div class="absolute inset-0 bg-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </button>
+      
       <button
-        *ngIf="editMode"
         (click)="toggleEditMode()"
-        class="bg-gray-600 text-white px-8 py-3 rounded-full hover:bg-gray-700 ml-4 transition duration-200 font-semibold"
+        class="group relative overflow-hidden bg-gray-600 text-white px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
       >
-        Cancelar
+        <span class="relative z-10 flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+          Cancelar
+        </span>
+        <div class="absolute inset-0 bg-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </button>
-      }
     </div>
+  }
+  
+  <!-- Estado de carga -->
+  @if (isLoading) {
+    <div class="flex gap-4">
+      <div class="h-12 w-32 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
+      <div class="h-12 w-32 bg-gray-200 dark:bg-gray-600 rounded-lg animate-pulse"></div>
+    </div>
+  }
+</div>
   </div>
 </div>

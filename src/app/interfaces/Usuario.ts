@@ -6,7 +6,7 @@ export class Usuario {
   nombres?: string;
   apellidos?: string;
   tipoIdentidad?: string;
-  identidad?: string;
+  identificacion?: string;
   codigoCelular?: string;
   celular?: string;
   email?: string;

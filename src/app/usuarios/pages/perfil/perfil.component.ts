@@ -27,7 +27,7 @@ export class PerfilComponent {
     id: 0,
     nombres: '',
     apellidos: '',
-    identidad: '',
+    identificacion: '',
     celular: '',
     email: '',
     clave: '',

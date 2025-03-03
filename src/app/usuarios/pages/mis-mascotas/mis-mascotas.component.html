@@ -1,83 +1,102 @@
 <section
-  class="min-h-screen py-5 px-3 md:px-5 lg:px-6 xl:px-3 bg-gray-100 dark:bg-gray-800"
+  class="min-h-screen py-6 px-4 md:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900"
 >
   <div class="max-w-7xl mx-auto space-y-8">
-    <h1 class="text-4xl font-bold text-center text-[var(--color-3)] mb-8">
-      Mis Mascotas
-    </h1>
-
-    <!-- Barra de búsqueda -->
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none"
-      >
-        <svg
-          class="w-5 h-5 text-gray-500 dark:text-gray-400"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
+    <!-- Encabezado y búsqueda -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-4xl font-bold text-[var(--color-3)] mb-2 flex items-center">
+          <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M6.013 4.501a1.5 1.5 0 012.475 0l1.514 2.098 2.099-1.515a1.5 1.5 0 012.475 1.514L13.513 8.5l1.514 2.099a1.5 1.5 0 01-1.514 2.475L11.5 11.987l-2.099 1.514a1.5 1.5 0 01-2.475-1.514L8.013 10.5 6.5 8.401a1.5 1.5 0 010-1.8l-.001-.002.001-.001a1.5 1.5 0 01.513-.897z" clip-rule="evenodd"></path>
+          </svg>
+          Mis Mascotas
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400">Administra y monitorea a tus compañeros peludos</p>
       </div>
-      <input
-        type="text"
-        id="table-search"
-        [(ngModel)]="filtro.nombre"
-        (input)="onFiltroChange()"
-        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Buscar Mascota"
-      />
     </div>
 
-    <!-- Contenedor de tarjetas -->
-    @if (!mascotasService.loading()) {
+   <!-- Barra de búsqueda mejorada -->
+   <div class="relative w-full md:w-auto">
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none"
     >
-      @for (mascota of mascotasService.mascotasRefugio(); track mascota.id) {
-      <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-visible hover:shadow-xl transition-shadow duration-300"
+      <svg
+        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 20 20"
       >
-        <!-- Imagen de la mascota -->
-        <div class="w-full h-48 overflow-hidden">
-          <img
-            [src]="
-              mascota?.Storage?.url ||
-              'https://generated.vusercontent.net/placeholder-user.jpg'
-            "
-            alt="{{ mascota.nombre }}"
-            class="w-full h-full object-cover"
-          />
-        </div>
+        <path
+          fill-rule="evenodd"
+          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </div>
+    <input
+      type="text"
+      id="table-search"
+      [(ngModel)]="filtro.nombre"
+      (input)="onFiltroChange()"
+      class="block p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full md:w-80 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-sm"
+      placeholder="Buscar por nombre de mascota..."
+    />
+  </div>
 
-        <!-- Contenido de la tarjeta -->
-        <div class="p-6">
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-            {{ mascota.nombre }}
-          </h2>
-          <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-            {{ mascota.descripcion }}
-          </p>
+    <!-- Contenedor de tarjetas -->
+    <!-- Mensaje de carga y sin resultados -->
+    @if (mascotasService.loading()) {
+      <div class="flex justify-center items-center py-16">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-3)]"></div>
+      </div>
+    }
+    @else if (mascotasService.mascotasRefugio().length === 0) {
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
+        <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No se encontraron mascotas</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">No hay resultados para tu búsqueda o no tienes mascotas registradas.</p>
+        <button
+          (click)="registrarMascota()"
+          class="px-4 py-2 bg-[var(--color-3)] text-white rounded-lg hover:bg-opacity-90 transition-colors"
+        >
+          Registrar nueva mascota
+        </button>
+      </div>
+    }
+    @else {
+      <!-- Contenedor de tarjetas mejorado -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        @for (mascota of mascotasService.mascotasRefugio(); track mascota.id) {
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl  flex flex-col h-full transform "
+        >
+          <!-- Banner de estado -->
+          <div
+            class="h-1"
+            [ngClass]="{
+              'bg-green-500': mascota.estado === 'seguro',
+              'bg-red-500': mascota.estado === 'perdido',
+              'bg-blue-500': mascota.estado === 'encontrada',
+              'bg-purple-500': mascota.estado === 'en tratamiento',
+              'bg-yellow-500': mascota.estado === 'en paseo',
+              'bg-gray-500': mascota.estado === 'en refugio',
+              'bg-black': mascota.estado === 'fallecido'
+            }"
+          ></div>
 
-          <!-- Estado de la mascota -->
-          <div>
-            <span class="text-lg text-gray-900 dark:text-white mb-2"
-              >Estado:</span
-            >
-            <span
-              class="px-2 py-1 text-xs font-medium rounded-lg capitalize flex items-center gap-2"
+          <!-- Imagen de la mascota -->
+          <div class="relative w-full h-52 overflow-hidden">
+            <div 
+              class="absolute top-3 right-3 px-2 py-1 text-xs font-medium rounded-lg flex items-center z-10"
               [ngClass]="{
                 'bg-green-100 text-green-800': mascota.estado === 'seguro',
                 'bg-red-100 text-red-800': mascota.estado === 'perdido',
                 'bg-blue-100 text-blue-800': mascota.estado === 'encontrada',
-                'bg-purple-100 text-purple-800':
-                  mascota.estado === 'en tratamiento',
+                'bg-purple-100 text-purple-800': mascota.estado === 'en tratamiento',
                 'bg-yellow-100 text-yellow-800': mascota.estado === 'en paseo',
                 'bg-gray-100 text-gray-800': mascota.estado === 'en refugio',
                 'bg-black text-white': mascota.estado === 'fallecido'
@@ -92,215 +111,194 @@
               <span *ngIf="mascota.estado === 'fallecido'">🌈</span>
 
               {{ mascota.estado }}
-            </span>
-          </div>
-
-          <!-- Ícono de mapa para mascotas encontradas -->
-          @if (mascota.estado === 'encontrada') {
-          <button
-            (click)="mostrarMapa(mascota)"
-            class="mt-4 text-blue-500 hover:text-blue-700"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-            </svg>
-          </button>
-          }
-        </div>
-
-        <!-- Botones de acciones -->
-        <div class="p-4 bg-gray-50 dark:bg-gray-700 flex justify-end space-x-2">
-          <div class="relative">
-            <button
-              (click)="toggleMenu(mascota.id)"
-              class="text-gray-500 hover:text-gray-700 focus:outline-none"
-            >
-              <!-- Icono de tres puntos verticales -->
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                ></path>
-              </svg>
-            </button>
-
-            <!-- Menú desplegable -->
-            @if (openedMenuId === mascota.id) {
-            <div
-              class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 top-full overflow-visible"
-            >
-              <button
-                *ngIf="mascota.estado !== 'perdido'"
-                (click)="reportarMascotaPerdida(mascota)"
-                class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                Reportar perdida
-              </button>
-              <button
-                *ngIf="mascota.estado === 'encontrada'"
-                (click)="mascotaEnCasa(mascota.id)"
-                class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                Mascota en casa ✅
-              </button>
-              <button
-                (click)="verHistorial(mascota)"
-                class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                Ver historial
-              </button>
             </div>
-            }
+            <img
+              [src]="
+                mascota?.Storage?.url ||
+                'https://generated.vusercontent.net/placeholder-user.jpg'
+              "
+              alt="{{ mascota.nombre }}"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            />
           </div>
 
-          <button
-            (click)="verDetallesMascota(mascota.id)"
-            class="text-blue-500 hover:text-blue-700"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+          <!-- Contenido de la tarjeta -->
+          <div class="p-5 flex-grow">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              {{ mascota.nombre }}
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              {{ mascota.descripcion }}
+            </p>
+
+            <!-- Botones de acción rápida -->
+            <div class="flex space-x-2 mb-3">
+              @if (mascota.estado === 'encontrada') {
+              <button
+                (click)="mostrarMapa(mascota)"
+                class="flex items-center justify-center p-2 bg-blue-50 text-blue-600 dark:bg-blue-900 dark:text-blue-200 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors"
+                title="Ver ubicación"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+              </button>
+              }
+              <button
+                (click)="mostrarQR(mascota)"
+                class="flex items-center justify-center p-2 bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-200 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 transition-colors"
+                title="Ver QR"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 12h8v8H2v-8zm2 2v4h4v-4H4zm13 0h3v3h-3v-3zm0 5h3v3h-3v-3zm-5-5h3v3h-3v-3zm5 0h3v3h-3v-3zm-5 5h3v3h-3v-3z"
+                  ></path>
+                </svg>
+              </button>
+              @if (mascota.estado !== 'perdido') {
+              <button
+                (click)="reportarMascotaPerdida(mascota)"
+                class="flex items-center justify-center p-2 bg-red-50 text-red-600 dark:bg-red-900 dark:text-red-200 rounded-lg hover:bg-red-100 dark:hover:bg-red-800 transition-colors"
+                title="Reportar perdida"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  ></path>
+                </svg>
+              </button>
+              }
+              @if (mascota.estado === 'encontrada') {
+              <button
+                (click)="mascotaEnCasa(mascota.id)"
+                class="flex items-center justify-center p-2 bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-200 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 transition-colors"
+                title="Marcar como en casa"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  ></path>
+                </svg>
+              </button>
+              }
+            </div>
+          </div>
+
+          <!-- Botones de acciones -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-700 flex justify-between">
+            <button
+              (click)="verDetallesMascota(mascota.id)"
+              class="px-3 py-1.5 text-sm font-medium text-white bg-[var(--color-3)] rounded-lg hover:bg-opacity-90 transition-colors shadow-sm"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
-              ></path>
-            </svg>
-          </button>
-          <button
-            (click)="mostrarQR(mascota)"
-            class="text-green-500 hover:text-green-700"
-          >
-            <svg
-              class="w-6 h-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M23 4C23 2.34315 21.6569 1 20 1H16C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 21.4477 9 22 9C22.5523 9 23 8.55228 23 8V4Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H16C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23H20C21.6569 23 23 21.6569 23 20V16Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16V20C1 21.6569 2.34315 23 4 23H8C8.55228 23 9 22.5523 9 22C9 21.4477 8.55228 21 8 21H4Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M1 8C1 8.55228 1.44772 9 2 9C2.55228 9 3 8.55228 3 8V4C3 3.44772 3.44772 3 4 3H8C8.55228 3 9 2.55228 9 2C9 1.44772 8.55228 1 8 1H4C2.34315 1 1 2.34315 1 4V8Z"
-                fill="#0F0F0F"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M11 6C11 5.44772 10.5523 5 10 5H6C5.44772 5 5 5.44772 5 6V10C5 10.5523 5.44772 11 6 11H10C10.5523 11 11 10.5523 11 10V6ZM9 7.5C9 7.22386 8.77614 7 8.5 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H8.5C8.77614 9 9 8.77614 9 8.5V7.5Z"
-                fill="#0F0F0F"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M18 13C18.5523 13 19 13.4477 19 14V18C19 18.5523 18.5523 19 18 19H14C13.4477 19 13 18.5523 13 18V14C13 13.4477 13.4477 13 14 13H18ZM15 15.5C15 15.2239 15.2239 15 15.5 15H16.5C16.7761 15 17 15.2239 17 15.5V16.5C17 16.7761 16.7761 17 16.5 17H15.5C15.2239 17 15 16.7761 15 16.5V15.5Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M14 5C13.4477 5 13 5.44772 13 6C13 6.55229 13.4477 7 14 7H16.5C16.7761 7 17 7.22386 17 7.5V10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10V6C19 5.44772 18.5523 5 18 5H14Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M14 8C13.4477 8 13 8.44771 13 9V10C13 10.5523 13.4477 11 14 11C14.5523 11 15 10.5523 15 10V9C15 8.44772 14.5523 8 14 8Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M6 13C5.44772 13 5 13.4477 5 14V16C5 16.5523 5.44772 17 6 17C6.55229 17 7 16.5523 7 16V15.5C7 15.2239 7.22386 15 7.5 15H10C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13H6Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M10 17C9.44771 17 9 17.4477 9 18C9 18.5523 9.44771 19 10 19C10.5523 19 11 18.5523 11 18C11 17.4477 10.5523 17 10 17Z"
-                fill="#0F0F0F"
-              />
-            </svg>
-          </button>
-          <button
-            (click)="editarMascota(mascota.id)"
-            class="text-yellow-500 hover:text-yellow-700"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              ></path>
-            </svg>
-          </button>
-          <button
-            (click)="eliminarMascota(mascota.id)"
-            class="text-red-500 hover:text-red-700"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              ></path>
-            </svg>
-          </button>
+              Ver detalles
+            </button>
+            
+            <div class="flex space-x-2">
+              <button
+                (click)="editarMascota(mascota.id)"
+                class="p-1.5 text-yellow-500 hover:text-yellow-700 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors"
+                title="Editar"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  ></path>
+                </svg>
+              </button>
+              <div class="relative">
+                <button
+                  (click)="toggleMenu(mascota.id)"
+                  class="p-1.5 text-gray-500 hover:text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300 dark:hover:text-gray-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors"
+                  title="Más opciones"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                    ></path>
+                  </svg>
+                </button>
+
+                <!-- Menú desplegable mejorado -->
+                @if (openedMenuId === mascota.id) {
+                <div
+                  class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 top-full overflow-visible border border-gray-200 dark:border-gray-700"
+                >
+                  <div class="py-1">
+                    <button
+                      (click)="verHistorial(mascota)"
+                      class="flex w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 items-center"
+                    >
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      Ver historial
+                    </button>
+                    <button
+                      (click)="eliminarMascota(mascota.id)"
+                      class="flex w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 items-center"
+                    >
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                      </svg>
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
         </div>
+        }
       </div>
-      }
-    </div>
     }
 
     <!-- Paginación -->
