@@ -67,10 +67,10 @@
     <div class="p-6 grid gap-4">
       <form [formGroup]="mascotaForm">
         <div class="grid grid-cols-2 gap-4">
-          <div class="grid gap-2">
+          <div class="">
             <label
               for="nombre"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              class="block text-sm font-medium text-gray-900 dark:text-white"
               >Nombre</label
             >
             <input
@@ -92,10 +92,10 @@
             <small
               *ngIf="this.mascotaForm.get('nombre')?.errors?.['required'] && this.mascotaForm.get('nombre')?.touched"
               class="text-red-700 dark:text-red-400"
-              >Requerido</small
+              ><br>Requerido</small
             >
           </div>
-          <div class="grid gap-2">
+          <div class="">
             <label
               for="idEspecie"
               class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -116,7 +116,7 @@
           
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div class="grid gap-2">
+          <div class="">
             <label
               for="idRaza"
               class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -132,7 +132,7 @@
               }
             </select>
           </div>
-          <div class="grid gap-2">
+          <div class="">
             <label
               for="sexo"
               class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -152,7 +152,7 @@
           
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div class="grid gap-2">
+          <div class="">
             <label
               for="tamano"
               class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -169,7 +169,7 @@
               }
             </select>
           </div>
-          <div class="grid gap-2">
+          <div class="">
             <label
               for="edad"
               class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -187,7 +187,7 @@
             </select>
           </div>
 
-          <div class="grid gap-2">
+          <div class="">
             <label
               class="block text-sm font-medium text-gray-900 dark:text-white"
               for="esEsterilizado"
@@ -217,7 +217,7 @@
             </label>
           </div>
         </div>
-        <div class="grid gap-2">
+        <div class="">
           <label
             for="historia"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -232,7 +232,7 @@
             required
           />
         </div>
-        <div class="grid gap-2">
+        <div class="">
           <label
             for="caracteristica"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -247,7 +247,7 @@
             required
           />
         </div>
-        <div class="grid gap-2">
+        <div class="">
           <label
             for="condicion"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

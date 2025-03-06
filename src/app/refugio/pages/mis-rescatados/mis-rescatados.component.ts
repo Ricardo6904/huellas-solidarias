@@ -16,7 +16,7 @@ export class MisRescatadosComponent {
   loading: boolean = false;
   public currentPage = signal<number>(1);
   public totalPages: number = 0;
-
+  public itemsPerPage = 10
   filtro = {
     nombre: '',
   };
@@ -38,10 +38,14 @@ export class MisRescatadosComponent {
     );
   }
 
+  getGlobalIndex(index: number): number {
+    return (this.currentPage() - 1) * this.itemsPerPage + index + 1;
+  }
+
   onFiltroChange() {
     this.animalesRescatadosService.obtenerMascotasPorRefugio(
-      1,
-      10,
+      this.currentPage(),
+      this.itemsPerPage,
       parseInt(this.storageService.getItem('idRefugio')!),
       this.filtro
     );
@@ -52,7 +56,7 @@ export class MisRescatadosComponent {
     this.currentPage.set(page);
     this.animalesRescatadosService.obtenerMascotasPorRefugio(
       page,
-      10,
+      this.itemsPerPage,
       parseInt(this.storageService.getItem('idRefugio')!),
       this.filtro
     );

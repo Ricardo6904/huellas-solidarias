@@ -146,17 +146,18 @@ export class MisMascotasComponent {
 
   eliminarMascota(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
-      this.mascotasService.eliminarMascota(id).subscribe(
-        () => {
+      this.mascotasService.eliminarMascota(id).subscribe({
+        next: res => {
           this.toastr.info('Mascota Eliminada!', 'Huellas Solidarias');
+          this.cargarData()
         },
-        (error) => {
+        error: (error) => {
           this.toastr.error(
             `Ha ocurrido un error! ${error}`,
             'Huellas Solidarias'
           );
         }
-      );
+      })
     }
   }
 
@@ -262,7 +263,7 @@ export class MisMascotasComponent {
   }
 
   registrarMascota(){
-
+    this.router.navigateByUrl('/usuario/mi-mascota')
   }
 
   getPaginationRange(){
