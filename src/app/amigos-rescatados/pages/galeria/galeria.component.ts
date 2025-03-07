@@ -59,4 +59,12 @@ export class GaleriaComponent {
   
     this.animalesRescatadosService.obtenerMascotas(1, 9, this.filtro)
    }
+
+   aplicarFiltros(){
+
+   }
+
+   limpiarFiltros(){
+    
+   }
 }
