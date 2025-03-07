@@ -141,76 +141,110 @@
       </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-6 mt-6 ">
+    <div class="flex flex-col sm:flex-row gap-6 mt-6">
       <!-- Mascotas -->
-      <div
-        class="w-full sm:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 "
-      >
-        @if(!animalesRescatadosService.loading() &&
-        animalesRescatadosService.mascotas().length > 0){ @for (mascota of
-        animalesRescatadosService.mascotas() ; track mascota.id) {
-        <div
-          class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl group"
-        >
-          <div class="relative overflow-hidden">
-            <img
-              [src]="
-                mascota?.Storage?.url
-                  ? mascota.Storage.url
-                  : 'assets/images/defaultImage.png'
-              "
-              [alt]="mascota.nombre"
-              class="w-full h-52 object-cover rounded-t-lg group-hover:scale-110 transition-transform duration-300"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-            <img
-              [src]="
-                mascota.refugio.Storage?.url ||
-                '../../../../assets/default-image.webp'
-              "
-              alt="Refugio logo"
-              [routerLink]="['/refugio/perfil', mascota.idRefugio]"
-              class="absolute bottom-3 right-3 w-12 h-12 rounded-full border-2 border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer transition-transform transform hover:scale-110 shadow-lg z-10"
-            />
-          </div>
-          <div class="p-5">
-            <h2
-              class="text-xl font-bold text-gray-900 dark:text-stone-50 truncate"
-            >
-              {{ mascota.nombre }}
-            </h2>
-            <p
-              class="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3 min-h-[4.5rem]"
-            >
-              {{ mascota.historia }}
-            </p>
-            <div class="flex flex-wrap gap-2 mt-4">
-              <span
-                class="flex items-center gap-1 px-3 py-1 bg-[#A8DADC] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
-              >
-                📏 {{ mascota.tamano }}
-              </span>
-              <span
-                class="flex items-center gap-1 px-3 py-1 bg-[#F4A261] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
-              >
-                🐾 {{ mascota.raza.nombre }}
-              </span>
-              <span
-                class="flex items-center gap-1 px-3 py-1 bg-[#2A9D8F] text-[#1D3557] text-xs font-semibold rounded-full shadow-md"
-              >
-                🕒 {{ mascota.edad }}
-              </span>
+      <div class="w-full sm:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @if (!animalesRescatadosService.loading() && animalesRescatadosService.mascotas().length > 0) {
+          @for (mascota of animalesRescatadosService.mascotas(); track mascota.id) {
+            <div class="bg-white dark:bg-slate-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl group h-full flex flex-col">
+              <!-- Imagen con overlay gradiente -->
+              <div class="relative overflow-hidden h-64">
+                <img
+                  [src]="mascota?.Storage?.url ? mascota.Storage.url : 'assets/images/defaultImage.png'"
+                  [alt]="mascota.nombre"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <!-- Overlay gradiente que siempre está visible pero se intensifica en hover -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                
+                <!-- Información importante superpuesta en la imagen -->
+                <div class="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
+                  <h2 class="text-2xl font-bold truncate text-white drop-shadow-lg">
+                    {{ mascota.nombre }}
+                  </h2>
+                  
+                  <!-- Tags en la parte inferior de la imagen -->
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <span class="flex items-center gap-1 px-3 py-1 bg-[#A8DADC]/90 backdrop-blur-sm text-[#1D3557] text-xs font-bold rounded-full shadow-md">
+                      📏 {{ mascota.tamano }}
+                    </span>
+                    <span class="flex items-center gap-1 px-3 py-1 bg-[#F4A261]/90 backdrop-blur-sm text-[#1D3557] text-xs font-bold rounded-full shadow-md">
+                      🐾 {{ mascota.raza.nombre }}
+                    </span>
+                    <span class="flex items-center gap-1 px-3 py-1 bg-[#2A9D8F]/90 backdrop-blur-sm text-[#1D3557] text-xs font-bold rounded-full shadow-md">
+                      🕒 {{ mascota.edad }}
+                    </span>
+                  </div>
+                </div>
+                
+                <!-- Logo del refugio -->
+                <div class="absolute top-4 right-4 z-10 transition-transform transform group-hover:scale-110">
+                  <img
+                    [src]="mascota.refugio.Storage?.url || '../../../../assets/default-image.webp'"
+                    alt="Refugio logo"
+                    [routerLink]="['/refugio/perfil', mascota.idRefugio]"
+                    class="w-12 h-12 rounded-full border-2 border-[#DDBEA9] bg-white dark:bg-slate-800 p-1 cursor-pointer shadow-lg"
+                  />
+                </div>
+              </div>
+              
+              <!-- Contenido/Historia -->
+              <div class="p-5 flex-grow flex flex-col justify-between">
+                <!-- Comillas decorativas al inicio de la historia -->
+                <div class="relative">
+                  <svg class="absolute -top-6 -left-2 w-12 h-12 text-lime-100 dark:text-blue-900 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16.036-.33.084-.507.144l.138-1.148c.314-.306.636-.553.973-.726.215-.11.404-.19.568-.236l.393-.1c.285-.06.592-.1.92-.12.335-.02.656-.01.946.33.945.14 1.763.5 2.35 1.09.587.58.873 1.41.873 2.5 0 .67-.08 1.25-.246 1.72-.162.48-.42.92-.767 1.33-.345.41-.783.75-1.313 1.01-.53.27-1.15.4-1.864.4-.705 0-1.33-.13-1.863-.4-.532-.27-.97-.6-1.314-1.01-.346-.41-.604-.85-.767-1.33-.16-.48-.246-1.05-.246-1.72 0-.15.005-.28.014-.41l.55-2.28c.13-.68.394-1.25.782-1.72.388-.46.892-.82 1.507-1.07.73-.31 1.56-.47 2.51-.47.893 0 1.706.16 2.44.48.735.32 1.33.77 1.79 1.35.46.58.7 1.27.7 2.06 0 .66-.16 1.25-.476 1.77-.316.51-.736.93-1.26 1.26-.525.33-1.1.56-1.727.69-.62.13-1.242.13-1.864 0v-.91c.48.24.93.3 1.35.3.54 0 .984-.15 1.336-.44.352-.3.527-.67.527-1.12 0-.16-.03-.32-.09-.46-.06-.14-.16-.27-.28-.37-.12-.09-.27-.16-.44-.18-.38-.06-.89.05-1.53.33-.55.24-1.13.6-1.74 1.05zm11.956 0c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16.036-.33.084-.507.144l.138-1.148c.314-.306.636-.553.975-.726.213-.11.402-.19.567-.236l.393-.1c.286-.06.593-.1.92-.12.336-.02.656-.01.946.33.946.14 1.763.5 2.35 1.09.588.58.873 1.41.873 2.5 0 .67-.08 1.25-.246 1.72-.162.48-.42.92-.767 1.33-.345.41-.783.75-1.313 1.01-.53.27-1.15.4-1.864.4-.705 0-1.33-.13-1.863-.4-.532-.27-.97-.6-1.314-1.01-.346-.41-.604-.85-.767-1.33-.16-.48-.246-1.05-.246-1.72 0-.15.005-.28.014-.41l.55-2.28c.13-.68.394-1.25.782-1.72.388-.46.892-.82 1.507-1.07.73-.31 1.56-.47 2.51-.47.893 0 1.706.16 2.44.48.735.32 1.33.77 1.79 1.35.46.58.7 1.27.7 2.06 0 .66-.16 1.25-.476 1.77-.316.51-.736.93-1.26 1.26-.525.33-1.1.56-1.727.69-.62.13-1.242.13-1.864 0v-.91c.48.24.93.3 1.35.3.54 0 .984-.15 1.336-.44.352-.3.527-.67.527-1.12 0-.16-.03-.32-.09-.46-.06-.14-.16-.27-.28-.37-.12-.09-.27-.16-.44-.18-.38-.06-.89.05-1.53.33-.55.24-1.13.6-1.74 1.05z"></path>
+                  </svg>
+                  
+                  <!-- Historia con animación de fadeIn al hacer hover -->
+                  <p class="text-gray-700 dark:text-gray-200 mt-2 leading-relaxed relative z-10 min-h-[6rem] line-clamp-4 group-hover:line-clamp-none transition-all duration-300">
+                    {{ mascota.historia }}
+                  </p>
+                </div>
+                
+                <!-- Botón de acción con animación -->
+                <button
+                  [routerLink]="['/amigos-rescatados', mascota.id]"
+                  class="w-full mt-6 bg-gradient-to-r from-lime-700 to-lime-600 dark:from-blue-700 dark:to-blue-600 text-white py-3 px-4 rounded-md hover:from-lime-600 hover:to-lime-500 dark:hover:from-blue-600 dark:hover:to-blue-500 shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center group"
+                >
+                  <span class="font-medium">Conocer a {{ mascota.nombre }}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
-            <button
-              [routerLink]="['/amigos-rescatados', mascota.id]"
-              class="w-full bg-lime-700 dark:bg-blue-600 text-white py-2.5 px-4 rounded-md mt-5 hover:bg-lime-600 dark:hover:bg-blue-400 transition-colors flex items-center justify-center group-hover:animate-pulse"
-            >
-              <span>Más detalles</span>
+          }
+        } @else if (animalesRescatadosService.loading()) {
+          <!-- Estado de carga mejorado -->
+          <div class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-800 rounded-lg shadow-md">
+            <div class="relative w-20 h-20">
+              <div class="animate-spin w-20 h-20 border-4 border-lime-700 dark:border-blue-600 border-t-transparent rounded-full"></div>
+              <svg class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 text-lime-700 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 16.5l-1.5-1.5M8.5 10l-1.5 1.5M15 13.5l1.5 1.5M13.5 17l1.5-1.5M10 8.5L8.5 7M15 8.5l1.5-1.5M13.5 7l1.5 1.5M10.5 13l1.5 1.5M15 10.5L13.5 9 M7 12a5 5 0 1 0 10 0a5 5 0 0 0 -10 0"></path>
+              </svg>
+            </div>
+            <span class="text-gray-700 dark:text-gray-200 text-lg mt-4 font-medium">Buscando amigos rescatados...</span>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">Estamos encontrando tu compañero perfecto</p>
+          </div>
+        } @else {
+          <!-- Estado sin resultados mejorado -->
+          <div class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-800 rounded-lg shadow-md">
+            <div class="relative mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 ml-2"
+                class="h-24 w-24 text-gray-300 dark:text-gray-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -219,50 +253,34 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute -bottom-2 -right-2 h-10 w-10 text-gray-400 dark:text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-stone-50 mb-3">
+              No encontramos amigos con esos criterios
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-center max-w-md">
+              Pero no te desanimes, tenemos muchos amigos esperando un hogar. Intenta con otros criterios de búsqueda o revisa todas nuestras mascotas disponibles.
+            </p>
+            <button class="mt-6 px-6 py-3 bg-lime-700 dark:bg-blue-600 text-white rounded-md hover:bg-lime-600 dark:hover:bg-blue-500 transition-colors shadow-md">
+              Ver todas las mascotas
             </button>
           </div>
-        </div>
-        } } @else if (animalesRescatadosService.loading() ) {
-        <div
-          class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-700 rounded-lg shadow-md"
-        >
-          <div
-            class="animate-spin w-10 h-10 border-4 border-lime-700 dark:border-blue-600 border-t-transparent rounded-full mb-4"
-          ></div>
-          <span class="text-gray-700 dark:text-gray-200 text-lg"
-            >Cargando amigos rescatados...</span
-          >
-        </div>
-        } @else {
-        <div
-          class="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-700 rounded-lg shadow-md"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-16 w-16 text-gray-400 mb-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <h3
-            class="text-xl font-semibold text-gray-800 dark:text-stone-50 mb-2"
-          >
-            No se encontraron resultados
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300 text-center">
-            Intenta con otros criterios de búsqueda
-          </p>
-        </div>
         }
       </div>
 

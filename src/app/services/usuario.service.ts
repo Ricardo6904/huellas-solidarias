@@ -25,7 +25,7 @@ export class UsuarioService {
   public loading = computed(() => this.#state().loading);
 
   constructor(private http: HttpClient, private localStorage: StorageServiceService) {
-    this.obtenerUsuarioPorId(parseInt(this.localStorage.getItem('idUsuario')!))
+    //this.obtenerUsuarioPorId(parseInt(this.localStorage.getItem('idUsuario')!))
   }
 
   private actualizarEstado(parteEstado: Partial<State>) {

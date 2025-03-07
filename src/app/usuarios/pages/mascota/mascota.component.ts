@@ -11,7 +11,7 @@ import { ConfirmarUbicacionEncontradaComponent } from './confirmar-ubicacion-enc
 
 @Component({
   selector: 'app-mascota',
-  imports: [CommonModule, ConfirmarUbicacionEncontradaComponent],
+  imports: [CommonModule],
   templateUrl: './mascota.component.html',
   styleUrl: './mascota.component.scss'
 })

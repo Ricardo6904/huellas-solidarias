@@ -40,7 +40,7 @@ cargando = false;
   );
 
   ngOnInit() {
-    this.usuarioService.obtenerUsuarioPorId;    
+    this.usuarioService.obtenerUsuarioPorId;
   }
 
   solicitarAdopcion(id: number) {
