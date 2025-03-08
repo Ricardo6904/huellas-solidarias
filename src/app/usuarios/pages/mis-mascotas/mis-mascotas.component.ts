@@ -10,19 +10,24 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { environment } from 'src/environments/environment';
 import { HistorialMascotasService } from 'src/app/services/historial-mascotas.service';
 import { ReportarMascotaPerdidaComponent } from './reportar-mascota-perdida/reportar-mascota-perdida.component';
-
+import { WindowService } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-mis-mascotas',
-  imports: [CommonModule, FormsModule, QRCodeComponent, ReportarMascotaPerdidaComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    QRCodeComponent,
+    ReportarMascotaPerdidaComponent,
+  ],
   templateUrl: './mis-mascotas.component.html',
-  styleUrl: './mis-mascotas.component.scss'
+  styleUrl: './mis-mascotas.component.scss',
 })
 export class MisMascotasComponent {
   openedMenuId: number | null = null; // ID de la mascota cuyo menú está abierto
   showReportDialog = false; // Controla la visibilidad del diálogo
-  showMapDialog = false
-  Math!:Math
+  showMapDialog = false;
+  Math!: Math;
 
   loading: boolean = false;
   public currentPage = signal<number>(1);
@@ -41,38 +46,60 @@ export class MisMascotasComponent {
     private router: Router,
     private storageService: StorageServiceService,
     public toastr: ToastrService,
-    private historialMascotaService:HistorialMascotasService
+    private historialMascotaService: HistorialMascotasService,
+    private window: WindowService
   ) {}
 
   ngOnInit() {
-    this.cargarData()
-
+    this.cargarData();
   }
 
-  private async initMap(latitud:number, longitud:number) {
-    const L = await import('leaflet').then(module => module.default);
+  private async initMap(latitud: number, longitud: number) {
+    const L = await import('leaflet').then((module) => module.default);
 
     if (this.showMapDialog && this.selectedMascota?.ubicacion) {
-    
-  
       if (latitud === 0 || longitud === 0) {
-        this.toastr.warning('Las coordenadas proporcionadas no son válidas.', 'Ubicación no disponible');
+        this.toastr.warning(
+          'Las coordenadas proporcionadas no son válidas.',
+          'Ubicación no disponible'
+        );
         return;
       }
-  
+
       const map = L.map('map').setView([latitud, longitud], 13);
-  
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap contributors',
       }).addTo(map);
-  
-      L.marker([latitud, longitud]).addTo(map)
+
+      const marker = L.marker([latitud, longitud], {
+        icon: L.icon({
+          iconUrl:
+            'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowUrl:
+            'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+          shadowSize: [41, 41],
+        }),
+      }).addTo(map);
+
+      /* L.marker([latitud, longitud])
+        .addTo(map)
         .bindPopup('Ubicación de la mascota')
-        .openPopup();
+        .openPopup(); */
+        marker.on('click', () => {
+          const win = this.window.nativeWindow
+          win!.open(
+            `https://www.google.com/maps/dir/?api=1&destination=${latitud},${longitud}`,
+            '_blank'
+          );
+        });
     }
   }
 
-  cargarData(){
+  cargarData() {
     this.mascotasService.obtenerMascotasPorUsuario(
       1,
       10,
@@ -107,7 +134,6 @@ export class MisMascotasComponent {
   }
 
   onFiltroChange() {
-    
     this.mascotasService.obtenerMascotasPorUsuario(
       1,
       10,
@@ -121,7 +147,7 @@ export class MisMascotasComponent {
     this.mascotasService.obtenerMascotasPorUsuario(
       page,
       10,
-      parseInt(this.storageService.getItem('idUsuario')!), 
+      parseInt(this.storageService.getItem('idUsuario')!),
       this.filtro
     );
   }
@@ -147,17 +173,17 @@ export class MisMascotasComponent {
   eliminarMascota(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
       this.mascotasService.eliminarMascota(id).subscribe({
-        next: res => {
+        next: (res) => {
           this.toastr.info('Mascota Eliminada!', 'Huellas Solidarias');
-          this.cargarData()
+          this.cargarData();
         },
         error: (error) => {
           this.toastr.error(
             `Ha ocurrido un error! ${error}`,
             'Huellas Solidarias'
           );
-        }
-      })
+        },
+      });
     }
   }
 
@@ -178,7 +204,7 @@ export class MisMascotasComponent {
       next: () => {
         this.toastr.success('Mascota reportada como perdida.', 'Éxito');
         this.closeReportDialog();
-        this.cargarData()
+        this.cargarData();
       },
       error: (error) => {
         this.toastr.error('Error al reportar la mascota.', 'Error');
@@ -205,27 +231,25 @@ export class MisMascotasComponent {
     this.openedMenuId = null; // Cerrar el menú
   }
 
-  mascotaEnCasa(mascotaId: number){
+  mascotaEnCasa(mascotaId: number) {
     this.mascotasService.cambiarEstado(mascotaId, 'seguro').subscribe({
       next: () => {
         this.toastr.success('Mascota esta a salvo.');
-        this.cargarData()
-      }
-    })
+        this.cargarData();
+      },
+    });
   }
-  
 
-/*   mostrarMapa(mascota: any) {
-    this.selectedMascota = mascota;
-    this.showMapDialog = true;
-  } */
-    mostrarMapa(mascota: any) {
-      
-      
-      this.historialMascotaService.obtenerHistorialReciente(mascota.id).subscribe({
+  mostrarMapa(mascota: any) {
+    this.historialMascotaService
+      .obtenerHistorialReciente(mascota.id)
+      .subscribe({
         next: (historial: any) => {
-          
-          if (historial && historial.latitud !== 0 && historial.longitud !== 0) {
+          if (
+            historial &&
+            historial.latitud !== 0 &&
+            historial.longitud !== 0
+          ) {
             // Asignar las coordenadas al objeto selectedMascota
             this.selectedMascota = {
               ...mascota,
@@ -234,18 +258,24 @@ export class MisMascotasComponent {
                 longitud: historial.data.longitud,
               },
             };
-            this.initMap(historial.data.latitud,historial.data.longitud)
+            this.initMap(historial.data.latitud, historial.data.longitud);
             this.showMapDialog = true; // Mostrar el diálogo del mapa
           } else {
-            this.toastr.warning('El usuario no ha proporcionado información sobre la ubicación. Lo sentimos.', 'Ubicación no disponible');
+            this.toastr.warning(
+              'El usuario no ha proporcionado información sobre la ubicación. Lo sentimos.',
+              'Ubicación no disponible'
+            );
           }
         },
         error: (error) => {
-          this.toastr.error('Error al obtener la ubicación de la mascota.', 'Error');
+          this.toastr.error(
+            'Error al obtener la ubicación de la mascota.',
+            'Error'
+          );
           console.error('Error:', error);
         },
       });
-    }
+  }
 
   // Método para cerrar el diálogo del mapa
   closeMapDialog() {
@@ -262,11 +292,11 @@ export class MisMascotasComponent {
     }
   }
 
-  registrarMascota(){
-    this.router.navigateByUrl('/usuario/mi-mascota')
+  registrarMascota() {
+    this.router.navigateByUrl('/usuario/mi-mascota');
   }
 
-  getPaginationRange(){
-    return []
+  getPaginationRange() {
+    return [];
   }
 }
