@@ -42,7 +42,7 @@ export class MascotaComponent {
           this.mascota = mascota;
           console.log(mascota);
           
-          if (mascota.estado === 'perdido') {
+          if (mascota.estado === 'perdido' || mascota.estado === 'encontrada') {
             this.showConfirmLocationDialog = true;
           }
         },
