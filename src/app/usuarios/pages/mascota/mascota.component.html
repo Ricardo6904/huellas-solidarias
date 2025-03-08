@@ -75,7 +75,7 @@
     </div>
 
     <!-- Datos de contacto del usuario -->
-    <div *ngIf="mascota.estado ==='perdido' || 'encontrada'" class="bg-gray-50 dark:bg-gray-700 p-6">
+    <div *ngIf="mascota.estado ==='perdido' || mascota.estado === 'encontrada'" class="bg-gray-50 dark:bg-gray-700 p-6">
       <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Contacto</h2>
       <div class="space-y-4 text-gray-700 dark:text-gray-300">
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
@@ -100,3 +100,10 @@
     />
   </div>
 </div>
+
+<app-confirmar-ubicacion-encontrada
+  *ngIf="showConfirmLocationDialog"
+  [mascotaNombre]="mascota.nombre"
+  (confirm)="onConfirmLocation($event)"
+  (cancel)="closeConfirmLocationDialog()"
+></app-confirmar-ubicacion-encontrada>
