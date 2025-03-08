@@ -34,12 +34,18 @@ export class ConfirmarUbicacionEncontradaComponent {
     });
   }
 
+  ngOnInit(){
+    this.obtenerUbicacion()
+  }
   // Obtener la ubicación del dispositivo
   // Método para obtener la ubicación
   obtenerUbicacion() {
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+    console.log('coordenadas', position);
+
           this.ubicacion = {
             latitud: position.coords.latitude,
             longitud: position.coords.longitude,
